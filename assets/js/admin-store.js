@@ -94,7 +94,7 @@
       role: current.role || "Administrator",
       title: roleTitle(current.role),
       phone: "+231 77 555 0142",
-      location: "Paynesville, Monrovia",
+      location: "Caldwell Road, Bushrod Island",
       bio:
         "I look after the school day to day — the children, the teachers and the families who trust us with them.",
       prefs: { digest: true, mentions: true, weekly: false, stories: true },
@@ -471,7 +471,7 @@
           status === "review"
             ? "Birth certificate received, waiting on the report card from the previous school."
             : status === "declined"
-              ? "Family moved out of Paynesville before the interview."
+              ? "Family moved out of Bushrod Island before the interview."
               : "",
         decided: status === "approved" || status === "declined"
       };
@@ -487,7 +487,7 @@
       { name: "Morris Kanneh", email: "morris.k@example.com", subject: "Thank you for the open day" },
       { name: "Comfort Beyan", email: "comfort.b@example.com", subject: "Abigail's report card" },
       { name: "Rev. Johnetta Freeman", email: "jfreeman@example.com", subject: "Volunteer readers for Term 3" },
-      { name: "Paynesville Community Clinic", email: "clinic@example.com", subject: "Health screening for Nursery" },
+      { name: "Bushrod Island Community Clinic", email: "clinic@example.com", subject: "Health screening for Nursery" },
       { name: "Musu Kamara", email: "musu@rosettasteps.org", subject: "Draft story for the newsletter" },
       { name: "Teresa Wilson", email: "teresa@rosettasteps.org", subject: "November reconciliation" },
       { name: "Emmanuel Doe", email: "emmanuel.doe@example.com", subject: "School bus route question" },
@@ -502,7 +502,7 @@
       "Dear Mrs Harris,\n\nThank you for the warm welcome at the open day. My wife and I were both impressed by the reading corner and the way the teachers spoke about the children.\n\nKind regards,\nMorris",
       "Good afternoon,\n\nCould you let me know when Abigail's report card will be ready? I would like to collect it on Friday if that works.\n\nThank you,\nComfort",
       "Dear Ama,\n\nOur congregation would like to send four volunteer readers for Term 3, on Wednesday mornings. They have all completed safeguarding training.\n\nBlessings,\nRev. Freeman",
-      "Hello Rosetta Steps,\n\nWe are offering free health screenings for Nursery and Kindergarten children this month. Would the last week of November suit you?\n\nRegards,\nPaynesville Community Clinic",
+      "Hello Rosetta Steps,\n\nWe are offering free health screenings for Nursery and Kindergarten children this month. Would the last week of November suit you?\n\nRegards,\nBushrod Island Community Clinic",
       "Ama,\n\nI have finished the draft about the new reading corner. It is on the story desk as a draft — can you give it a read before I publish?\n\nMusu",
       "Hi Ama,\n\nThe November donations are reconciled against the bank statement. Two transfers still show as pending; I will follow up tomorrow.\n\nTeresa",
       "Good morning,\n\nWhich route does the bus take through ELWA? We are moving there in December and want to know if Emmanuel can stay with you.\n\nThanks,\nEmmanuel",
@@ -545,7 +545,7 @@
       ["2026-11-16", "Anonymous", "School meals", 800, "Mobile money", ""],
       ["2026-11-12", "Liberia Reads", "Library & books", 500, "Cheque", "hello@liberiareads.org"],
       ["2026-11-09", "Morris Kanneh", "General fund", 400, "Card", "morris.k@example.com"],
-      ["2026-11-05", "Paynesville Women's Group", "School meals", 320, "Cash", ""],
+      ["2026-11-05", "Bushrod Island Women's Group", "School meals", 320, "Cash", ""],
       ["2026-11-02", "Sarah Blamo", "Library & books", 300, "Mobile money", "sarah.blamo@example.com"],
 
       ["2026-10-24", "Forleh Foundation", "Scholarships", 2500, "Bank transfer", "grants@forleh.org"],
@@ -563,7 +563,7 @@
       ["2026-08-22", "Monrovia Rotary Club", "Library & books", 1000, "Cheque", "club@rotary.example"],
       ["2026-08-17", "Anonymous", "School meals", 900, "Bank transfer", ""],
       ["2026-08-11", "Joseph Kpadeh", "General fund", 700, "Card", "joseph.k@example.com"],
-      ["2026-08-07", "Paynesville Women's Group", "School meals", 600, "Cash", ""],
+      ["2026-08-07", "Bushrod Island Women's Group", "School meals", 600, "Cash", ""],
       ["2026-08-02", "Sarah Blamo", "Scholarships", 400, "Mobile money", "sarah.blamo@example.com"],
       ["2026-08-01", "Morris Kanneh", "General fund", 200, "Card", "morris.k@example.com"],
 
@@ -575,7 +575,7 @@
 
       ["2026-06-27", "Forleh Foundation", "Scholarships", 1200, "Bank transfer", "grants@forleh.org"],
       ["2026-06-21", "Anonymous", "Library & books", 900, "Cheque", ""],
-      ["2026-06-15", "Paynesville Women's Group", "School meals", 600, "Cash", ""],
+      ["2026-06-15", "Bushrod Island Women's Group", "School meals", 600, "Cash", ""],
       ["2026-06-08", "Samuel Toe", "General fund", 300, "Mobile money", "samuel.toe@example.com"],
       ["2026-06-02", "Janet Johnson", "General fund", 200, "Card", "janet.j@example.com"]
     ];
@@ -612,7 +612,7 @@
         {
           id: "fund-community",
           name: "Community scholars",
-          sponsor: "Paynesville Women's Group",
+          sponsor: "Bushrod Island Women's Group",
           budget: 5000,
           base: 2400,
           note: "Neighbourhood families who need a helping hand.",
@@ -683,7 +683,7 @@
         tagline: "Empowering Children Through Education, Literacy, and Opportunity",
         email: "hello@rosettasteps.org",
         phone: "+231 77 000 1234",
-        address: "Paynesville, Montserrado County, Liberia",
+        address: "Caldwell Road, Bushrod Island, Montserrado County, Liberia",
         hours: "Monday – Friday, 7:30 am – 4:00 pm"
       },
       notifications: {

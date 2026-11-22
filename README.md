@@ -1,8 +1,8 @@
 # Rosetta Steps Education Center
 
 A website and admin dashboard for Rosetta Steps Education Center — a community
-school in Liberia. **Empowering Children Through Education, Literacy, and
-Opportunity.**
+school at Caldwell Road, Bushrod Island, Montserrado County, Liberia.
+**Empowering Children Through Education, Literacy, and Opportunity.**
 
 The whole thing is plain HTML, CSS and JavaScript: no build step, no
 dependencies, no server. Open a page in a browser and it runs.
