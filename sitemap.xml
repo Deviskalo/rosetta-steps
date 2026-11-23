@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://www.rosettasteps.org/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://www.rosettasteps.org/about.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.rosettasteps.org/academics.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.rosettasteps.org/literacy.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.rosettasteps.org/gallery.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.rosettasteps.org/news.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.rosettasteps.org/admissions.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.rosettasteps.org/donate.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.rosettasteps.org/contact.html</loc><changefreq>yearly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.rosettasteps.org/news-isaac-story.html</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.rosettasteps.org/news-renewed-hope.html</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.rosettasteps.org/news-period-with-pride.html</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.rosettasteps.org/news-aka-power-packs.html</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.rosettasteps.org/news-forleh-foundation.html</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.rosettasteps.org/news-mark-sinke-training.html</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.rosettasteps.org/news-2020-scholarships.html</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.rosettasteps.org/news-egra-guide.html</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.rosettasteps.org/news-learn-through-play.html</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.rosettasteps.org/about</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.rosettasteps.org/academics</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.rosettasteps.org/literacy</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.rosettasteps.org/gallery</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.rosettasteps.org/news</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.rosettasteps.org/admissions</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.rosettasteps.org/donate</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.rosettasteps.org/contact</loc><changefreq>yearly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.rosettasteps.org/news-isaac-story</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.rosettasteps.org/news-renewed-hope</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.rosettasteps.org/news-period-with-pride</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.rosettasteps.org/news-aka-power-packs</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.rosettasteps.org/news-forleh-foundation</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.rosettasteps.org/news-mark-sinke-training</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.rosettasteps.org/news-2020-scholarships</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.rosettasteps.org/news-egra-guide</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.rosettasteps.org/news-learn-through-play</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
 </urlset>

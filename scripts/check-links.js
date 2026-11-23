@@ -10,8 +10,12 @@
      - links to our own domain (canonicals, share links) point at a real page;
      - every loc in sitemap.xml points at a real page, once;
      - every public page appears in sitemap.xml;
-     - each public page's canonical URL is its own address on the sitemap's
+     - each public page's canonical URL is its clean address on the sitemap's
        domain.
+
+   Pages link to clean URLs (/news), so a reference is satisfied by a file at
+   that path, by that path plus .html, or by a folder's index.html — the same
+   three things a static host looks for.
 
    Files under admin/ are checked for dead links but are deliberately not
    public, so they are not expected in sitemap.xml.
@@ -28,9 +32,10 @@ var ROOT = path.join(__dirname, "..");
 var SITE_ORIGIN = "https://www.rosettasteps.org";
 var SITEMAP = path.join(ROOT, "sitemap.xml");
 
-/* Public pages that are deliberately absent from sitemap.xml, and why. */
+/* Public pages that are deliberately absent from sitemap.xml, and why.
+   Keyed by the page's clean path. */
 var NOT_IN_SITEMAP = {
-  "news-story.html":
+  "/news-story":
     "template for stories saved in the dashboard — its URL needs ?story=<id>"
 };
 
@@ -80,6 +85,9 @@ function localTarget(value, fromFile) {
   return { file: path.resolve(path.dirname(fromFile), clean) };
 }
 
+/* A clean URL resolves three ways on a static host: an exact file, the same
+   path with .html, or a folder holding index.html. A reference passes when
+   any of those exist. */
 function targetProblem(target) {
   if (target.bad) return target.bad;
 
@@ -88,20 +96,17 @@ function targetProblem(target) {
     return "points outside the site folder";
   }
 
-  var stat;
-  try {
-    stat = fs.statSync(file);
-  } catch (error) {
-    return "does not exist";
+  var candidates = [file, file + ".html", path.join(file, "index.html")];
+
+  for (var i = 0; i < candidates.length; i += 1) {
+    try {
+      if (fs.statSync(candidates[i]).isFile()) return null;
+    } catch (error) {
+      /* try the next form */
+    }
   }
 
-  if (stat.isDirectory()) {
-    var index = path.join(file, "index.html");
-    if (!fs.existsSync(index)) return "is a folder with no index.html";
-    return null;
-  }
-
-  return null;
+  return "does not exist as a file, a .html page or a folder index";
 }
 
 /* ---------------- 1. Local references ---------------- */
@@ -167,10 +172,16 @@ while ((locMatch = locPattern.exec(sitemapText)) !== null) {
   locs.push(locMatch[1]);
 }
 
-function locToPage(loc) {
-  if (loc === SITE_ORIGIN + "/" || loc === SITE_ORIGIN) return "index.html";
+/* The clean path a page is published at: / for the home page, /news otherwise. */
+function cleanPath(page) {
+  if (page === "index.html") return "/";
+  return "/" + page.replace(/\.html$/i, "");
+}
+
+function locToPath(loc) {
+  if (loc === SITE_ORIGIN + "/" || loc === SITE_ORIGIN) return "/";
   if (loc.indexOf(SITE_ORIGIN + "/") !== 0) return null;
-  return loc.slice(SITE_ORIGIN.length + 1);
+  return "/" + loc.slice(SITE_ORIGIN.length + 1).replace(/\/+$/, "");
 }
 
 var seenLoc = {};
@@ -184,8 +195,8 @@ locs.forEach(function (loc) {
   }
   seenLoc[loc] = true;
 
-  var page = locToPage(loc);
-  if (page === null) {
+  var cleanUrl = locToPath(loc);
+  if (cleanUrl === null) {
     sitemapProblems.push(
       "sitemap.xml has " + loc + ", which is not on " + SITE_ORIGIN
     );
@@ -193,11 +204,18 @@ locs.forEach(function (loc) {
   }
 
   sitemapChecked += 1;
-  listed[page] = true;
+  listed[cleanUrl] = true;
 
-  var file = path.join(ROOT, page);
-  if (!fs.existsSync(file) || !fs.statSync(file).isFile()) {
-    sitemapProblems.push("sitemap.xml lists " + page + ", which does not exist");
+  if (/\.[a-z0-9]+$/i.test(cleanUrl)) {
+    sitemapProblems.push(
+      "sitemap.xml lists " + loc + " — public pages use clean URLs, without .html"
+    );
+    return;
+  }
+
+  var problem = targetProblem({ file: path.join(ROOT, cleanUrl) });
+  if (problem) {
+    sitemapProblems.push("sitemap.xml lists " + loc + ", which " + problem);
   }
 });
 
@@ -212,10 +230,11 @@ var publicPages = pages
   });
 
 publicPages.forEach(function (page) {
-  if (listed[page]) return;
-  if (NOT_IN_SITEMAP[page]) return;
+  var cleanUrl = cleanPath(page);
+  if (listed[cleanUrl]) return;
+  if (NOT_IN_SITEMAP[cleanUrl]) return;
   sitemapProblems.push(
-    "sitemap.xml is missing " + page + " (or add it to NOT_IN_SITEMAP here)"
+    "sitemap.xml is missing " + cleanUrl + " (or add it to NOT_IN_SITEMAP here)"
   );
 });
 
@@ -245,7 +264,7 @@ publicPages.forEach(function (page) {
     return;
   }
 
-  var expected = SITE_ORIGIN + "/" + (page === "index.html" ? "" : page);
+  var expected = SITE_ORIGIN + cleanPath(page);
   if (canonical[1] !== expected) {
     canonicalProblems.push(
       page + " has canonical " + canonical[1] + " but lives at " + expected

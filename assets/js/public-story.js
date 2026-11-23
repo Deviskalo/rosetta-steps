@@ -67,7 +67,7 @@
     var back = document.createElement("p");
     var link = document.createElement("a");
     link.className = "btn btn--primary btn--sm";
-    link.href = "news.html";
+    link.href = "/news";
     link.textContent = "All news & stories";
     back.appendChild(link);
     els.paragraphs.appendChild(back);

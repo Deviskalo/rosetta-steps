@@ -108,7 +108,7 @@
     read.className = "news-read";
     var link = document.createElement("a");
     link.className = "link-arrow";
-    link.href = "news-story.html?story=" + encodeURIComponent(story.id);
+    link.href = "/news-story?story=" + encodeURIComponent(story.id);
     link.appendChild(document.createTextNode("Read story "));
     link.insertAdjacentHTML(
       "beforeend",

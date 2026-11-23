@@ -4,8 +4,10 @@ A website and admin dashboard for Rosetta Steps Education Center — a community
 school at Caldwell Road, Bushrod Island, Montserrado County, Liberia.
 **Empowering Children Through Education, Literacy, and Opportunity.**
 
-The whole thing is plain HTML, CSS and JavaScript: no build step, no
-dependencies, no server. Open a page in a browser and it runs.
+The whole thing is plain HTML, CSS and JavaScript: no dependencies and no
+runtime. Pages link to clean URLs like `/news`, which a static host serves from
+`news/index.html`, so the site is served rather than opened as files — see
+[URLs](#urls).
 
 ## School contact details
 
@@ -20,12 +22,8 @@ These are the details shown on the public site and seeded into
 
 ## Opening it
 
-- **The website:** open `index.html` in a browser, or double-click it in your
-  file manager.
-- **The admin dashboard:** open `admin/signin.html` and sign in with one of the
-  accounts below.
-- **With a local server** (nicer URLs, and closer to how it behaves when
-  hosted):
+- **With a local server** — the way the site is meant to run, since clean URLs
+  need something to resolve them:
 
   ```bash
   python3 -m http.server 3000
@@ -33,6 +31,27 @@ These are the details shown on the public site and seeded into
 
   Then visit <http://localhost:3000> for the site and
   <http://localhost:3000/admin/signin.html> for the dashboard.
+- **The admin dashboard:** sign in with one of the accounts below.
+
+## URLs
+
+Public pages are published without the file extension: `news.html` is reached
+at `/news`. Every public page links with root-absolute URLs (`/about`,
+`/assets/css/styles.css`), which is what lets the same markup be served from a
+folder.
+
+A static host answers `/news` with `news/index.html`, so each page has a copy in
+a folder of its own:
+
+```bash
+node scripts/build-clean-urls.js          # after editing a page
+node scripts/build-clean-urls.js --check  # what CI runs; fails on a stale copy
+```
+
+Edit the `.html` page — the copy is generated from it and is byte-identical. The
+`.html` files stay where they are, so old addresses like `/news.html` keep
+working. `admin/` pages are not copied; they are private and use their own
+relative links.
 
 ## Demo sign-in accounts
 

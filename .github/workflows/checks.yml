@@ -33,3 +33,16 @@ jobs:
 
       - name: Check local links and sitemap.xml
         run: node scripts/check-links.js
+
+  clean-urls:
+    name: Clean URL copies
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Check every page has a current copy at its clean URL
+        run: node scripts/build-clean-urls.js --check

@@ -1,0 +1,145 @@
+#!/usr/bin/env node
+/* ==========================================================================
+   Clean URLs for the public site
+
+   Every public page keeps its real file at the site root (news.html), and
+   pages link to the extensionless form (/news). That form only resolves if a
+   file exists at /news, which static hosts look for as news/index.html — so
+   this script copies each page into its own folder.
+
+   The public pages use root-absolute links (/assets/css/styles.css, /news),
+   which is what lets a copy sit one folder deep and still work. The copies are
+   therefore byte-identical to their source; edit the .html page, not the copy.
+
+   Usage:
+     node scripts/build-clean-urls.js          write the copies
+     node scripts/build-clean-urls.js --check  fail if a copy is missing or stale
+
+   news-story.html is copied too, so /news-story?story=<id> works; it is kept
+   out of sitemap.xml, not out of the copies. admin/ pages are not copied: they
+   are private, sit under /admin, and use relative links of their own.
+   ========================================================================== */
+"use strict";
+
+var fs = require("fs");
+var path = require("path");
+
+var ROOT = path.join(__dirname, "..");
+var CHECK = process.argv.indexOf("--check") !== -1;
+
+/* Public pages that keep their own address rather than a folder. */
+var NOT_COPIED = {
+  "index.html": "served as /"
+};
+
+/* Folders that are hand-written or hold assets, never page copies. */
+var NOT_COPY_FOLDERS = ["admin", "assets", "scripts", ".github"];
+
+function pageName(file) {
+  return path.basename(file, path.extname(file));
+}
+
+function rel(file) {
+  return path.relative(ROOT, file).split(path.sep).join("/");
+}
+
+var pages = fs
+  .readdirSync(ROOT, { withFileTypes: true })
+  .filter(function (entry) {
+    return entry.isFile() && /\.html$/i.test(entry.name);
+  })
+  .map(function (entry) {
+    return entry.name;
+  })
+  .sort();
+
+var problems = [];
+var written = 0;
+var current = 0;
+
+pages.forEach(function (page) {
+  if (NOT_COPIED[page]) return;
+
+  var name = pageName(page);
+  var source = fs.readFileSync(path.join(ROOT, page), "utf8");
+  var dir = path.join(ROOT, name);
+  var dest = path.join(dir, "index.html");
+
+  if (!fs.existsSync(dest)) {
+    if (CHECK) {
+      problems.push(rel(dest) + " is missing — run node scripts/build-clean-urls.js");
+      return;
+    }
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(dest, source);
+    written += 1;
+    return;
+  }
+
+  if (fs.readFileSync(dest, "utf8") !== source) {
+    if (CHECK) {
+      problems.push(
+        rel(dest) + " is out of date with " + page + " — run node scripts/build-clean-urls.js"
+      );
+      return;
+    }
+    fs.writeFileSync(dest, source);
+    written += 1;
+    return;
+  }
+
+  current += 1;
+});
+
+/* A folder left behind after its page was renamed would keep serving an old
+   copy at what looks like a live URL. */
+fs.readdirSync(ROOT, { withFileTypes: true }).forEach(function (entry) {
+  if (!entry.isDirectory()) return;
+  if (NOT_COPY_FOLDERS.indexOf(entry.name) !== -1) return;
+  var index = path.join(ROOT, entry.name, "index.html");
+  if (!fs.existsSync(index)) return;
+
+  var source = path.join(ROOT, entry.name + ".html");
+  if (fs.existsSync(source)) return;
+
+  problems.push(
+    rel(index) +
+      " has no matching " +
+      entry.name +
+      ".html — delete " +
+      rel(path.join(ROOT, entry.name)) +
+      " if that page was renamed"
+  );
+});
+
+console.log("Clean URL copies");
+var copiedCount = pages.length - Object.keys(NOT_COPIED).length;
+console.log("  " + copiedCount + " public pages copied into their own folders");
+
+if (CHECK) {
+  if (!problems.length) {
+    console.log("  ok    every copy matches its page (" + current + " up to date)");
+    console.log("");
+    console.log("All checks passed.");
+    process.exit(0);
+  }
+  problems.forEach(function (problem) {
+    console.log("  FAIL  " + problem);
+  });
+  console.log("");
+  console.log(problems.length + " problem" + (problems.length === 1 ? "" : "s") + " found.");
+  process.exit(1);
+}
+
+console.log(
+  "  " +
+    (problems.length ? problems.length + " warning(s)" : "no warnings") +
+    ", " +
+    written +
+    " written, " +
+    current +
+    " already up to date"
+);
+problems.forEach(function (problem) {
+  console.log("  WARN  " + problem);
+});
