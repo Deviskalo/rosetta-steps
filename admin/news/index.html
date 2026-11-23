@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>News &amp; stories | Rosetta Steps Admin</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#E85D9E">
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/admin.css">
+<link rel="stylesheet" href="../../assets/css/admin-pages.css">
+<script>
+/* Runs before paint so an unauthenticated visit never flashes the story desk. */
+(function () {
+  var key = "rosetta-admin-session";
+  var signedIn = false;
+  try {
+    signedIn = Boolean(window.sessionStorage.getItem(key) || window.localStorage.getItem(key));
+  } catch (error) {
+    signedIn = false;
+  }
+  if (!signedIn) window.location.replace(window.location.pathname.replace(/\/admin\/.*$/, "/admin/") + "signin/");
+  /* Apply the remembered sidebar width before paint, so it never jumps. */
+  try {
+    if (window.localStorage.getItem("rosetta-admin-sidebar") === "collapsed") {
+      document.documentElement.classList.add("sidebar-collapsed");
+    }
+  } catch (error) {
+    /* No remembered width: the sidebar stays open. */
+  }
+})();
+</script>
+</head>
+<body class="admin">
+
+<a class="skip-link" href="#adminMain">Skip to stories</a>
+
+<div class="admin-shell">
+
+  <!-- ============ Sidebar ============ -->
+  <aside class="admin-sidebar" id="adminSidebar" aria-label="Admin navigation">
+    <div class="sidebar-head">
+      <span class="sidebar-mark" aria-hidden="true">RS</span>
+      <a class="sidebar-brand" href="../../" aria-label="Rosetta Steps Education Center — back to website">
+        <img src="../../assets/img/logo.png" alt="" class="sidebar-logo" width="170" height="37">
+      </a>
+      <span class="sidebar-badge">Admin</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <p class="nav-label">Overview</p>
+      <ul>
+        <li><a href="../" data-section="Dashboard">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="8" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="11" width="7" height="10" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/></svg></span>
+          Dashboard
+        </a></li>
+        <li><a href="../analytics/" data-section="Analytics">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9m5 10V5m5 14v-7m5 7V8"/></svg></span>
+          Analytics
+        </a></li>
+      </ul>
+
+      <p class="nav-label">Content</p>
+      <ul>
+        <li><a href="../news/" class="is-active" data-section="News &amp; stories" aria-current="page">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h11a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2z"/><path d="M18 8h1.5A1.5 1.5 0 0 1 21 9.5V18a2 2 0 0 1-2 2M8 8h6M8 12h6M8 16h4"/></svg></span>
+          News &amp; stories
+          <span class="count" id="storyCountBadge">9</span>
+        </a></li>
+        <li><a href="../pages/" data-section="Pages">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/></svg></span>
+          Pages
+        </a></li>
+        <li><a href="../gallery/" data-section="Gallery">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="1.6"/><path d="m4 18 5-5 4 4 3-3 4 4"/></svg></span>
+          Gallery
+        </a></li>
+      </ul>
+
+      <p class="nav-label">People</p>
+      <ul>
+        <li><a href="../students/" data-section="Students">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 8l10 5 10-5z"/><path d="M6 10.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-5.5"/></svg></span>
+          Students
+          <span class="count" id="studentCountBadge">175</span>
+        </a></li>
+        <li><a href="../applications/" data-section="Applications">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span>
+          Applications
+          <span class="count count--pink" id="applicationCountBadge">24</span>
+        </a></li>
+        <li><a href="../messages/" data-section="Messages">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg></span>
+          Messages
+          <span class="dot" id="messageDot" aria-label="3 unread"></span>
+        </a></li>
+      </ul>
+
+      <p class="nav-label">Finance</p>
+      <ul>
+        <li><a href="../donations/" data-section="Donations">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-9a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 4.6-7 9-7 9z"/></svg></span>
+          Donations
+        </a></li>
+        <li><a href="../scholarships/" data-section="Scholarships">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="m9 13-2 8 5-3 5 3-2-8"/></svg></span>
+          Scholarships
+        </a></li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-foot">
+            <a class="side-link" href="../profile/">
+        <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-3.4 3.1-5.5 7-5.5s7 2.1 7 5.5"/></svg></span>
+        Profile
+      </a>
+      <a class="side-link" href="../settings/" data-section="Settings">
+        <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2 2 2 0 1 1-4 0 1.7 1.7 0 0 0-2.9-1.2l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.7 1.7 0 0 0 3 15a2 2 0 1 1 0-4 1.7 1.7 0 0 0 1.5-2.6l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.7 1.7 0 0 0 10 4.3a2 2 0 1 1 4 0 1.7 1.7 0 0 0 2.9 1.2l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1A1.7 1.7 0 0 0 21 11a2 2 0 1 1 0 4z"/></svg></span>
+        Settings
+      </a>
+      <a class="side-link" href="../../">
+        <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-8 8"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></span>
+        View website
+      </a>
+
+      <div class="sidebar-user">
+        <span class="avatar avatar--pink" data-user-avatar>AH</span>
+        <span class="sidebar-user-text">
+          <strong data-user-name>Ama Harris</strong>
+          <small data-user-role>Administrator</small>
+        </span>
+        <button type="button" class="icon-btn icon-btn--ghost" data-signout aria-label="Sign out">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"/><path d="m15 8 4 4-4 4M19 12H9"/></svg>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <div class="sidebar-scrim" id="sidebarScrim" hidden></div>
+
+  <!-- ============ Main column ============ -->
+  <div class="admin-main">
+
+    <header class="admin-topbar">
+      <button type="button" class="icon-btn collapse-btn" id="collapseBtn" aria-controls="adminSidebar" aria-expanded="true" aria-label="Collapse sidebar" title="Collapse the menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M9 4v16"/><path d="m14 9-3 3 3 3"/></svg>
+      </button>
+      <button type="button" class="icon-btn menu-btn" id="menuBtn" aria-controls="adminSidebar" aria-expanded="false" aria-label="Open admin menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+
+      <div class="topbar-title">
+        <p class="crumb">Admin <span aria-hidden="true">/</span> <span id="crumbSection">News &amp; stories</span></p>
+        <h1 id="pageTitle">News &amp; stories</h1>
+      </div>
+
+      <div class="topbar-tools">
+        <label class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+          <span class="sr-only">Search stories</span>
+          <input id="adminSearch" type="search" placeholder="Search stories…" autocomplete="off">
+        </label>
+
+        <div class="popover-wrap">
+          <button type="button" class="icon-btn" id="bellBtn" aria-expanded="false" aria-controls="bellPanel" aria-label="Notifications, 3 unread">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15V10a6 6 0 1 0-12 0v5l-1.5 2.5h15z"/><path d="M9.5 20a2.5 2.5 0 0 0 5 0"/></svg>
+            <span class="ping" aria-hidden="true"></span>
+          </button>
+          <div class="popover" id="bellPanel" hidden>
+            <p class="popover-head">Notifications</p>
+            <ul class="notif-list">
+              <li><span class="notif-dot notif-dot--beige"></span><div><strong>Story needs review</strong><small>“Learn through play” · draft</small></div></li>
+              <li><span class="notif-dot notif-dot--pink"></span><div><strong>3 new applications</strong><small>Grade 1 · submitted today</small></div></li>
+              <li><span class="notif-dot notif-dot--gold"></span><div><strong>Donation received</strong><small>$200 · Forleh Foundation</small></div></li>
+            </ul>
+            <a class="popover-foot" href="../settings/#notifications">Manage notifications</a>
+          </div>
+        </div>
+
+        <a class="topbar-user" href="../profile/" aria-label="Open your profile">
+          <span class="avatar avatar--pink" data-user-avatar>AH</span>
+          <span class="topbar-user-text"><strong data-user-name>Ama Harris</strong><small data-user-role>Administrator</small></span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </a>
+      </div>
+    </header>
+
+    <main class="admin-content" id="adminMain">
+
+      <!-- Desk header -->
+      <section class="card news-head" aria-labelledby="deskTitle">
+        <div class="card-head">
+          <div>
+            <h2 id="deskTitle">Story desk</h2>
+            <p>Write a story, keep it as a draft, then publish it when you are happy with it.</p>
+          </div>
+          <button type="button" class="btn-admin btn-admin--pink" id="newStoryBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            New story
+          </button>
+        </div>
+        <ul class="news-stats">
+          <li><strong id="statPublished">0</strong><span>published</span></li>
+          <li><strong id="statDrafts">0</strong><span>drafts</span></li>
+          <li><strong id="statTotal">0</strong><span>stories in total</span></li>
+          <li class="news-stats__note"><span id="deskByline">Signed in as Ama Harris</span></li>
+        </ul>
+      </section>
+
+      <!-- Editor -->
+      <section class="card story-editor" id="storyEditor" hidden aria-labelledby="editorTitle">
+        <form id="storyForm" novalidate>
+          <div class="editor-head">
+            <div>
+              <p class="editor-kicker" id="editorKicker">New story</p>
+              <h2 id="editorTitle">Write a story</h2>
+            </div>
+            <span class="status status--draft" id="editorStatus">Draft</span>
+          </div>
+
+          <p class="editor-error" id="editorError" role="alert" hidden></p>
+
+          <div class="editor-grid">
+            <label class="ed-field ed-field--wide" for="storyTitleInput">
+              <span>Headline</span>
+              <input id="storyTitleInput" name="title" type="text" maxlength="120" placeholder="e.g. Fifty new reading books reach Grade 2" autocomplete="off" required>
+            </label>
+            <label class="ed-field" for="storyCategoryInput">
+              <span>Category</span>
+              <select id="storyCategoryInput" name="category">
+                <option>School news</option>
+                <option>Success Stories</option>
+                <option>Community Impact</option>
+                <option>Events</option>
+                <option>Announcements</option>
+                <option>Educational Resources</option>
+              </select>
+            </label>
+            <label class="ed-field" for="storyDateInput">
+              <span>Story date</span>
+              <input id="storyDateInput" name="date" type="date">
+            </label>
+          </div>
+
+          <div class="ed-field ed-photo">
+            <span>Photo <small>optional · JPG, PNG or WebP up to 8 MB</small></span>
+            <div class="photo-drop" id="photoDrop">
+              <div class="photo-empty" id="photoEmpty">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="1.6"/><path d="m4 18 5-5 4 4 3-3 4 4"/></svg>
+                <p><strong>Add a photo</strong>Drop it here, or choose a file from your device.</p>
+                <button type="button" class="btn-admin btn-admin--line" id="photoPick">Choose a photo</button>
+              </div>
+              <figure class="photo-preview" id="photoPreview" hidden>
+                <img id="photoPreviewImg" alt="" decoding="async">
+                <figcaption>
+                  <span id="photoMeta"></span>
+                  <span class="photo-actions">
+                    <button type="button" class="row-action" id="photoReplace">Replace</button>
+                    <button type="button" class="row-action row-action--danger" id="photoRemove">Remove</button>
+                  </span>
+                </figcaption>
+              </figure>
+              <input type="file" id="storyPhotoInput" accept="image/png,image/jpeg,image/webp" hidden>
+            </div>
+            <p class="photo-note" id="photoNote">Photos are resized to 1200px wide before they are saved, so the desk stays quick.</p>
+          </div>
+
+          <label class="ed-field" for="storyExcerptInput">
+            <span>Summary <small><b id="excerptCount">0</b>/200 — shown on the story cards</small></span>
+            <textarea id="storyExcerptInput" name="excerpt" rows="2" maxlength="200" placeholder="One sentence that makes a reader want to click."></textarea>
+          </label>
+
+          <label class="ed-field" for="storyBodyInput">
+            <span>Story <small><b id="bodyWords">0</b> words</small></span>
+            <textarea id="storyBodyInput" name="body" rows="12" placeholder="Write the story here. Leave a blank line between paragraphs."></textarea>
+          </label>
+
+          <div class="editor-actions">
+            <button type="submit" class="btn-admin btn-admin--pink" id="publishBtn">Publish story</button>
+            <button type="button" class="btn-admin btn-admin--soft" id="saveDraftBtn">Save draft</button>
+            <button type="button" class="btn-admin btn-admin--line" id="previewBtn">Preview</button>
+            <button type="button" class="btn-admin btn-admin--line" id="cancelBtn">Close</button>
+            <button type="button" class="btn-admin btn-admin--danger editor-delete" id="deleteBtn" hidden>Delete</button>
+          </div>
+
+          <p class="editor-note" id="editorNote">
+            Drafts are private to the admin. Publishing puts the story on the public news page straight away —
+            in this browser. Other visitors see it once the site has a backend.
+          </p>
+        </form>
+      </section>
+
+      <!-- Story list -->
+      <section class="card table-card story-card" aria-labelledby="listTitle">
+        <div class="card-head">
+          <div>
+            <h2 id="listTitle">All stories</h2>
+            <p id="listSummary">Everything on the story desk, newest first.</p>
+          </div>
+          <div class="chips" role="group" aria-label="Filter stories by status">
+            <button type="button" class="chip is-active" data-story-filter="all" aria-pressed="true">All</button>
+            <button type="button" class="chip" data-story-filter="published" aria-pressed="false">Published</button>
+            <button type="button" class="chip" data-story-filter="draft" aria-pressed="false">Drafts</button>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="story-table">
+            <thead>
+              <tr>
+                <th scope="col">Story</th>
+                <th scope="col">Status</th>
+                <th scope="col">Author</th>
+                <th scope="col">Updated</th>
+                <th scope="col"><span class="sr-only">Actions</span></th>
+              </tr>
+            </thead>
+            <tbody id="storyBody"></tbody>
+          </table>
+        </div>
+
+        <p class="table-empty" id="storyEmpty" hidden>No stories here yet. Use “New story” to write the first one.</p>
+
+        <div class="table-foot">
+          <span>Showing <strong id="storyShown">0</strong> of <strong id="storyTotalFoot">0</strong> stories</span>
+          <button type="button" class="link-more" id="newStoryLink">Write a new story <span aria-hidden="true">→</span></button>
+        </div>
+      </section>
+
+      <p class="template-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+        This story desk saves to this browser. Published stories appear in the news section of the public website
+        immediately in this browser; other visitors and other staff see them once the site has a backend.
+      </p>
+    </main>
+  </div>
+</div>
+
+<!-- Preview -->
+<div class="story-modal" id="storyModal" hidden>
+  <div class="story-modal__panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="story-modal__bar">
+      <span class="status status--draft" id="modalStatus">Draft</span>
+      <button type="button" class="icon-btn" id="modalClose" aria-label="Close preview">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <article class="story-preview">
+      <p class="story-preview__meta" id="modalMeta"></p>
+      <h2 id="modalTitle"></h2>
+      <img class="story-preview__image" id="modalImage" alt="" hidden>
+      <p class="story-preview__lead" id="modalExcerpt"></p>
+      <div class="story-preview__body" id="modalBody"></div>
+    </article>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="../../assets/js/staff.js"></script>
+<script src="../../assets/js/admin-store.js"></script>
+<script src="../../assets/js/admin.js"></script>
+<script src="../../assets/js/admin-news.js"></script>
+</body>
+</html>

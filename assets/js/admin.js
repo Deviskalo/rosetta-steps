@@ -5,6 +5,13 @@
 (function () {
   "use strict";
 
+  /* Admin pages are served as admin/news.html and at admin/news/ (the clean
+     copy). Both sit one folder below /admin/, wherever the site is mounted. */
+  function adminUrl(target) {
+    return window.location.pathname.replace(/\/admin\/.*$/, "/admin/") + target;
+  }
+
+
   /* ---------------- Toast ---------------- */
   var toast = document.getElementById("toast");
   var toastTimer;
@@ -54,7 +61,7 @@
       } catch (error) {
         /* Nothing stored, nothing to clear. */
       }
-      window.location.replace("signin.html");
+      window.location.replace(adminUrl("signin/"));
       return;
     }
 
@@ -287,9 +294,9 @@
   function inviteMessage(account) {
     var signInUrl;
     try {
-      signInUrl = new URL("signin.html", window.location.href).href;
+      signInUrl = window.location.origin + adminUrl("signin/");
     } catch (error) {
-      signInUrl = "admin/signin.html";
+      signInUrl = "admin/signin/";
     }
 
     var sender = session && session.name ? session.name : "The Rosetta Steps team";
@@ -740,7 +747,7 @@
       } catch (error) {
         /* Nothing stored, nothing to clear. */
       }
-      window.location.replace("signin.html");
+      window.location.replace(adminUrl("signin/"));
     });
   });
 
@@ -757,6 +764,6 @@
     } catch (error) {
       signedIn = false;
     }
-    if (!signedIn) window.location.replace("signin.html");
+    if (!signedIn) window.location.replace(adminUrl("signin/"));
   });
 })();

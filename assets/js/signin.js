@@ -7,6 +7,13 @@
 (function () {
   "use strict";
 
+  /* Admin pages are served as admin/news.html and at admin/news/ (the clean
+     copy). Both sit one folder below /admin/, wherever the site is mounted. */
+  function adminUrl(target) {
+    return window.location.pathname.replace(/\/admin\/.*$/, "/admin/") + target;
+  }
+
+
   var STORAGE_KEY = "rosetta-admin-session";
   var STAFF = window.ROSETTA_STAFF || [];
 
@@ -23,7 +30,7 @@
       window.sessionStorage.getItem(STORAGE_KEY) ||
       window.localStorage.getItem(STORAGE_KEY)
     ) {
-      window.location.replace("index.html");
+      window.location.replace(adminUrl(""));
       return;
     }
   } catch (error) {
@@ -229,7 +236,7 @@
     submit.firstChild.nodeValue = "Signing you in…";
 
     window.setTimeout(function () {
-      window.location.assign("index.html");
+      window.location.assign(adminUrl(""));
     }, 620);
   });
 

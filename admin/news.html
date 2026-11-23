@@ -22,7 +22,7 @@
   } catch (error) {
     signedIn = false;
   }
-  if (!signedIn) window.location.replace("signin.html");
+  if (!signedIn) window.location.replace(window.location.pathname.replace(/\/admin\/.*$/, "/admin/") + "signin/");
   /* Apply the remembered sidebar width before paint, so it never jumps. */
   try {
     if (window.localStorage.getItem("rosetta-admin-sidebar") === "collapsed") {
@@ -44,7 +44,7 @@
   <aside class="admin-sidebar" id="adminSidebar" aria-label="Admin navigation">
     <div class="sidebar-head">
       <span class="sidebar-mark" aria-hidden="true">RS</span>
-      <a class="sidebar-brand" href="../index.html" aria-label="Rosetta Steps Education Center — back to website">
+      <a class="sidebar-brand" href="../" aria-label="Rosetta Steps Education Center — back to website">
         <img src="../assets/img/logo.png" alt="" class="sidebar-logo" width="170" height="37">
       </a>
       <span class="sidebar-badge">Admin</span>
@@ -53,11 +53,11 @@
     <nav class="sidebar-nav">
       <p class="nav-label">Overview</p>
       <ul>
-        <li><a href="index.html" data-section="Dashboard">
+        <li><a href="./" data-section="Dashboard">
           <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="8" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="11" width="7" height="10" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/></svg></span>
           Dashboard
         </a></li>
-        <li><a href="analytics.html" data-section="Analytics">
+        <li><a href="analytics/" data-section="Analytics">
           <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9m5 10V5m5 14v-7m5 7V8"/></svg></span>
           Analytics
         </a></li>
@@ -65,16 +65,16 @@
 
       <p class="nav-label">Content</p>
       <ul>
-        <li><a href="news.html" class="is-active" data-section="News &amp; stories" aria-current="page">
+        <li><a href="news/" class="is-active" data-section="News &amp; stories" aria-current="page">
           <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h11a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2z"/><path d="M18 8h1.5A1.5 1.5 0 0 1 21 9.5V18a2 2 0 0 1-2 2M8 8h6M8 12h6M8 16h4"/></svg></span>
           News &amp; stories
           <span class="count" id="storyCountBadge">9</span>
         </a></li>
-        <li><a href="pages.html" data-section="Pages">
+        <li><a href="pages/" data-section="Pages">
           <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/></svg></span>
           Pages
         </a></li>
-        <li><a href="gallery.html" data-section="Gallery">
+        <li><a href="gallery/" data-section="Gallery">
           <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="1.6"/><path d="m4 18 5-5 4 4 3-3 4 4"/></svg></span>
           Gallery
         </a></li>
@@ -82,17 +82,17 @@
 
       <p class="nav-label">People</p>
       <ul>
-        <li><a href="students.html" data-section="Students">
+        <li><a href="students/" data-section="Students">
           <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 8l10 5 10-5z"/><path d="M6 10.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-5.5"/></svg></span>
           Students
           <span class="count" id="studentCountBadge">175</span>
         </a></li>
-        <li><a href="applications.html" data-section="Applications">
+        <li><a href="applications/" data-section="Applications">
           <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span>
           Applications
           <span class="count count--pink" id="applicationCountBadge">24</span>
         </a></li>
-        <li><a href="messages.html" data-section="Messages">
+        <li><a href="messages/" data-section="Messages">
           <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg></span>
           Messages
           <span class="dot" id="messageDot" aria-label="3 unread"></span>
@@ -101,11 +101,11 @@
 
       <p class="nav-label">Finance</p>
       <ul>
-        <li><a href="donations.html" data-section="Donations">
+        <li><a href="donations/" data-section="Donations">
           <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-9a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 4.6-7 9-7 9z"/></svg></span>
           Donations
         </a></li>
-        <li><a href="scholarships.html" data-section="Scholarships">
+        <li><a href="scholarships/" data-section="Scholarships">
           <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="m9 13-2 8 5-3 5 3-2-8"/></svg></span>
           Scholarships
         </a></li>
@@ -113,15 +113,15 @@
     </nav>
 
     <div class="sidebar-foot">
-            <a class="side-link" href="profile.html">
+            <a class="side-link" href="profile/">
         <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-3.4 3.1-5.5 7-5.5s7 2.1 7 5.5"/></svg></span>
         Profile
       </a>
-      <a class="side-link" href="settings.html" data-section="Settings">
+      <a class="side-link" href="settings/" data-section="Settings">
         <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2 2 2 0 1 1-4 0 1.7 1.7 0 0 0-2.9-1.2l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.7 1.7 0 0 0 3 15a2 2 0 1 1 0-4 1.7 1.7 0 0 0 1.5-2.6l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.7 1.7 0 0 0 10 4.3a2 2 0 1 1 4 0 1.7 1.7 0 0 0 2.9 1.2l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1A1.7 1.7 0 0 0 21 11a2 2 0 1 1 0 4z"/></svg></span>
         Settings
       </a>
-      <a class="side-link" href="../index.html">
+      <a class="side-link" href="../">
         <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-8 8"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></span>
         View website
       </a>
@@ -176,11 +176,11 @@
               <li><span class="notif-dot notif-dot--pink"></span><div><strong>3 new applications</strong><small>Grade 1 · submitted today</small></div></li>
               <li><span class="notif-dot notif-dot--gold"></span><div><strong>Donation received</strong><small>$200 · Forleh Foundation</small></div></li>
             </ul>
-            <a class="popover-foot" href="settings.html#notifications">Manage notifications</a>
+            <a class="popover-foot" href="settings/#notifications">Manage notifications</a>
           </div>
         </div>
 
-        <a class="topbar-user" href="profile.html" aria-label="Open your profile">
+        <a class="topbar-user" href="profile/" aria-label="Open your profile">
           <span class="avatar avatar--pink" data-user-avatar>AH</span>
           <span class="topbar-user-text"><strong data-user-name>Ama Harris</strong><small data-user-role>Administrator</small></span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>

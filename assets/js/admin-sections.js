@@ -5,6 +5,13 @@
 (function () {
   "use strict";
 
+  /* Admin pages are served as admin/news.html and at admin/news/ (the clean
+     copy). Both sit one folder below /admin/, wherever the site is mounted. */
+  function adminUrl(target) {
+    return window.location.pathname.replace(/\/admin\/.*$/, "/admin/") + target;
+  }
+
+
   var A = window.RosettaAdmin;
   if (!A) return;
 
@@ -2341,7 +2348,7 @@
       } catch (error) {
         /* Nothing stored. */
       }
-      window.location.replace("signin.html");
+      window.location.replace(adminUrl("signin/"));
     });
   }
 

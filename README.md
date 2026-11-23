@@ -30,16 +30,18 @@ These are the details shown on the public site and seeded into
   ```
 
   Then visit <http://localhost:3000> for the site and
-  <http://localhost:3000/admin/signin.html> for the dashboard.
+  <http://localhost:3000/admin/signin/> for the dashboard.
 - **The admin dashboard:** sign in with one of the accounts below.
 
 ## URLs
 
-Public pages are published without the file extension: `news.html` is reached
-at `news/`. Links are **relative** (`news/`, `assets/css/styles.css`, `./` for
-home) rather than root-absolute, so the site works at a domain root and under a
-subpath — a GitHub Pages project site lives at `/<repo>/`, where `/assets/…`
-would point outside the site and 404.
+Pages are published without the file extension: `news.html` is reached at
+`news/`, `admin/news.html` at `admin/news/`, and the dashboard's
+`admin/index.html` at `admin/`. Links are **relative** (`news/`,
+`assets/css/styles.css`, `./` for a folder's own page) rather than
+root-absolute, so the site works at a domain root and under a subpath — a
+GitHub Pages project site lives at `/<repo>/`, where `/assets/…` would point
+outside the site and 404.
 
 A static host answers `news/` with `news/index.html`, so each page has a copy
 in a folder of its own. The trailing slash is deliberate: without it the host
@@ -57,9 +59,11 @@ node scripts/build-clean-urls.js --check  # what CI runs; fails on a stale copy
 
 Edit the `.html` page, not the copy: the copy is generated from it, with each
 site-relative reference given one `../` because it sits a folder deeper. The
-`.html` files stay where they are, so old addresses like `/news.html` keep
-working. `admin/` pages are not copied; they are private and use their own
-relative links.
+`.html` files stay where they are, so old addresses like `/news.html` and
+`/admin/news.html` keep working. `index.html` needs no copy — it already is its
+folder's address (`/` and `/admin/`). The admin's sign-in redirects and
+dashboard links work out the `/admin/` folder from the current URL, so they land
+correctly from the `.html` page and from the clean copy alike.
 
 ## Demo sign-in accounts
 

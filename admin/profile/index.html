@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your profile | Rosetta Steps Admin</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#E85D9E">
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/admin.css">
+<link rel="stylesheet" href="../../assets/css/admin-pages.css">
+<script>
+/* Runs before paint so an unauthenticated visit never flashes the story desk. */
+(function () {
+  var key = "rosetta-admin-session";
+  var signedIn = false;
+  try {
+    signedIn = Boolean(window.sessionStorage.getItem(key) || window.localStorage.getItem(key));
+  } catch (error) {
+    signedIn = false;
+  }
+  if (!signedIn) window.location.replace(window.location.pathname.replace(/\/admin\/.*$/, "/admin/") + "signin/");
+  /* Apply the remembered sidebar width before paint, so it never jumps. */
+  try {
+    if (window.localStorage.getItem("rosetta-admin-sidebar") === "collapsed") {
+      document.documentElement.classList.add("sidebar-collapsed");
+    }
+  } catch (error) {
+    /* No remembered width: the sidebar stays open. */
+  }
+})();
+</script>
+</head>
+<body class="admin" data-admin-page="profile">
+
+<a class="skip-link" href="#adminMain">Skip to your profile</a>
+
+<div class="admin-shell">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar" id="adminSidebar" aria-label="Admin navigation">
+    <div class="sidebar-head">
+      <span class="sidebar-mark" aria-hidden="true">RS</span>
+      <a class="sidebar-brand" href="../../" aria-label="Rosetta Steps Education Center — back to website">
+        <img src="../../assets/img/logo.png" alt="" class="sidebar-logo" width="170" height="37">
+      </a>
+      <span class="sidebar-badge">Admin</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <p class="nav-label">Overview</p>
+      <ul>
+        <li><a href="../" data-section="Dashboard">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="8" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="11" width="7" height="10" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/></svg></span>
+          Dashboard
+        </a></li>
+        <li><a href="../analytics/" data-section="Analytics">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9m5 10V5m5 14v-7m5 7V8"/></svg></span>
+          Analytics
+        </a></li>
+      </ul>
+
+      <p class="nav-label">Content</p>
+      <ul>
+        <li><a href="../news/" data-section="News &amp; stories">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h11a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2z"/><path d="M18 8h1.5A1.5 1.5 0 0 1 21 9.5V18a2 2 0 0 1-2 2M8 8h6M8 12h6M8 16h4"/></svg></span>
+          News &amp; stories
+          <span class="count" id="storyCountBadge">9</span>
+        </a></li>
+        <li><a href="../pages/" data-section="Pages">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/></svg></span>
+          Pages
+        </a></li>
+        <li><a href="../gallery/" data-section="Gallery">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="1.6"/><path d="m4 18 5-5 4 4 3-3 4 4"/></svg></span>
+          Gallery
+        </a></li>
+      </ul>
+
+      <p class="nav-label">People</p>
+      <ul>
+        <li><a href="../students/" data-section="Students">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 8l10 5 10-5z"/><path d="M6 10.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-5.5"/></svg></span>
+          Students
+          <span class="count" id="studentCountBadge">175</span>
+        </a></li>
+        <li><a href="../applications/" data-section="Applications">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span>
+          Applications
+          <span class="count count--pink" id="applicationCountBadge">24</span>
+        </a></li>
+        <li><a href="../messages/" data-section="Messages">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg></span>
+          Messages
+          <span class="dot" id="messageDot" aria-label="3 unread"></span>
+        </a></li>
+      </ul>
+
+      <p class="nav-label">Finance</p>
+      <ul>
+        <li><a href="../donations/" data-section="Donations">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-9a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 4.6-7 9-7 9z"/></svg></span>
+          Donations
+        </a></li>
+        <li><a href="../scholarships/" data-section="Scholarships">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="m9 13-2 8 5-3 5 3-2-8"/></svg></span>
+          Scholarships
+        </a></li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-foot">
+            <a class="side-link is-active" href="../profile/" aria-current="page">
+        <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-3.4 3.1-5.5 7-5.5s7 2.1 7 5.5"/></svg></span>
+        Profile
+      </a>
+      <a class="side-link" href="../settings/" data-section="Settings">
+        <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2 2 2 0 1 1-4 0 1.7 1.7 0 0 0-2.9-1.2l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.7 1.7 0 0 0 3 15a2 2 0 1 1 0-4 1.7 1.7 0 0 0 1.5-2.6l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.7 1.7 0 0 0 10 4.3a2 2 0 1 1 4 0 1.7 1.7 0 0 0 2.9 1.2l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1A1.7 1.7 0 0 0 21 11a2 2 0 1 1 0 4z"/></svg></span>
+        Settings
+      </a>
+      <a class="side-link" href="../../">
+        <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-8 8"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></span>
+        View website
+      </a>
+
+      <div class="sidebar-user">
+        <span class="avatar avatar--pink" data-user-avatar>AH</span>
+        <span class="sidebar-user-text">
+          <strong data-user-name>Ama Harris</strong>
+          <small data-user-role>Administrator</small>
+        </span>
+        <button type="button" class="icon-btn icon-btn--ghost" data-signout aria-label="Sign out">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"/><path d="m15 8 4 4-4 4M19 12H9"/></svg>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <div class="sidebar-scrim" id="sidebarScrim" hidden></div>
+
+  <div class="admin-main">
+
+    <header class="admin-topbar">
+      <button type="button" class="icon-btn collapse-btn" id="collapseBtn" aria-controls="adminSidebar" aria-expanded="true" aria-label="Collapse sidebar" title="Collapse the menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M9 4v16"/><path d="m14 9-3 3 3 3"/></svg>
+      </button>
+      <button type="button" class="icon-btn menu-btn" id="menuBtn" aria-controls="adminSidebar" aria-expanded="false" aria-label="Open admin menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+
+      <div class="topbar-title">
+        <p class="crumb">Admin <span aria-hidden="true">/</span> <span id="crumbSection">Profile</span></p>
+        <h1 id="pageTitle">Profile</h1>
+      </div>
+
+      <div class="topbar-tools">
+        
+        <div class="popover-wrap">
+          <button type="button" class="icon-btn" id="bellBtn" aria-expanded="false" aria-controls="bellPanel" aria-label="Notifications, 3 unread">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15V10a6 6 0 1 0-12 0v5l-1.5 2.5h15z"/><path d="M9.5 20a2.5 2.5 0 0 0 5 0"/></svg>
+            <span class="ping" aria-hidden="true"></span>
+          </button>
+          <div class="popover" id="bellPanel" hidden>
+            <p class="popover-head">Notifications</p>
+            <ul class="notif-list">
+              <li><span class="notif-dot notif-dot--beige"></span><div><strong>Story needs review</strong><small>“Learn through play” · draft</small></div></li>
+              <li><span class="notif-dot notif-dot--pink"></span><div><strong>3 new applications</strong><small>Grade 1 · submitted today</small></div></li>
+              <li><span class="notif-dot notif-dot--gold"></span><div><strong>Donation received</strong><small>$200 · Forleh Foundation</small></div></li>
+            </ul>
+            <a class="popover-foot" href="../settings/#notifications">Manage notifications</a>
+          </div>
+        </div>
+
+        <a class="topbar-user" href="../profile/" aria-label="Open your profile">
+          <span class="avatar avatar--pink" data-user-avatar>AH</span>
+          <span class="topbar-user-text"><strong data-user-name>Ama Harris</strong><small data-user-role>Administrator</small></span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </a>
+      </div>
+    </header>
+
+    <main class="admin-content" id="adminMain">
+
+      <section class="card profile-hero">
+        <span id="profileAvatar"></span>
+        <div class="profile-identity">
+          <h2 id="profileName">—</h2>
+          <p id="profileRole">—</p>
+          <p id="profileEmail">—</p>
+          <span class="role-pill role-pill--administrator" id="profileBadge">Administrator</span>
+        </div>
+        <a class="btn-admin btn-admin--line" href="../settings/">School settings</a>
+      </section>
+
+      <div class="section-grid">
+        <div class="section-stack">
+          <section class="card">
+            <div class="card-head">
+              <div><h2>Your details</h2><p>This is the name and contact the admin shows.</p></div>
+            </div>
+            <form id="profileForm" novalidate>
+              <p class="form-error" id="profileError" role="alert" hidden></p>
+              <div class="form-grid form-grid--full">
+                <label class="form-field" for="profName"><span>Full name</span><input id="profName" type="text" maxlength="60" autocomplete="name" required></label>
+                <label class="form-field" for="profTitle"><span>Job title</span><input id="profTitle" type="text" maxlength="60" placeholder="Head of School"></label>
+                <label class="form-field" for="profEmail"><span>Email</span><input id="profEmail" type="email" maxlength="80" autocomplete="email" required></label>
+                <label class="form-field" for="profPhone"><span>Phone</span><input id="profPhone" type="tel" maxlength="32" autocomplete="tel"></label>
+                <label class="form-field" for="profLocation"><span>Based in</span><input id="profLocation" type="text" maxlength="80"></label>
+                <label class="form-field form-field--wide" for="profBio"><span>Short bio <small>shown to other staff</small></span><textarea id="profBio" rows="3" maxlength="300"></textarea></label>
+              </div>
+              <div class="modal-foot" style="padding:16px 0 0">
+                <span class="modal-aside" id="profileSince"></span>
+                <button type="submit" class="btn-admin btn-admin--pink">Save profile</button>
+              </div>
+            </form>
+          </section>
+
+          <section class="card">
+            <div class="card-head">
+              <div><h2>Password</h2><p>Change the password you use to sign in.</p></div>
+            </div>
+            <form id="passwordForm" novalidate>
+              <p class="form-error" id="passwordError" role="alert" hidden></p>
+              <div class="form-grid form-grid--full">
+                <label class="form-field form-field--wide" for="currentPassword"><span>Current password</span><input id="currentPassword" type="password" autocomplete="current-password" required></label>
+                <label class="form-field" for="newPassword"><span>New password <small>8+ characters</small></span><input id="newPassword" type="password" autocomplete="new-password" required></label>
+                <label class="form-field" for="confirmPassword"><span>Repeat new password</span><input id="confirmPassword" type="password" autocomplete="new-password" required></label>
+              </div>
+              <div class="modal-foot" style="padding:16px 0 0">
+                <span class="modal-aside">Saved in this browser — a real change needs the backend.</span>
+                <button type="submit" class="btn-admin btn-admin--line">Change password</button>
+              </div>
+            </form>
+          </section>
+
+          <section class="card">
+            <div class="card-head">
+              <div><h2>What you hear about</h2><p>Choose the updates you want by email.</p></div>
+            </div>
+            <form id="prefsForm">
+              <div class="switch-row">
+                <span><strong>Daily digest</strong><small>Applications, messages and gifts in one summary.</small></span>
+                <span class="switch"><input type="checkbox" id="prefDigest" aria-label="Send me a daily digest"><i aria-hidden="true"></i></span>
+              </div>
+              <div class="switch-row">
+                <span><strong>Mentions</strong><small>When someone tags you in a story or note.</small></span>
+                <span class="switch"><input type="checkbox" id="prefMentions" aria-label="Notify me about mentions"><i aria-hidden="true"></i></span>
+              </div>
+              <div class="switch-row">
+                <span><strong>Weekly numbers</strong><small>A Monday summary of donations and attendance.</small></span>
+                <span class="switch"><input type="checkbox" id="prefWeekly" aria-label="Send me weekly numbers"><i aria-hidden="true"></i></span>
+              </div>
+              <div class="switch-row">
+                <span><strong>Story reminders</strong><small>A nudge about drafts waiting for a read.</small></span>
+                <span class="switch"><input type="checkbox" id="prefStories" aria-label="Remind me about drafts"><i aria-hidden="true"></i></span>
+              </div>
+              <div class="modal-foot" style="padding:16px 0 0">
+                <button type="submit" class="btn-admin btn-admin--soft">Save preferences</button>
+              </div>
+            </form>
+          </section>
+        </div>
+
+        <div class="section-stack">
+          <section class="card">
+            <div class="card-head">
+              <div><h2>Recent activity</h2><p>What you did in the admin lately.</p></div>
+            </div>
+            <ul class="activity-list" id="activityList"></ul>
+          </section>
+
+          <section class="card">
+            <div class="card-head">
+              <div><h2>Signed in on</h2><p>Devices using this admin account.</p></div>
+            </div>
+            <ul class="session-list">
+              <li><span><strong>This device</strong><small>Current session · just now</small></span><span class="badge-soft">Active</span></li>
+              <li><span><strong>Office desktop</strong><small>Caldwell Road campus · 2 days ago</small></span><span class="form-note">Staff room</span></li>
+            </ul>
+            <div class="modal-foot" style="padding:16px 0 0;justify-content:flex-start">
+              <button type="button" class="btn-admin btn-admin--danger" id="signOutAll">Sign out of the admin</button>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-head"><div><h2>Need a hand?</h2><p>Small things worth knowing.</p></div></div>
+            <p class="form-note">Everything you change in the admin is saved in this browser. To share it with the rest of the team — stories, student records, donations — the school needs a backend and real staff accounts.</p>
+          </section>
+        </div>
+      </div>
+
+      <p class="template-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+        This profile page is a working demo: your name, contact details, password and notification choices are saved in this browser. Real account security and shared profiles need the backend.
+      </p>
+
+    </main>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="../../assets/js/staff.js"></script>
+<script src="../../assets/js/admin-store.js"></script>
+<script src="../../assets/js/admin.js"></script>
+<script src="../../assets/js/admin-sections.js"></script>
+</body>
+</html>

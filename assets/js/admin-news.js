@@ -7,6 +7,13 @@
 (function () {
   "use strict";
 
+  /* Admin pages are served as admin/news.html and at admin/news/ (the clean
+     copy). Both sit one folder below /admin/, wherever the site is mounted. */
+  function adminUrl(target) {
+    return window.location.pathname.replace(/\/admin\/.*$/, "/admin/") + target;
+  }
+
+
   var STORE_KEY = "rosetta-admin-stories";
   var SECTION = "News & stories";
   var MONTHS = [
@@ -36,7 +43,7 @@
     permissions.sections &&
     permissions.sections.indexOf(SECTION) === -1
   ) {
-    window.location.replace("index.html");
+    window.location.replace(adminUrl(""));
     return;
   }
 
