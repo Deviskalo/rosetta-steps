@@ -10,6 +10,17 @@
   var PREFIX = "rosetta-admin-";
   var TONES = ["pink", "beige", "gold", "brown"];
 
+  /* Canonical school details: the seeds and the migrations below both use these. */
+  var SCHOOL = {
+    email: "info@rosettasteps.org",
+    phone: "+231 88 628 4711",
+    address: "Caldwell Road, Bushrod Island, Montserrado County, Liberia",
+    location: "Caldwell Road, Bushrod Island"
+  };
+
+  /* Bump when the seed data changes and saved records need to catch up. */
+  var SEED_VERSION = 1;
+
   /* ---------------- Storage ---------------- */
 
   function read(name, fallback) {
@@ -38,6 +49,91 @@
     var seeded = factory();
     write(name, seeded);
     return seeded;
+  }
+
+  /* ---------------- Seed migrations ----------------
+
+     Records live in localStorage, so correcting the seed data never reaches a
+     dashboard someone has already opened: the old values are saved and keep
+     being shown. Each migration upgrades those saved records in place. It only
+     rewrites values that still match an old seed, so anything a person has
+     edited themselves is left exactly as it is.
+
+     To change the seeds again: edit them, bump SEED_VERSION, and add the
+     matching step below.
+     ---------------------------------------------------------------------- */
+
+  /* School details that earlier versions of the seeds wrote to localStorage. */
+  var LEGACY_ADDRESSES = [
+    "Paynesville, Montserrado County, Liberia",
+    "Paynesville, Monrovia",
+    "Caldwell Junction, Bushrod Island",
+    "Caldwell Junction, Bushrod Island, Montserrado County, Liberia"
+  ];
+
+  function isLegacyAddress(value) {
+    return LEGACY_ADDRESSES.indexOf(String(value || "")) !== -1;
+  }
+
+  /* Every saved staff profile, by storage name ("profile-<email>"). */
+  function profileNames() {
+    var names = [];
+    try {
+      for (var index = 0; index < window.localStorage.length; index += 1) {
+        var key = window.localStorage.key(index);
+        if (key && key.indexOf(PREFIX + "profile-") === 0) {
+          names.push(key.slice(PREFIX.length));
+        }
+      }
+    } catch (error) {
+      return names;
+    }
+    return names;
+  }
+
+  var MIGRATIONS = {
+    1: function () {
+      var settings = read("settings", null);
+      if (settings && settings.school) {
+        if (settings.school.email === "hello@rosettasteps.org") {
+          settings.school.email = SCHOOL.email;
+        }
+        if (settings.school.phone === "+231 77 000 1234") {
+          settings.school.phone = SCHOOL.phone;
+        }
+        if (isLegacyAddress(settings.school.address)) {
+          settings.school.address = SCHOOL.address;
+        }
+        write("settings", settings);
+      }
+
+      profileNames().forEach(function (name) {
+        var profile = read(name, null);
+        if (!profile || typeof profile !== "object") return;
+        if (isLegacyAddress(profile.location)) {
+          profile.location = SCHOOL.location;
+        }
+        write(name, profile);
+      });
+    }
+  };
+
+  function migrate() {
+    var applied = Number(read("seed-version", 0)) || 0;
+    if (applied >= SEED_VERSION) return;
+    for (var version = applied + 1; version <= SEED_VERSION; version += 1) {
+      var step = MIGRATIONS[version];
+      if (step) {
+        try {
+          step();
+        } catch (error) {
+          /* Bad saved data or storage blocked: leave the version alone and
+             try again on the next page load. */
+          return;
+        }
+      }
+      write("seed-version", version);
+    }
   }
 
   /* ---------------- Session and identity ---------------- */
@@ -94,7 +190,7 @@
       role: current.role || "Administrator",
       title: roleTitle(current.role),
       phone: "+231 77 555 0142",
-      location: "Caldwell Road, Bushrod Island",
+      location: SCHOOL.location,
       bio:
         "I look after the school day to day — the children, the teachers and the families who trust us with them.",
       prefs: { digest: true, mentions: true, weekly: false, stories: true },
@@ -681,9 +777,9 @@
       school: {
         name: "Rosetta Steps Education Center",
         tagline: "Empowering Children Through Education, Literacy, and Opportunity",
-        email: "info@rosettasteps.org",
-        phone: "+231 88 628 4711",
-        address: "Caldwell Road, Bushrod Island, Montserrado County, Liberia",
+        email: SCHOOL.email,
+        phone: SCHOOL.phone,
+        address: SCHOOL.address,
         hours: "Monday – Friday, 7:30 am – 4:00 pm"
       },
       notifications: {
@@ -848,6 +944,8 @@
     };
   }
 
+  migrate();
+
   window.RosettaAdmin = {
     read: read,
     write: write,
@@ -876,6 +974,8 @@
     setPassword: setPassword,
     addActivity: addActivity,
     donationTotals: donationTotals,
+    migrate: migrate,
+    seedVersion: SEED_VERSION,
     seeds: {
       students: seedStudents,
       applications: seedApplications,

@@ -61,6 +61,16 @@ and whether that person has signed in yet.
   `staff.js` for accounts and roles, `signin.js` for the sign-in screen.
 - `assets/img/` — photography, logo and favicon.
 
+## Seed changes and saved records
+
+Because records live in local storage, editing the seed data alone never
+reaches a dashboard someone has already opened. `assets/js/admin-store.js`
+keeps a `SEED_VERSION` plus a `MIGRATIONS` map for this: on load, any saved
+record still at an older version is corrected in place. A migration only
+rewrites values that still match an old seed, so edits people made themselves
+survive. When you change the seeds, bump `SEED_VERSION` and add the matching
+step.
+
 ## Please note
 
 This is a front-end template. Accounts and every record it edits are kept in
