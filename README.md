@@ -7,6 +7,17 @@ school at Caldwell Road, Bushrod Island, Montserrado County, Liberia.
 The whole thing is plain HTML, CSS and JavaScript: no build step, no
 dependencies, no server. Open a page in a browser and it runs.
 
+## School contact details
+
+These are the details shown on the public site and seeded into
+**Settings → School profile** in the dashboard. Keep them in step if they change.
+
+| | |
+| --- | --- |
+| Email | `info@rosettasteps.org` |
+| Phone | +231 88 628 4711 |
+| Address | Caldwell Road, Bushrod Island, Montserrado County, Liberia |
+
 ## Opening it
 
 - **The website:** open `index.html` in a browser, or double-click it in your

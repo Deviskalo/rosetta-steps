@@ -681,8 +681,8 @@
       school: {
         name: "Rosetta Steps Education Center",
         tagline: "Empowering Children Through Education, Literacy, and Opportunity",
-        email: "hello@rosettasteps.org",
-        phone: "+231 77 000 1234",
+        email: "info@rosettasteps.org",
+        phone: "+231 88 628 4711",
         address: "Caldwell Road, Bushrod Island, Montserrado County, Liberia",
         hours: "Monday – Friday, 7:30 am – 4:00 pm"
       },
