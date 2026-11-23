@@ -69,7 +69,15 @@ keeps a `SEED_VERSION` plus a `MIGRATIONS` map for this: on load, any saved
 record still at an older version is corrected in place. A migration only
 rewrites values that still match an old seed, so edits people made themselves
 survive. When you change the seeds, bump `SEED_VERSION` and add the matching
-step.
+step, then run the check:
+
+```bash
+node scripts/check-seeds.js
+```
+
+It loads the real `admin-store.js` against a fake localStorage and fails if a
+saved record would not catch up, if a person's own edits would be lost, or if
+the seeds still contain a value that was meant to be corrected.
 
 ## Please note
 
