@@ -1,0 +1,22 @@
+name: Checks
+
+# The admin seeds its records into localStorage once and upgrades them with
+# migrations afterwards, so a seed edit without a matching migration silently
+# leaves existing dashboards on old data. scripts/check-seeds.js catches that.
+on:
+  push:
+  pull_request:
+
+jobs:
+  seed-migrations:
+    name: Seed migrations
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Check seed migrations
+        run: node scripts/check-seeds.js

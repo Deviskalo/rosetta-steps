@@ -14,6 +14,8 @@
   "use strict";
 
   var INVITE_KEY = "rosetta-admin-staff";
+  /* Where admin-store.js keeps a person's profile: one record per email. */
+  var PROFILE_PREFIX = "rosetta-admin-profile-";
 
   /* Placeholder sign-in password for the sample accounts. */
   var DEMO_PASSWORD = "CHANGE-ME";
@@ -204,7 +206,7 @@
           JSON.stringify(overrides)
         );
       }
-      window.localStorage.removeItem("profile-" + key);
+      window.localStorage.removeItem(PROFILE_PREFIX + key);
     } catch (error) {
       /* Nothing stored for them, or storage is blocked. */
     }
