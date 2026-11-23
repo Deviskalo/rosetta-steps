@@ -1,30 +1,24 @@
 #!/usr/bin/env node
 /* ==========================================================================
-   Link and sitemap check for the Rosetta Steps site
+   Link, sitemap and canonical check for the built site
 
-   Every page is still handwritten HTML, so a renamed page or moved image can
-   leave a dead link behind with nothing to catch it. This script walks the
-   HTML in the repo and checks that:
+   `next build` exports the site to out/, so this audits exactly what GitHub
+   Pages will serve:
 
      - every local href/src points at a file that exists;
-     - public pages link relatively, so the site also works under a subpath
-       (a GitHub Pages project site lives at /<repo>/, where /assets/… 404s);
-     - links to our own domain (canonicals, share links) point at a real page;
+     - every local URL stays inside the site's base path (a GitHub Pages
+       project site lives under /rosetta-steps, and a link that drops the
+       prefix 404s);
      - every loc in sitemap.xml points at a real page, once;
      - every public page appears in sitemap.xml;
-     - each public page's canonical URL is its clean address on the sitemap's
-       domain.
+     - each page's canonical URL is its own address.
 
-   Pages link to clean URLs in the form a host serves a folder under (/news/),
-   so a reference is satisfied by a file at that path, by that path plus .html,
-   or by a folder's index.html — the same three things a static host looks for.
-   The trailing slash matters: /news is a redirect to /news/, and canonical
-   links and sitemap entries have to name the address visitors land on.
+   Pages are read as <route>/index.html, which is how the export writes them.
+   The admin dashboard is checked for dead links but is deliberately not
+   public, so it is not expected in the sitemap. The <route>.html aliases that
+   scripts/postbuild.js writes for old addresses are not separate pages.
 
-   Files under admin/ are checked for dead links but are deliberately not
-   public, so they are not expected in sitemap.xml.
-
-   Usage:  node scripts/check-links.js
+   Usage:  npm run build && node scripts/check-links.js
    Exit code is 0 when everything passes, 1 otherwise.
    ========================================================================== */
 "use strict";
@@ -33,38 +27,49 @@ var fs = require("fs");
 var path = require("path");
 
 var ROOT = path.join(__dirname, "..");
-/* Where the site is published today — a GitHub Pages project site. Canonical
-   tags and sitemap entries must name this, not the school's domain, until that
-   domain points at the site; change it here and in the pages when it does. */
-var SITE_ORIGIN = "https://deviskalo.github.io/rosetta-steps";
-var SITEMAP = path.join(ROOT, "sitemap.xml");
+var OUT = path.join(ROOT, process.env.SITE_OUT || "out");
+var SITE_ORIGIN = "https://deviskalo.github.io";
+var BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
+var SITEMAP = path.join(OUT, "sitemap.xml");
 
-/* Public pages that are deliberately absent from sitemap.xml, and why.
-   Keyed by the page's clean path. */
+/* Pages that are published but deliberately absent from sitemap.xml. */
 var NOT_IN_SITEMAP = {
-  "/news-story/":
-    "template for stories saved in the dashboard — its URL needs ?story=<id>"
+  "/news-story/": "template for stories saved in the dashboard — its URL needs ?story=<id>"
 };
 
-var SKIP_DIRECTORIES = [".git", "node_modules"];
+var SKIP_DIRECTORIES = ["admin", "_next", "assets", ".well-known", "404", "_not-found"];
 var SKIP_SCHEMES = /^(mailto|tel|sms|javascript|data|blob|ftp):/i;
 
 /* ---------------- Helpers ---------------- */
 
 function rel(file) {
-  return path.relative(ROOT, file).split(path.sep).join("/");
+  return path.relative(OUT, file).split(path.sep).join("/");
 }
 
-function htmlFiles(dir) {
+function htmlPages(dir) {
   var found = [];
   fs.readdirSync(dir, { withFileTypes: true }).forEach(function (entry) {
     if (entry.isDirectory()) {
-      if (SKIP_DIRECTORIES.indexOf(entry.name) === -1) {
-        found = found.concat(htmlFiles(path.join(dir, entry.name)));
+      if (SKIP_DIRECTORIES.indexOf(entry.name) === -1 && entry.name.charAt(0) !== "_") {
+        found = found.concat(htmlPages(path.join(dir, entry.name)));
       }
       return;
     }
-    if (/\.html?$/i.test(entry.name)) found.push(path.join(dir, entry.name));
+    if (entry.name === "index.html") found.push(path.join(dir, entry.name));
+  });
+  return found.sort();
+}
+
+/* Every HTML file, including the admin pages, for the dead-link pass. */
+function allHtml(dir) {
+  var found = [];
+  fs.readdirSync(dir, { withFileTypes: true }).forEach(function (entry) {
+    if (entry.isDirectory()) {
+      if (entry.name === "_next" || entry.name === "assets" || entry.name.charAt(0) === ".") return;
+      found = found.concat(allHtml(path.join(dir, entry.name)));
+      return;
+    }
+    if (/\.html?$/i.test(entry.name) && entry.name !== "index.html") found.push(path.join(dir, entry.name));
   });
   return found.sort();
 }
@@ -73,7 +78,7 @@ function lineAt(text, index) {
   return text.slice(0, index).split("\n").length;
 }
 
-/* Where a reference points on disk, or null when it is not a local file. */
+/* Where a reference points on disk, or null when it is not local. */
 function localTarget(value, fromFile) {
   var clean = value.trim().split("#")[0].split("?")[0];
   if (!clean) return null;
@@ -84,27 +89,25 @@ function localTarget(value, fromFile) {
     return { bad: "is not a valid URL" };
   }
 
-  if (clean === SITE_ORIGIN) return { file: path.join(ROOT, "index.html") };
-  if (clean.indexOf(SITE_ORIGIN + "/") === 0) {
-    return { file: path.join(ROOT, clean.slice(SITE_ORIGIN.length + 1)) };
-  }
-  if (clean.charAt(0) === "/") return { file: path.join(ROOT, clean) };
+  var prefix = BASE_PATH + "/";
+  if (clean === BASE_PATH || clean === BASE_PATH + "/") return { file: path.join(OUT, "index.html") };
+  if (clean.indexOf(prefix) === 0) return { file: path.join(OUT, clean.slice(prefix.length)) };
+  if (clean.charAt(0) === "/") return { outside: true };
   return { file: path.resolve(path.dirname(fromFile), clean) };
 }
 
-/* A clean URL resolves three ways on a static host: an exact file, the same
-   path with .html, or a folder holding index.html. A reference passes when
-   any of those exist. */
 function targetProblem(target) {
   if (target.bad) return target.bad;
+  if (target.outside) {
+    return "is not under the site's base path (" + (BASE_PATH || "/") + ")";
+  }
 
   var file = target.file;
-  if (file.indexOf(ROOT + path.sep) !== 0 && file !== ROOT) {
+  if (file.indexOf(OUT + path.sep) !== 0 && file !== OUT) {
     return "points outside the site folder";
   }
 
   var candidates = [file, file + ".html", path.join(file, "index.html")];
-
   for (var i = 0; i < candidates.length; i += 1) {
     try {
       if (fs.statSync(candidates[i]).isFile()) return null;
@@ -116,42 +119,37 @@ function targetProblem(target) {
   return "does not exist as a file, a .html page or a folder index";
 }
 
+/* "/about/" for out/about/index.html, "/" for the home page. */
+function routeOf(page) {
+  var parts = rel(page).split("/");
+  parts.pop();
+  return parts.length ? "/" + parts.join("/") + "/" : "/";
+}
+
 /* ---------------- 1. Local references ---------------- */
 
 var failures = [];
-var pages = htmlFiles(ROOT);
+var files = allHtml(OUT).concat(htmlPages(OUT));
 var checked = 0;
 
-pages.forEach(function (page) {
+files.forEach(function (page) {
   var text = fs.readFileSync(page, "utf8");
   var pattern = /\b(href|src)\s*=\s*(?:"([^"]*)"|'([^']*)')/gi;
   var match;
 
   while ((match = pattern.exec(text)) !== null) {
-    var attribute = match[1].toLowerCase();
     var value = match[2] !== undefined ? match[2] : match[3];
     var raw = value.trim();
 
     if (!raw || raw.charAt(0) === "#") continue;
     if (SKIP_SCHEMES.test(raw)) continue;
-    if (raw.indexOf("//") === 0) continue; /* protocol-relative, off-site */
-
-    var scheme = /^([a-z][a-z0-9+.-]*):/i.exec(raw);
-    if (scheme && raw.indexOf(SITE_ORIGIN) !== 0) continue; /* other site */
+    if (raw.indexOf("//") === 0) continue;
+    if (/^https?:/i.test(raw)) continue; /* tags and share links, checked below via canonical */
 
     checked += 1;
 
-    if (raw.charAt(0) === "/" && raw.charAt(1) !== "/" && rel(page).indexOf("admin/") !== 0) {
-      failures.push({
-        where: rel(page) + ":" + lineAt(text, match.index),
-        value: raw,
-        reason:
-          "is root-absolute — the site is published under a subpath, so its links must be relative"
-      });
-    }
-
     var target = localTarget(raw, page);
-    if (!target) continue; /* pure fragment */
+    if (!target) continue;
 
     var problem = targetProblem(target);
     if (problem) {
@@ -165,11 +163,9 @@ pages.forEach(function (page) {
 });
 
 console.log("Local references");
-console.log(
-  "  " + checked + " href/src values checked across " + pages.length + " HTML pages"
-);
+console.log("  " + checked + " href/src values checked across " + files.length + " HTML files");
 if (!failures.length) {
-  console.log("  ok    every local reference points at a file that exists");
+  console.log("  ok    every local reference points at a file inside the site");
 } else {
   failures.forEach(function (failure) {
     console.log("  FAIL  " + failure.where + "  " + failure.value + " — " + failure.reason);
@@ -179,6 +175,7 @@ if (!failures.length) {
 /* ---------------- 2. sitemap.xml ---------------- */
 
 var sitemapProblems = [];
+var pages = htmlPages(OUT);
 var sitemapText = fs.readFileSync(SITEMAP, "utf8");
 var locs = [];
 var locPattern = /<loc>\s*([^<\s]+)\s*<\/loc>/g;
@@ -188,20 +185,7 @@ while ((locMatch = locPattern.exec(sitemapText)) !== null) {
   locs.push(locMatch[1]);
 }
 
-/* The clean path a page is published at: / for the home page, /news/ otherwise.
-   The folder form is what a host serves without a redirect. */
-function cleanPath(page) {
-  if (page === "index.html") return "/";
-  return "/" + page.replace(/\.html$/i, "") + "/";
-}
-
-function locToPath(loc) {
-  if (loc === SITE_ORIGIN + "/" || loc === SITE_ORIGIN) return "/";
-  if (loc.indexOf(SITE_ORIGIN + "/") !== 0) return null;
-  var rest = loc.slice(SITE_ORIGIN.length + 1).replace(/\/+$/, "");
-  return "/" + rest + "/";
-}
-
+var prefix = SITE_ORIGIN + BASE_PATH;
 var seenLoc = {};
 var listed = {};
 var sitemapChecked = 0;
@@ -213,66 +197,38 @@ locs.forEach(function (loc) {
   }
   seenLoc[loc] = true;
 
-  var cleanUrl = locToPath(loc);
-  if (cleanUrl === null) {
+  if (loc !== prefix + "/" && loc.indexOf(prefix + "/") !== 0) {
+    sitemapProblems.push("sitemap.xml has " + loc + ", which is not on " + prefix + "/");
+    return;
+  }
+
+  var route = loc === prefix + "/" ? "/" : "/" + loc.slice(prefix.length + 1);
+  if (route !== "/" && route.charAt(route.length - 1) !== "/") {
     sitemapProblems.push(
-      "sitemap.xml has " + loc + ", which is not on " + SITE_ORIGIN
+      "sitemap.xml lists " + loc + " without its trailing slash — the page is served at " + loc + "/"
     );
     return;
   }
 
   sitemapChecked += 1;
-  listed[cleanUrl] = true;
+  listed[route] = true;
 
-  /* A page is served at its folder form; the slash-less form redirects there,
-     so listing that would name an address the page is not served at. */
-  if (cleanUrl !== "/" && !/\/$/.test(loc)) {
-    sitemapProblems.push(
-      "sitemap.xml lists " +
-        loc +
-        " without its trailing slash — the page is served at " +
-        SITE_ORIGIN +
-        cleanUrl
-    );
-  }
-
-  if (/\.[a-z0-9]+$/i.test(cleanUrl.replace(/\/$/, ""))) {
-    sitemapProblems.push(
-      "sitemap.xml lists " + loc + " — public pages use clean URLs, without .html"
-    );
-    return;
-  }
-
-  var problem = targetProblem({ file: path.join(ROOT, cleanUrl) });
-  if (problem) {
-    sitemapProblems.push("sitemap.xml lists " + loc + ", which " + problem);
-  }
+  var problem = targetProblem({ file: path.join(OUT, route) });
+  if (problem) sitemapProblems.push("sitemap.xml lists " + loc + ", which " + problem);
 });
 
-/* Every public page should be listed. A page counts as public when it sits at
-   the site root; admin/ is private and news-story.html is a template. */
-var publicPages = pages
-  .filter(function (page) {
-    return rel(page).indexOf("/") === -1;
-  })
-  .map(function (page) {
-    return path.basename(page);
-  });
-
-publicPages.forEach(function (page) {
-  var cleanUrl = cleanPath(page);
-  if (listed[cleanUrl]) return;
-  if (NOT_IN_SITEMAP[cleanUrl]) return;
+pages.forEach(function (page) {
+  var route = routeOf(page);
+  if (listed[route]) return;
+  if (NOT_IN_SITEMAP[route]) return;
   sitemapProblems.push(
-    "sitemap.xml is missing " + cleanUrl + " (or add it to NOT_IN_SITEMAP here)"
+    "sitemap.xml is missing " + prefix + route + " (or add it to NOT_IN_SITEMAP here)"
   );
 });
 
 console.log("");
 console.log("sitemap.xml");
-console.log(
-  "  " + locs.length + " entries, " + sitemapChecked + " pointing at a page on " + SITE_ORIGIN
-);
+console.log("  " + locs.length + " entries, " + sitemapChecked + " pointing at a page on " + prefix + "/");
 if (!sitemapProblems.length) {
   console.log("  ok    every public page is listed once, and every entry exists");
 } else {
@@ -285,29 +241,25 @@ if (!sitemapProblems.length) {
 
 var canonicalProblems = [];
 
-publicPages.forEach(function (page) {
-  var text = fs.readFileSync(path.join(ROOT, page), "utf8");
+pages.forEach(function (page) {
+  var text = fs.readFileSync(page, "utf8");
   var canonical = /<link\s+rel="canonical"\s+href="([^"]*)"/i.exec(text);
 
   if (!canonical) {
-    canonicalProblems.push(page + " has no canonical link");
+    canonicalProblems.push(rel(page) + " has no canonical link");
     return;
   }
 
-  var expected = SITE_ORIGIN + cleanPath(page);
+  var expected = prefix + routeOf(page);
   if (canonical[1] !== expected) {
-    canonicalProblems.push(
-      page + " has canonical " + canonical[1] + " but lives at " + expected
-    );
+    canonicalProblems.push(rel(page) + " has canonical " + canonical[1] + " but lives at " + expected);
   }
 });
 
 console.log("");
 console.log("Canonical links");
 if (!canonicalProblems.length) {
-  console.log(
-    "  ok    all " + publicPages.length + " public pages point their canonical at themselves"
-  );
+  console.log("  ok    all " + pages.length + " pages point their canonical at themselves");
 } else {
   canonicalProblems.forEach(function (problem) {
     console.log("  FAIL  " + problem);
@@ -325,8 +277,8 @@ if (!total) {
       " local references, " +
       locs.length +
       " sitemap entries, " +
-      publicPages.length +
-      " public pages."
+      pages.length +
+      " pages."
   );
   process.exit(0);
 }

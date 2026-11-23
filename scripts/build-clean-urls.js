@@ -2,9 +2,11 @@
 /* ==========================================================================
    Clean URLs for the site
 
-   Every page keeps its real file (news.html at the site root, admin/news.html
-   under admin/), and pages link to the extensionless folder form (news/,
-   profile/). That form only resolves if a file exists at news/index.html,
+   The public pages are Next.js routes now, so `next build` writes them with
+   `trailingSlash: true` (about/index.html) and they need no copies. The admin
+   dashboard is still plain HTML: admin/news.html lives in public/admin/, its
+   links use the extensionless folder form (profile/), and this script gives
+   each of those pages a folder copy. That form only resolves if a file exists at news/index.html,
    which is exactly what a static host serves a folder from — so this script
    copies each page into its own folder, and news/ answers directly instead of
    redirecting.
@@ -32,7 +34,7 @@ var ROOT = path.join(__dirname, "..");
 var CHECK = process.argv.indexOf("--check") !== -1;
 
 /* Folders whose pages get a copy: the public site at the root, and the admin. */
-var PAGE_FOLDERS = ["", "admin"];
+var PAGE_FOLDERS = ["public/admin"];
 
 /* Pages that are already their folder's address, so copying them would create
    a duplicate page (index.html → index/index.html). */
@@ -151,7 +153,7 @@ PAGE_FOLDERS.forEach(function (folder) {
 });
 
 console.log("Clean URL copies");
-console.log("  " + copiedPages + " pages copied into their own folders (site and admin)");
+console.log("  " + copiedPages + " admin pages copied into their own folders");
 
 if (CHECK) {
   if (!problems.length) {

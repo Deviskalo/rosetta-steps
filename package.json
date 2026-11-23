@@ -1,0 +1,22 @@
+{
+  "name": "rosetta-steps",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Rosetta Steps Education Center \u2014 website and admin dashboard",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build && node scripts/postbuild.js",
+    "checks": "node scripts/check-seeds.js && node scripts/build-clean-urls.js --check && NEXT_PUBLIC_BASE_PATH=/rosetta-steps node scripts/check-links.js",
+    "check:seeds": "node scripts/check-seeds.js",
+    "check:admin-urls": "node scripts/build-clean-urls.js --check",
+    "check:links": "node scripts/check-links.js"
+  },
+  "dependencies": {
+    "next": "16.4.6",
+    "react": "19.2.0",
+    "react-dom": "19.2.0"
+  },
+  "devDependencies": {
+    "htmltojsx": "0.3.0"
+  }
+}

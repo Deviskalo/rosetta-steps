@@ -25,7 +25,7 @@ var fs = require("fs");
 var path = require("path");
 var vm = require("vm");
 
-var STORE_PATH = path.join(__dirname, "..", "assets", "js", "admin-store.js");
+var STORE_PATH = path.join(__dirname, "..", "public", "assets", "js", "admin-store.js");
 
 /* Strings the seeds used to contain. A fresh seed must not contain any of
    them. Add to this list whenever a value is corrected, so a forgotten seed

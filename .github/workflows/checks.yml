@@ -1,48 +1,40 @@
 name: Checks
 
-# The admin seeds its records into localStorage once and upgrades them with
-# migrations afterwards, so a seed edit without a matching migration silently
-# leaves existing dashboards on old data. scripts/check-seeds.js catches that.
 on:
   push:
   pull_request:
 
 jobs:
-  seed-migrations:
-    name: Seed migrations
+  seeds-and-admin-urls:
+    name: Seeds and admin URLs
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Seed migrations
+        run: npm run check:seeds
+      - name: Admin clean URL copies
+        run: npm run check:admin-urls
 
-      - name: Check seed migrations
-        run: node scripts/check-seeds.js
-
-  links:
-    name: Links and sitemap
+  site:
+    name: Build and link check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
-
-      - name: Check local links and sitemap.xml
-        run: node scripts/check-links.js
-
-  clean-urls:
-    name: Clean URL copies
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-
-      - name: Check every page has a current copy at its clean URL
-        run: node scripts/build-clean-urls.js --check
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Build the static site
+        run: npm run build
+        env:
+          NEXT_PUBLIC_BASE_PATH: /rosetta-steps
+      - name: Links, sitemap and canonicals
+        run: npm run check:links
+        env:
+          NEXT_PUBLIC_BASE_PATH: /rosetta-steps
