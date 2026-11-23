@@ -5,7 +5,7 @@ school at Caldwell Road, Bushrod Island, Montserrado County, Liberia.
 **Empowering Children Through Education, Literacy, and Opportunity.**
 
 The whole thing is plain HTML, CSS and JavaScript: no dependencies and no
-runtime. Pages link to clean URLs like `/news/`, which a static host serves from
+runtime. Pages link to clean URLs like `news/`, which a static host serves from
 `news/index.html`, so the site is served rather than opened as files — see
 [URLs](#urls).
 
@@ -36,21 +36,24 @@ These are the details shown on the public site and seeded into
 ## URLs
 
 Public pages are published without the file extension: `news.html` is reached
-at `/news/`. Every public page links with root-absolute URLs (`/about/`,
-`/assets/css/styles.css`), which is what lets the same markup be served from a
-folder.
+at `news/`. Links are **relative** (`news/`, `assets/css/styles.css`, `./` for
+home) rather than root-absolute, so the site works at a domain root and under a
+subpath — a GitHub Pages project site lives at `/<repo>/`, where `/assets/…`
+would point outside the site and 404.
 
-A static host answers `/news/` with `news/index.html`, so each page has a copy
+A static host answers `news/` with `news/index.html`, so each page has a copy
 in a folder of its own. The trailing slash is deliberate: without it the host
-redirects `/news` to `/news/`, so links, canonical tags and sitemap entries all
-use the form visitors actually land on.
+redirects `news` to `news/`, so links, canonical tags and sitemap entries all
+use the form visitors actually land on. Canonical tags and `sitemap.xml` stay
+absolute because they have to name the public domain.
 
 ```bash
 node scripts/build-clean-urls.js          # after editing a page
 node scripts/build-clean-urls.js --check  # what CI runs; fails on a stale copy
 ```
 
-Edit the `.html` page — the copy is generated from it and is byte-identical. The
+Edit the `.html` page, not the copy: the copy is generated from it, with each
+site-relative reference given one `../` because it sits a folder deeper. The
 `.html` files stay where they are, so old addresses like `/news.html` keep
 working. `admin/` pages are not copied; they are private and use their own
 relative links.

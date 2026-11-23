@@ -26,6 +26,15 @@
   var grid = document.querySelector("[data-admin-stories]");
   if (!grid) return;
 
+  /* The news page is served both at news/ (the folder copy) and news.html, so
+     links are built from where this script was loaded — the site root —
+     instead of from the page's own depth. */
+  function siteUrl(target) {
+    var script = document.currentScript;
+    if (!script || !script.src) return target;
+    return new URL("../../" + target, script.src).href;
+  }
+
   var stories = [];
 
   try {
@@ -78,7 +87,7 @@
       picture.alt = story.title;
     } else {
       thumb.className += " news-thumb--placeholder";
-      picture.src = "assets/img/logo.png";
+      picture.src = siteUrl("assets/img/logo.png");
       picture.alt = "";
     }
 
@@ -108,7 +117,7 @@
     read.className = "news-read";
     var link = document.createElement("a");
     link.className = "link-arrow";
-    link.href = "/news-story/?story=" + encodeURIComponent(story.id);
+    link.href = siteUrl("news-story/?story=" + encodeURIComponent(story.id));
     link.appendChild(document.createTextNode("Read story "));
     link.insertAdjacentHTML(
       "beforeend",

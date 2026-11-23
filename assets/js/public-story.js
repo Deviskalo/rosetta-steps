@@ -11,6 +11,15 @@
     "July", "August", "September", "October", "November", "December"
   ];
 
+  /* The story page is served both at news-story/ (the folder copy) and
+     news-story.html, so links are built from where this script was loaded —
+     the site root — instead of from the page's own depth. */
+  function siteUrl(target) {
+    var script = document.currentScript;
+    if (!script || !script.src) return target;
+    return new URL("../../" + target, script.src).href;
+  }
+
   var els = {
     title: document.getElementById("storyTitle"),
     crumb: document.getElementById("storyCrumb"),
@@ -67,7 +76,7 @@
     var back = document.createElement("p");
     var link = document.createElement("a");
     link.className = "btn btn--primary btn--sm";
-    link.href = "/news/";
+    link.href = siteUrl("news/");
     link.textContent = "All news & stories";
     back.appendChild(link);
     els.paragraphs.appendChild(back);

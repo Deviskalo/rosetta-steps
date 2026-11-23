@@ -7,6 +7,8 @@
    HTML in the repo and checks that:
 
      - every local href/src points at a file that exists;
+     - public pages link relatively, so the site also works under a subpath
+       (a GitHub Pages project site lives at /<repo>/, where /assets/… 404s);
      - links to our own domain (canonicals, share links) point at a real page;
      - every loc in sitemap.xml points at a real page, once;
      - every public page appears in sitemap.xml;
@@ -135,6 +137,15 @@ pages.forEach(function (page) {
     if (scheme && raw.indexOf(SITE_ORIGIN) !== 0) continue; /* other site */
 
     checked += 1;
+
+    if (raw.charAt(0) === "/" && raw.charAt(1) !== "/" && rel(page).indexOf("admin/") !== 0) {
+      failures.push({
+        where: rel(page) + ":" + lineAt(text, match.index),
+        value: raw,
+        reason:
+          "is root-absolute — the site is published under a subpath, so its links must be relative"
+      });
+    }
 
     var target = localTarget(raw, page);
     if (!target) continue; /* pure fragment */

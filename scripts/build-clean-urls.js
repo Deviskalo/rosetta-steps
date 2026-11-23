@@ -3,14 +3,16 @@
    Clean URLs for the public site
 
    Every public page keeps its real file at the site root (news.html), and
-   pages link to the extensionless folder form (/news/). That form only
-   resolves if a file exists at /news/index.html, which is exactly what a
-   static host serves a folder from — so this script copies each page into its
-   own folder, and /news/ answers directly instead of redirecting.
+   pages link to the extensionless folder form (news/). That form only resolves
+   if a file exists at news/index.html, which is exactly what a static host
+   serves a folder from — so this script copies each page into its own folder,
+   and news/ answers directly instead of redirecting.
 
-   The public pages use root-absolute links (/assets/css/styles.css, /news/),
-   which is what lets a copy sit one folder deep and still work. The copies are
-   therefore byte-identical to their source; edit the .html page, not the copy.
+   The public pages link relatively (assets/css/styles.css, news/, ./ for home)
+   so the site works at a domain root and under a subpath such as a GitHub
+   Pages project site, where every root-absolute /assets/… would 404. A copy
+   sits one folder deeper, so this script rewrites each of those references
+   with one ../. Edit the .html page, not the copy.
 
    Usage:
      node scripts/build-clean-urls.js          write the copies
@@ -40,6 +42,19 @@ function pageName(file) {
   return path.basename(file, path.extname(file));
 }
 
+/* A copy lives one folder deeper than its page, so every site-relative
+   reference in it gains one "../". Absolute URLs, protocol-relative URLs,
+   fragments and mailto:/tel: links are left untouched. */
+function forCopy(source) {
+  return source.replace(/\b(href|src)="([^"]*)"/gi, function (whole, attribute, value) {
+    if (!value) return whole;
+    if (value.charAt(0) === "#" || value.charAt(0) === "/") return whole;
+    if (/^[a-z][a-z0-9+.-]*:/i.test(value)) return whole;
+    if (value.indexOf("../") === 0) return whole;
+    return attribute + '="' + (value === "./" ? "../" : "../" + value) + '"';
+  });
+}
+
 function rel(file) {
   return path.relative(ROOT, file).split(path.sep).join("/");
 }
@@ -62,7 +77,7 @@ pages.forEach(function (page) {
   if (NOT_COPIED[page]) return;
 
   var name = pageName(page);
-  var source = fs.readFileSync(path.join(ROOT, page), "utf8");
+  var source = forCopy(fs.readFileSync(path.join(ROOT, page), "utf8"));
   var dir = path.join(ROOT, name);
   var dest = path.join(dir, "index.html");
 
