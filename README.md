@@ -45,7 +45,10 @@ A static host answers `news/` with `news/index.html`, so each page has a copy
 in a folder of its own. The trailing slash is deliberate: without it the host
 redirects `news` to `news/`, so links, canonical tags and sitemap entries all
 use the form visitors actually land on. Canonical tags and `sitemap.xml` stay
-absolute because they have to name the public domain.
+absolute because they have to name the public address: today that is
+`https://deviskalo.github.io/rosetta-steps/`, the GitHub Pages project site.
+When the school's domain is connected, change those tags, `sitemap.xml` and
+`SITE_ORIGIN` in `scripts/check-links.js` together.
 
 ```bash
 node scripts/build-clean-urls.js          # after editing a page

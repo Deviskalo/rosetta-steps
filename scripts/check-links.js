@@ -33,7 +33,10 @@ var fs = require("fs");
 var path = require("path");
 
 var ROOT = path.join(__dirname, "..");
-var SITE_ORIGIN = "https://www.rosettasteps.org";
+/* Where the site is published today — a GitHub Pages project site. Canonical
+   tags and sitemap entries must name this, not the school's domain, until that
+   domain points at the site; change it here and in the pages when it does. */
+var SITE_ORIGIN = "https://deviskalo.github.io/rosetta-steps";
 var SITEMAP = path.join(ROOT, "sitemap.xml");
 
 /* Public pages that are deliberately absent from sitemap.xml, and why.
