@@ -13,9 +13,11 @@
      - each public page's canonical URL is its clean address on the sitemap's
        domain.
 
-   Pages link to clean URLs (/news), so a reference is satisfied by a file at
-   that path, by that path plus .html, or by a folder's index.html — the same
-   three things a static host looks for.
+   Pages link to clean URLs in the form a host serves a folder under (/news/),
+   so a reference is satisfied by a file at that path, by that path plus .html,
+   or by a folder's index.html — the same three things a static host looks for.
+   The trailing slash matters: /news is a redirect to /news/, and canonical
+   links and sitemap entries have to name the address visitors land on.
 
    Files under admin/ are checked for dead links but are deliberately not
    public, so they are not expected in sitemap.xml.
@@ -35,7 +37,7 @@ var SITEMAP = path.join(ROOT, "sitemap.xml");
 /* Public pages that are deliberately absent from sitemap.xml, and why.
    Keyed by the page's clean path. */
 var NOT_IN_SITEMAP = {
-  "/news-story":
+  "/news-story/":
     "template for stories saved in the dashboard — its URL needs ?story=<id>"
 };
 
@@ -172,16 +174,18 @@ while ((locMatch = locPattern.exec(sitemapText)) !== null) {
   locs.push(locMatch[1]);
 }
 
-/* The clean path a page is published at: / for the home page, /news otherwise. */
+/* The clean path a page is published at: / for the home page, /news/ otherwise.
+   The folder form is what a host serves without a redirect. */
 function cleanPath(page) {
   if (page === "index.html") return "/";
-  return "/" + page.replace(/\.html$/i, "");
+  return "/" + page.replace(/\.html$/i, "") + "/";
 }
 
 function locToPath(loc) {
   if (loc === SITE_ORIGIN + "/" || loc === SITE_ORIGIN) return "/";
   if (loc.indexOf(SITE_ORIGIN + "/") !== 0) return null;
-  return "/" + loc.slice(SITE_ORIGIN.length + 1).replace(/\/+$/, "");
+  var rest = loc.slice(SITE_ORIGIN.length + 1).replace(/\/+$/, "");
+  return "/" + rest + "/";
 }
 
 var seenLoc = {};
@@ -206,7 +210,19 @@ locs.forEach(function (loc) {
   sitemapChecked += 1;
   listed[cleanUrl] = true;
 
-  if (/\.[a-z0-9]+$/i.test(cleanUrl)) {
+  /* A page is served at its folder form; the slash-less form redirects there,
+     so listing that would name an address the page is not served at. */
+  if (cleanUrl !== "/" && !/\/$/.test(loc)) {
+    sitemapProblems.push(
+      "sitemap.xml lists " +
+        loc +
+        " without its trailing slash — the page is served at " +
+        SITE_ORIGIN +
+        cleanUrl
+    );
+  }
+
+  if (/\.[a-z0-9]+$/i.test(cleanUrl.replace(/\/$/, ""))) {
     sitemapProblems.push(
       "sitemap.xml lists " + loc + " — public pages use clean URLs, without .html"
     );

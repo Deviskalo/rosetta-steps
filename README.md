@@ -5,7 +5,7 @@ school at Caldwell Road, Bushrod Island, Montserrado County, Liberia.
 **Empowering Children Through Education, Literacy, and Opportunity.**
 
 The whole thing is plain HTML, CSS and JavaScript: no dependencies and no
-runtime. Pages link to clean URLs like `/news`, which a static host serves from
+runtime. Pages link to clean URLs like `/news/`, which a static host serves from
 `news/index.html`, so the site is served rather than opened as files — see
 [URLs](#urls).
 
@@ -36,12 +36,14 @@ These are the details shown on the public site and seeded into
 ## URLs
 
 Public pages are published without the file extension: `news.html` is reached
-at `/news`. Every public page links with root-absolute URLs (`/about`,
+at `/news/`. Every public page links with root-absolute URLs (`/about/`,
 `/assets/css/styles.css`), which is what lets the same markup be served from a
 folder.
 
-A static host answers `/news` with `news/index.html`, so each page has a copy in
-a folder of its own:
+A static host answers `/news/` with `news/index.html`, so each page has a copy
+in a folder of its own. The trailing slash is deliberate: without it the host
+redirects `/news` to `/news/`, so links, canonical tags and sitemap entries all
+use the form visitors actually land on.
 
 ```bash
 node scripts/build-clean-urls.js          # after editing a page

@@ -3,11 +3,12 @@
    Clean URLs for the public site
 
    Every public page keeps its real file at the site root (news.html), and
-   pages link to the extensionless form (/news). That form only resolves if a
-   file exists at /news, which static hosts look for as news/index.html — so
-   this script copies each page into its own folder.
+   pages link to the extensionless folder form (/news/). That form only
+   resolves if a file exists at /news/index.html, which is exactly what a
+   static host serves a folder from — so this script copies each page into its
+   own folder, and /news/ answers directly instead of redirecting.
 
-   The public pages use root-absolute links (/assets/css/styles.css, /news),
+   The public pages use root-absolute links (/assets/css/styles.css, /news/),
    which is what lets a copy sit one folder deep and still work. The copies are
    therefore byte-identical to their source; edit the .html page, not the copy.
 
@@ -15,7 +16,7 @@
      node scripts/build-clean-urls.js          write the copies
      node scripts/build-clean-urls.js --check  fail if a copy is missing or stale
 
-   news-story.html is copied too, so /news-story?story=<id> works; it is kept
+   news-story.html is copied too, so /news-story/?story=<id> works; it is kept
    out of sitemap.xml, not out of the copies. admin/ pages are not copied: they
    are private, sit under /admin, and use relative links of their own.
    ========================================================================== */
