@@ -12,14 +12,14 @@ export const metadata = {
   description: "Isaac started at Rosetta Steps in Grade 1 on a scholarship. He is now in Grade 4 with the second-best marks in the school, and the only child in his family in a classroom.",
   keywords: "student success story Liberia, scholarship Liberia, sponsor a child Liberia, Rosetta Steps Education Center",
   robots: "index, follow",
-  alternates: { canonical: `${BASE_PATH}/news-isaac-story/` },
+  alternates: { canonical: `${BASE_PATH}/news-isaac-story` },
   openGraph: {
     type: "article",
     siteName: "Rosetta Steps Education Center",
     locale: "en_LR",
     title: "Isaac&rsquo;s story: the only one in his family in school | Rosetta Steps Education Center",
     description: "Isaac started at Rosetta Steps in Grade 1 on a scholarship. He is now in Grade 4 with the second-best marks in the school, and the only child in his family in a classroom.",
-    url: `${BASE_PATH}/news-isaac-story/`,
+    url: `${BASE_PATH}/news-isaac-story`,
     images: [url("/assets/img/hero.jpg")]
   },
   twitter: {
@@ -37,7 +37,7 @@ export default function Page() {
         eyebrow={"Success Stories"}
         title={<>Isaac’s story: the only one in his <span className="text-accent">family</span> in school</>}
         crumbs={[
-          { label: <>News &amp; Blog</>, href: "/news/" },
+          { label: <>News &amp; Blog</>, href: "/news" },
           { label: "Isaac’s story" },
         ]}
         article
@@ -79,17 +79,17 @@ export default function Page() {
           title={"Change one child’s school year"}
           lede={"Sponsorship is the most direct way to help. Tell us what you can give and we will match you with a child waiting for a place."}
           actions={[
-            { href: "/donate/", label: "See giving options", variant: "primary", arrow: true },
-            { href: "/news/", label: "More stories", variant: "ghost" },
+            { href: "/donate", label: "See giving options", variant: "primary", arrow: true },
+            { href: "/news", label: "More stories", variant: "ghost" },
           ]}
         />
               <PostNav
                 links={[
-                  { href: "/news-renewed-hope/", label: "Read next", title: "Renewed Hope for a Brighter Future" },
-                  { href: "/news-2020-scholarships/", label: "Also from the archive", title: "Meet our 2020 scholarship recipients" },
+                  { href: "/news-renewed-hope", label: "Read next", title: "Renewed Hope for a Brighter Future" },
+                  { href: "/news-2020-scholarships", label: "Also from the archive", title: "Meet our 2020 scholarship recipients" },
                 ]}
               />
-              <p className="article-back"><Link className="link-arrow" href="/news/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M20 12H4.5" /><path d="m10.5 6-6 6 6 6" /></svg> Back to all news &amp; stories</Link></p>
+              <p className="article-back"><Link className="link-arrow" href="/news"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M20 12H4.5" /><path d="m10.5 6-6 6 6 6" /></svg> Back to all news &amp; stories</Link></p>
             </div>
           </div>
         </section>

@@ -121,13 +121,13 @@ export default function AdminTopbar() {
                 </div>
               </li>
             </ul>
-            <a className="popover-foot" href={asset("/admin/settings/#notifications")}>
+            <a className="popover-foot" href={asset("/admin/settings#notifications")}>
               Manage notifications
             </a>
           </div>
         </div>
 
-        <a className="topbar-user" href={asset("/admin/profile/")} aria-label="Open your profile">
+        <a className="topbar-user" href={asset("/admin/profile")} aria-label="Open your profile">
           <span className="avatar avatar--pink" data-user-avatar>
             AH
           </span>

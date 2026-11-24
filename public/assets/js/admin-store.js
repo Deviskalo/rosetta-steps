@@ -256,7 +256,7 @@
      every admin page now lives one folder deeper, so those saved paths start
      at the site root instead. Absolute URLs and data: images are left alone. */
   function siteUrl(value) {
-    var siteRoot = window.location.pathname.replace(/\/admin\/.*$/, "/");
+    var siteRoot = window.location.pathname.replace(/\/admin(\/.*)?$/, "/");
     return String(value || "").replace(/^\.\.\//, siteRoot);
   }
 

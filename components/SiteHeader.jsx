@@ -6,13 +6,13 @@ import { asset } from "../lib/asset";
 
 const NAV = [
   { href: "/", label: "Home" },
-  { href: "/about/", label: "About" },
-  { href: "/academics/", label: "Academics" },
-  { href: "/literacy/", label: "Literacy" },
-  { href: "/gallery/", label: "Gallery" },
-  { href: "/news/", label: "News" },
-  { href: "/admissions/", label: "Admissions" },
-  { href: "/contact/", label: "Contact" }
+  { href: "/about", label: "About" },
+  { href: "/academics", label: "Academics" },
+  { href: "/literacy", label: "Literacy" },
+  { href: "/gallery", label: "Gallery" },
+  { href: "/news", label: "News" },
+  { href: "/admissions", label: "Admissions" },
+  { href: "/contact", label: "Contact" }
 ];
 
 export default function SiteHeader() {
@@ -46,10 +46,10 @@ export default function SiteHeader() {
             ))}
           </ul>
           <div className="nav-cta btn-group">
-            <Link className="btn btn--ghost btn--sm" href="/donate/">
+            <Link className="btn btn--ghost btn--sm" href="/donate">
               Donate
             </Link>
-            <Link className="btn btn--primary btn--sm" href="/admissions/">
+            <Link className="btn btn--primary btn--sm" href="/admissions">
               Enroll Today
             </Link>
           </div>

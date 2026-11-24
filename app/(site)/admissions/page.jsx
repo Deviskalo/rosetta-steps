@@ -9,14 +9,14 @@ export const metadata = {
   description: "Enrol your child at Rosetta Steps Education Center on Caldwell Road, Liberia. Preschool to Grade 6 admissions, need-based scholarships and a simple five-step enrolment process.",
   keywords: "Schools in Liberia, Caldwell schools, Education in Monrovia, Literacy programs Liberia, Preschool Liberia, Primary school Liberia, Rosetta Steps Education Center",
   robots: "index, follow",
-  alternates: { canonical: `${BASE_PATH}/admissions/` },
+  alternates: { canonical: `${BASE_PATH}/admissions` },
   openGraph: {
     type: "website",
     siteName: "Rosetta Steps Education Center",
     locale: "en_LR",
     title: "Admissions & Enrolment | Rosetta Steps Education Center, Caldwell Road, Liberia",
     description: "Enrol your child at Rosetta Steps Education Center on Caldwell Road, Liberia. Preschool to Grade 6 admissions, need-based scholarships and a simple five-step enrolment process.",
-    url: `${BASE_PATH}/admissions/`,
+    url: `${BASE_PATH}/admissions`,
     images: [url("/assets/img/hero.jpg")]
   },
   twitter: {
@@ -177,8 +177,8 @@ export default function Page() {
         title={"Still deciding?"}
         lede={"Come and spend a morning with us. There is no better way to know whether a school is right for your child."}
         actions={[
-          { href: "/contact/", label: "Arrange a visit", variant: "light", arrow: true },
-          { href: "/donate/", label: "Support a scholarship", variant: "outline-light" },
+          { href: "/contact", label: "Arrange a visit", variant: "light", arrow: true },
+          { href: "/donate", label: "Support a scholarship", variant: "outline-light" },
         ]}
       />
     </>

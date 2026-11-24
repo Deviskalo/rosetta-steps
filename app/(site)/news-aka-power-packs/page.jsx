@@ -12,14 +12,14 @@ export const metadata = {
   description: "The Alpha Kappa Alpha Eta Beta Omega Chapter chose Rosetta Steps as the pilot school for its Childhood Hunger Initiative.",
   keywords: "AKA Power Packs, childhood hunger Liberia, school feeding Liberia, Rosetta Steps Education Center",
   robots: "index, follow",
-  alternates: { canonical: `${BASE_PATH}/news-aka-power-packs/` },
+  alternates: { canonical: `${BASE_PATH}/news-aka-power-packs` },
   openGraph: {
     type: "article",
     siteName: "Rosetta Steps Education Center",
     locale: "en_LR",
     title: "A year of food for 55 children: the AKA Power Packs pilot | Rosetta Steps Education Center",
     description: "The Alpha Kappa Alpha Eta Beta Omega Chapter chose Rosetta Steps as the pilot school for its Childhood Hunger Initiative.",
-    url: `${BASE_PATH}/news-aka-power-packs/`,
+    url: `${BASE_PATH}/news-aka-power-packs`,
     images: [url("/assets/img/reading.jpg")]
   },
   twitter: {
@@ -37,7 +37,7 @@ export default function Page() {
         eyebrow={"Community Impact"}
         title={<>A year of food for 55 <span className="text-accent">children</span></>}
         crumbs={[
-          { label: <>News &amp; Blog</>, href: "/news/" },
+          { label: <>News &amp; Blog</>, href: "/news" },
           { label: "AKA Power Packs" },
         ]}
         article
@@ -65,7 +65,7 @@ export default function Page() {
                 <p>Teachers reported steadier mornings over the year, and families told us the packs changed what was possible at home: money that would have gone to food went instead to uniforms, books and transport.</p>
                 <ArticleCallout
                   title={"Our kitchen always needs help"}
-                  cta={{ href: "/donate/", label: "Feed a classroom" }}
+                  cta={{ href: "/donate", label: "Feed a classroom" }}
                 >
                   Rice, beans, oil and fresh produce are bought term by term. A gift of any size goes directly into a child’s plate.
                 </ArticleCallout>
@@ -75,17 +75,17 @@ export default function Page() {
           title={"Keep the kitchen running"}
           lede={"School meals are one of the cheapest, most reliable ways to improve attendance. Help us cover the next term."}
           actions={[
-            { href: "/donate/", label: "Give to school meals", variant: "primary", arrow: true },
-            { href: "/news/", label: "More stories", variant: "ghost" },
+            { href: "/donate", label: "Give to school meals", variant: "primary", arrow: true },
+            { href: "/news", label: "More stories", variant: "ghost" },
           ]}
         />
               <PostNav
                 links={[
-                  { href: "/news-forleh-foundation/", label: "Read next", title: "Forleh Foundation donates a drone, books, bags and pads" },
-                  { href: "/news-period-with-pride/", label: "Also from the archive", title: "Period With Pride delivers over 100 pads to our students" },
+                  { href: "/news-forleh-foundation", label: "Read next", title: "Forleh Foundation donates a drone, books, bags and pads" },
+                  { href: "/news-period-with-pride", label: "Also from the archive", title: "Period With Pride delivers over 100 pads to our students" },
                 ]}
               />
-              <p className="article-back"><Link className="link-arrow" href="/news/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M20 12H4.5" /><path d="m10.5 6-6 6 6 6" /></svg> Back to all news &amp; stories</Link></p>
+              <p className="article-back"><Link className="link-arrow" href="/news"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M20 12H4.5" /><path d="m10.5 6-6 6 6 6" /></svg> Back to all news &amp; stories</Link></p>
             </div>
           </div>
         </section>

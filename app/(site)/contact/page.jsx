@@ -9,14 +9,14 @@ export const metadata = {
   description: "Contact Rosetta Steps Education Center on Caldwell Road, Bushrod Island, Montserrado County, Liberia. Call +231 88 628 4711, email info@rosettasteps.org or send an enquiry about admissions, scholarships or giving.",
   keywords: "Schools in Liberia, Caldwell schools, Education in Monrovia, Literacy programs Liberia, Preschool Liberia, Primary school Liberia, Rosetta Steps Education Center",
   robots: "index, follow",
-  alternates: { canonical: `${BASE_PATH}/contact/` },
+  alternates: { canonical: `${BASE_PATH}/contact` },
   openGraph: {
     type: "website",
     siteName: "Rosetta Steps Education Center",
     locale: "en_LR",
     title: "Contact Us | Rosetta Steps Education Center, Caldwell Road, Liberia",
     description: "Contact Rosetta Steps Education Center on Caldwell Road, Bushrod Island, Montserrado County, Liberia. Call +231 88 628 4711, email info@rosettasteps.org or send an enquiry about admissions, scholarships or giving.",
-    url: `${BASE_PATH}/contact/`,
+    url: `${BASE_PATH}/contact`,
     images: [url("/assets/img/hero.jpg")]
   },
   twitter: {
@@ -140,7 +140,7 @@ export default function Page() {
         lede={"Call the office on +231 88 628 4711, Monday to Friday between 8:00am and 4:00pm."}
         actions={[
           { href: "tel:+231886284711", label: "Call the school", variant: "light", arrow: true, external: true },
-          { href: "/admissions/", label: "See admissions", variant: "outline-light" },
+          { href: "/admissions", label: "See admissions", variant: "outline-light" },
         ]}
       />
     </>

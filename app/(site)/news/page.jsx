@@ -12,14 +12,14 @@ export const metadata = {
   description: "News, events, educational resources, success stories and community impact updates from Rosetta Steps Education Center in Caldwell, Montserrado County, Liberia.",
   keywords: "Schools in Liberia, Caldwell schools, Education in Monrovia, Literacy programs Liberia, Preschool Liberia, Primary school Liberia, Rosetta Steps Education Center",
   robots: "index, follow",
-  alternates: { canonical: `${BASE_PATH}/news/` },
+  alternates: { canonical: `${BASE_PATH}/news` },
   openGraph: {
     type: "website",
     siteName: "Rosetta Steps Education Center",
     locale: "en_LR",
     title: "News & Blog | Rosetta Steps Education Center Liberia",
     description: "News, events, educational resources, success stories and community impact updates from Rosetta Steps Education Center in Caldwell, Montserrado County, Liberia.",
-    url: `${BASE_PATH}/news/`,
+    url: `${BASE_PATH}/news`,
     images: [url("/assets/img/hero.jpg")]
   },
   twitter: {
@@ -32,7 +32,7 @@ export const metadata = {
 
 const NEWS_STORIES = [
   {
-    href: "/news-renewed-hope/",
+    href: "/news-renewed-hope",
     image: "assets/img/about-students.jpg",
     alt: "Renewed Hope for a Brighter Future",
     category: "Success Stories",
@@ -44,7 +44,7 @@ const NEWS_STORIES = [
     delay: 0,
   },
   {
-    href: "/news-period-with-pride/",
+    href: "/news-period-with-pride",
     image: "assets/img/welcome.jpg",
     alt: "Period With Pride delivers over 100 pads to our students",
     category: "Community Impact",
@@ -56,7 +56,7 @@ const NEWS_STORIES = [
     delay: 80,
   },
   {
-    href: "/news-aka-power-packs/",
+    href: "/news-aka-power-packs",
     image: "assets/img/reading.jpg",
     alt: "A year of food for 55 children: the AKA Power Packs pilot",
     category: "Community Impact",
@@ -68,7 +68,7 @@ const NEWS_STORIES = [
     delay: 160,
   },
   {
-    href: "/news-forleh-foundation/",
+    href: "/news-forleh-foundation",
     image: "assets/img/adult.jpg",
     alt: "Forleh Foundation donates a drone, books, bags and pads",
     category: "Community Impact",
@@ -80,7 +80,7 @@ const NEWS_STORIES = [
     delay: 0,
   },
   {
-    href: "/news-mark-sinke-training/",
+    href: "/news-mark-sinke-training",
     image: "assets/img/banner-about.jpg",
     alt: "Dr. Mark Sinke trains our teachers and donates a printer",
     category: "Events",
@@ -92,7 +92,7 @@ const NEWS_STORIES = [
     delay: 80,
   },
   {
-    href: "/news-2020-scholarships/",
+    href: "/news-2020-scholarships",
     image: "assets/img/play.jpg",
     alt: "Meet our 2020 scholarship recipients",
     category: "Announcements",
@@ -104,7 +104,7 @@ const NEWS_STORIES = [
     delay: 160,
   },
   {
-    href: "/news-egra-guide/",
+    href: "/news-egra-guide",
     image: "assets/img/preschool.jpg",
     alt: "How we use the Early Grade Reading Assessment",
     category: "Educational Resources",
@@ -116,7 +116,7 @@ const NEWS_STORIES = [
     delay: 0,
   },
   {
-    href: "/news-learn-through-play/",
+    href: "/news-learn-through-play",
     image: "assets/img/kindergarten.jpg",
     alt: "Learn Through Play: every Saturday, 9am to 12pm",
     category: "Events",
@@ -152,7 +152,7 @@ export default function Page() {
                 <h3>Isaac’s story: the only one in his family in school</h3>
                 <p>When the Rosetta Steps team first met Isaac, he was struggling. His parents could not afford to send him to school. Thanks to a scholarship, he started with us in Grade 1.</p>
                 <p>He is now in Grade 4 — with the second-best marks in the school. Isaac is the only one in his family in a classroom, and he hopes that one day his two brothers will also receive scholarships so they can join him.</p>
-                <div className="feature-links"><Link className="link-arrow" href="/news-isaac-story/">Read Isaac’s full story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h15.5" /><path d="m13.5 6 6 6-6 6" /></svg></Link><Link className="link-arrow" href="/donate/#sponsor">Sponsor a child like Isaac <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h15.5" /><path d="m13.5 6 6 6-6 6" /></svg></Link></div>
+                <div className="feature-links"><Link className="link-arrow" href="/news-isaac-story">Read Isaac’s full story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h15.5" /><path d="m13.5 6 6 6-6 6" /></svg></Link><Link className="link-arrow" href="/donate/#sponsor">Sponsor a child like Isaac <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h15.5" /><path d="m13.5 6 6 6-6 6" /></svg></Link></div>
               </div>
             </article>
           </div>
@@ -189,7 +189,7 @@ export default function Page() {
         lede={"Send us a note and we will add you to the list for termly updates from Caldwell — milestones, events and ways to help."}
         className="section section--white"
         actions={[
-          { href: "/contact/", label: "Ask to join the list", variant: "light", arrow: true },
+          { href: "/contact", label: "Ask to join the list", variant: "light", arrow: true },
         ]}
       />
       <Script src={asset("/assets/js/public-news.js")} strategy="afterInteractive" />

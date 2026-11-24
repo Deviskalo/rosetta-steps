@@ -95,43 +95,43 @@ const GROUPS = [
   {
     label: "Overview",
     items: [
-      { href: "/admin/", icon: "dashboard", label: "Dashboard", section: "Dashboard" },
-      { href: "/admin/analytics/", icon: "analytics", label: "Analytics", section: "Analytics" }
+      { href: "/admin", icon: "dashboard", label: "Dashboard", section: "Dashboard" },
+      { href: "/admin/analytics", icon: "analytics", label: "Analytics", section: "Analytics" }
     ]
   },
   {
     label: "Content",
     items: [
       {
-        href: "/admin/news/",
+        href: "/admin/news",
         icon: "news",
         label: "News & stories",
         section: "News & stories",
         count: { id: "storyCountBadge", value: "9" }
       },
-      { href: "/admin/pages/", icon: "pages", label: "Pages", section: "Pages" },
-      { href: "/admin/gallery/", icon: "gallery", label: "Gallery", section: "Gallery" }
+      { href: "/admin/pages", icon: "pages", label: "Pages", section: "Pages" },
+      { href: "/admin/gallery", icon: "gallery", label: "Gallery", section: "Gallery" }
     ]
   },
   {
     label: "People",
     items: [
       {
-        href: "/admin/students/",
+        href: "/admin/students",
         icon: "students",
         label: "Students",
         section: "Students",
         count: { id: "studentCountBadge", value: "175" }
       },
       {
-        href: "/admin/applications/",
+        href: "/admin/applications",
         icon: "applications",
         label: "Applications",
         section: "Applications",
         count: { id: "applicationCountBadge", value: "24", pink: true }
       },
       {
-        href: "/admin/messages/",
+        href: "/admin/messages",
         icon: "messages",
         label: "Messages",
         section: "Messages",
@@ -142,9 +142,9 @@ const GROUPS = [
   {
     label: "Finance",
     items: [
-      { href: "/admin/donations/", icon: "donations", label: "Donations", section: "Donations" },
+      { href: "/admin/donations", icon: "donations", label: "Donations", section: "Donations" },
       {
-        href: "/admin/scholarships/",
+        href: "/admin/scholarships",
         icon: "scholarships",
         label: "Scholarships",
         section: "Scholarships"
@@ -216,13 +216,13 @@ export default function AdminSidebar() {
       </nav>
 
       <div className="sidebar-foot">
-        <a href={asset("/admin/profile/")} className="side-link">
+        <a href={asset("/admin/profile")} className="side-link">
           <span className="ico" aria-hidden="true">
             <Icon name="profile" />
           </span>
           Profile
         </a>
-        <a href={asset("/admin/settings/")} className="side-link" data-section="Settings">
+        <a href={asset("/admin/settings")} className="side-link" data-section="Settings">
           <span className="ico" aria-hidden="true">
             <Icon name="settings" />
           </span>

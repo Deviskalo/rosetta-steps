@@ -12,14 +12,14 @@ export const metadata = {
   description: "Eight children began the 2020 school year on full scholarship, from Grade 1 through Grade 5.",
   keywords: "scholarship Liberia 2020, school scholarships Caldwell, Rosetta Steps Education Center",
   robots: "index, follow",
-  alternates: { canonical: `${BASE_PATH}/news-2020-scholarships/` },
+  alternates: { canonical: `${BASE_PATH}/news-2020-scholarships` },
   openGraph: {
     type: "article",
     siteName: "Rosetta Steps Education Center",
     locale: "en_LR",
     title: "Meet our 2020 scholarship recipients | Rosetta Steps Education Center",
     description: "Eight children began the 2020 school year on full scholarship, from Grade 1 through Grade 5.",
-    url: `${BASE_PATH}/news-2020-scholarships/`,
+    url: `${BASE_PATH}/news-2020-scholarships`,
     images: [url("/assets/img/play.jpg")]
   },
   twitter: {
@@ -37,7 +37,7 @@ export default function Page() {
         eyebrow={"Announcements"}
         title={<>Meet our 2020 <span className="text-accent">scholarship</span> recipients</>}
         crumbs={[
-          { label: <>News &amp; Blog</>, href: "/news/" },
+          { label: <>News &amp; Blog</>, href: "/news" },
           { label: "2020 scholarships" },
         ]}
         article
@@ -77,16 +77,16 @@ export default function Page() {
           lede={"$280 sponsors a full year. Monthly gifts of $40 keep a place filled term after term."}
           actions={[
             { href: "/donate/#sponsor", label: "Sponsor a student", variant: "primary", arrow: true },
-            { href: "/news/", label: "More stories", variant: "ghost" },
+            { href: "/news", label: "More stories", variant: "ghost" },
           ]}
         />
               <PostNav
                 links={[
-                  { href: "/news-isaac-story/", label: "Read next", title: "Isaac's story: the only one in his family in school" },
-                  { href: "/news-renewed-hope/", label: "Also from the archive", title: "Renewed Hope for a Brighter Future" },
+                  { href: "/news-isaac-story", label: "Read next", title: "Isaac's story: the only one in his family in school" },
+                  { href: "/news-renewed-hope", label: "Also from the archive", title: "Renewed Hope for a Brighter Future" },
                 ]}
               />
-              <p className="article-back"><Link className="link-arrow" href="/news/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M20 12H4.5" /><path d="m10.5 6-6 6 6 6" /></svg> Back to all news &amp; stories</Link></p>
+              <p className="article-back"><Link className="link-arrow" href="/news"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M20 12H4.5" /><path d="m10.5 6-6 6 6 6" /></svg> Back to all news &amp; stories</Link></p>
             </div>
           </div>
         </section>

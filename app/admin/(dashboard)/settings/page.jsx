@@ -98,7 +98,7 @@ export default function Page() {
   <section className="card" data-admin-only hidden style={{marginTop: 16}}>
     <div className="card-head">
       <div><h2>Staff &amp; roles</h2><p>Who can reach which part of the admin.</p></div>
-      <a className="btn-admin btn-admin--line" href={asset("/admin/./")}>Manage staff</a>
+      <a className="btn-admin btn-admin--line" href={asset("/admin/.")}>Manage staff</a>
     </div>
     <div className="table-scroll">
       <table>

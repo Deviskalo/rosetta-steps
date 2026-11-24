@@ -28,7 +28,7 @@ export default function NotFound() {
         <h1>We could not find that page</h1>
         <p>
           The address may have changed. Try the <Link href="/">home page</Link> or{" "}
-          <Link href="/news/">all news &amp; stories</Link>.
+          <Link href="/news">all news &amp; stories</Link>.
         </p>
         <p>
           <Link className="btn btn--primary" href="/">Back to the home page</Link>

@@ -79,8 +79,8 @@ export default function Page() {
               </h1>
               <p className="lede">A school and learning centre in Caldwell, founded in 2014 to give children from low-income families the quality education they deserve — and the literacy that unlocks it.</p>
               <div className="btn-group">
-                <Link className="btn btn--primary" href="/admissions/">Enroll Today <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h15.5" /><path d="m13.5 6 6 6-6 6" /></svg></Link>
-                <Link className="btn btn--ghost" href="/donate/">Support Our Mission <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M20.8 5.6a5.1 5.1 0 0 0-7.2 0L12 7.2l-1.6-1.6a5.1 5.1 0 1 0-7.2 7.2L12 21l8.8-8.2a5.1 5.1 0 0 0 0-7.2Z" /></svg></Link>
+                <Link className="btn btn--primary" href="/admissions">Enroll Today <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h15.5" /><path d="m13.5 6 6 6-6 6" /></svg></Link>
+                <Link className="btn btn--ghost" href="/donate">Support Our Mission <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M20.8 5.6a5.1 5.1 0 0 0-7.2 0L12 7.2l-1.6-1.6a5.1 5.1 0 1 0-7.2 7.2L12 21l8.8-8.2a5.1 5.1 0 0 0 0-7.2Z" /></svg></Link>
               </div>
               <div className="hero-note">
                 <div className="avatars" aria-hidden="true">
@@ -135,7 +135,7 @@ export default function Page() {
                 <span className="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M20 6.5 9.4 17.1l-5.4-5.4" /></svg> Education for All</span>
                 <span className="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M20 6.5 9.4 17.1l-5.4-5.4" /></svg> Need-based scholarships</span>
               </div>
-              <p style={{marginTop: 26}}><Link className="link-arrow" href="/about/">Read our full story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h15.5" /><path d="m13.5 6 6 6-6 6" /></svg></Link></p>
+              <p style={{marginTop: 26}}><Link className="link-arrow" href="/about">Read our full story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h15.5" /><path d="m13.5 6 6 6-6 6" /></svg></Link></p>
             </div>
             <div className="media-stack" data-reveal="right">
               <div className="media-main">
@@ -230,7 +230,7 @@ export default function Page() {
                 </div>
               </article>
             </div>
-            <p style={{marginTop: 36, textAlign: 'center'}}><Link className="btn btn--ghost" href="/academics/">See all academic programmes <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h15.5" /><path d="m13.5 6 6 6-6 6" /></svg></Link></p>
+            <p style={{marginTop: 36, textAlign: 'center'}}><Link className="btn btn--ghost" href="/academics">See all academic programmes <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h15.5" /><path d="m13.5 6 6 6-6 6" /></svg></Link></p>
           </div>
         </section>
         <section className="section section--white">
@@ -241,7 +241,7 @@ export default function Page() {
                 <h2>Real children. Real progress.</h2>
                 <p>Scholarships and after-school literacy change trajectories. These are a few of the journeys our community made possible.</p>
               </div>
-              <Link className="link-arrow" href="/news/" data-reveal>More success stories <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h15.5" /><path d="m13.5 6 6 6-6 6" /></svg></Link>
+              <Link className="link-arrow" href="/news" data-reveal>More success stories <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h15.5" /><path d="m13.5 6 6 6-6 6" /></svg></Link>
             </div>
             <div className="carousel" data-carousel aria-roledescription="carousel" aria-label="Student success stories">
               <div className="carousel-viewport" tabIndex={0} aria-label="Student stories, use the left and right arrow keys to browse">
@@ -321,7 +321,7 @@ export default function Page() {
                 <h2>Life at Rosetta Steps</h2>
                 <p>Celebrations, reading milestones, community days and the everyday moments that make a school feel like a family.</p>
               </div>
-              <Link className="btn btn--ghost btn--sm" href="/news/" data-reveal>All news &amp; events <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h15.5" /><path d="m13.5 6 6 6-6 6" /></svg></Link>
+              <Link className="btn btn--ghost btn--sm" href="/news" data-reveal>All news &amp; events <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h15.5" /><path d="m13.5 6 6 6-6 6" /></svg></Link>
             </div>
             <div className="grid grid--3">
               {HOME_STORIES.map((story, index) => (
@@ -334,7 +334,7 @@ export default function Page() {
           eyebrow="Make a difference"
           title="Help Change a Child's Future"
           actions={[
-            { href: "/donate/", label: "Donate Now", variant: "light", arrow: true },
+            { href: "/donate", label: "Donate Now", variant: "light", arrow: true },
             { href: "/donate/#sponsor", label: "Become a Sponsor", variant: "outline-light" },
           ]}
           chips={[
@@ -350,8 +350,8 @@ export default function Page() {
           title="Ready to see the school for yourself?"
           lede="Book a visit, meet a teacher and walk the classrooms. We would love to meet your family."
           actions={[
-            { href: "/admissions/", label: "Begin enrolment", variant: "light", arrow: true },
-            { href: "/contact/", label: "Ask a question", variant: "outline-light" },
+            { href: "/admissions", label: "Begin enrolment", variant: "light", arrow: true },
+            { href: "/contact", label: "Ask a question", variant: "outline-light" },
           ]}
         />
     </>

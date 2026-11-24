@@ -10,14 +10,14 @@ export const metadata = {
   description: "Support quality education and literacy in Liberia. Donate once or monthly, sponsor a child's full school year, or partner with Rosetta Steps Education Center in Caldwell, Montserrado County.",
   keywords: "Schools in Liberia, Caldwell schools, Education in Monrovia, Literacy programs Liberia, Preschool Liberia, Primary school Liberia, Rosetta Steps Education Center",
   robots: "index, follow",
-  alternates: { canonical: `${BASE_PATH}/donate/` },
+  alternates: { canonical: `${BASE_PATH}/donate` },
   openGraph: {
     type: "website",
     siteName: "Rosetta Steps Education Center",
     locale: "en_LR",
     title: "Donate & Support | Rosetta Steps Education Center Liberia",
     description: "Support quality education and literacy in Liberia. Donate once or monthly, sponsor a child's full school year, or partner with Rosetta Steps Education Center in Caldwell, Montserrado County.",
-    url: `${BASE_PATH}/donate/`,
+    url: `${BASE_PATH}/donate`,
     images: [url("/assets/img/hero.jpg")]
   },
   twitter: {
@@ -235,7 +235,7 @@ export default function Page() {
                   </ul>
                 </div>
               </div>
-              <p style={{marginTop: 22}}><Link className="btn btn--ghost" href="/contact/">Arrange an in-kind gift <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h15.5" /><path d="m13.5 6 6 6-6 6" /></svg></Link></p>
+              <p style={{marginTop: 22}}><Link className="btn btn--ghost" href="/contact">Arrange an in-kind gift <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h15.5" /><path d="m13.5 6 6 6-6 6" /></svg></Link></p>
             </div>
             <div className="media-stack" data-reveal="right">
               <div className="media-main">
@@ -259,7 +259,7 @@ export default function Page() {
         lede={"Not sure which need to choose? Give to the area of greatest need and we will allocate it where it changes the most."}
         actions={[
           { href: "/contact/#giving", label: "Speak with our team", variant: "light", arrow: true },
-          { href: "/admissions/", label: "Enrol a child", variant: "outline-light" },
+          { href: "/admissions", label: "Enrol a child", variant: "outline-light" },
         ]}
       />
     </>

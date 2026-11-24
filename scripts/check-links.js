@@ -11,12 +11,12 @@
        prefix 404s);
      - every loc in sitemap.xml points at a real page, once;
      - every public page appears in sitemap.xml;
-     - each page's canonical URL is its own address.
+     - each page's canonical URL is its own address;
+     - no local link ends in a slash, because pages are served without one.
 
-   Pages are read as <route>/index.html, which is how the export writes them.
-   The admin dashboard is checked for dead links but is deliberately not
-   public, so it is not expected in the sitemap. The <route>.html aliases that
-   scripts/postbuild.js writes for old addresses are not separate pages.
+   Pages are read as flat <route>.html files, which is how the export writes
+   them with trailingSlash: false. The admin dashboard is checked for dead
+   links but is deliberately not public, so it is not expected in the sitemap.
 
    Usage:  npm run build && node scripts/check-links.js
    Exit code is 0 when everything passes, 1 otherwise.
@@ -34,10 +34,10 @@ var SITEMAP = path.join(OUT, "sitemap.xml");
 
 /* Pages that are published but deliberately absent from sitemap.xml. */
 var NOT_IN_SITEMAP = {
-  "/news-story/": "template for stories saved in the dashboard — its URL needs ?story=<id>"
+  "/news-story": "template for stories saved in the dashboard — its URL needs ?story=<id>"
 };
 
-var SKIP_DIRECTORIES = ["admin", "_next", "assets", ".well-known", "404", "_not-found"];
+var SKIP_DIRECTORIES = ["admin", "_next", "assets", ".well-known"];
 var SKIP_SCHEMES = /^(mailto|tel|sms|javascript|data|blob|ftp):/i;
 
 /* ---------------- Helpers ---------------- */
@@ -55,7 +55,9 @@ function htmlPages(dir) {
       }
       return;
     }
-    if (entry.name === "index.html") found.push(path.join(dir, entry.name));
+    if (!/\.html?$/i.test(entry.name)) return;
+    if (entry.name === "404.html" || entry.name === "_not-found.html" || entry.name === "admin.html") return;
+    found.push(path.join(dir, entry.name));
   });
   return found.sort();
 }
@@ -69,7 +71,7 @@ function allHtml(dir) {
       found = found.concat(allHtml(path.join(dir, entry.name)));
       return;
     }
-    if (/\.html?$/i.test(entry.name) && entry.name !== "index.html") found.push(path.join(dir, entry.name));
+    if (/\.html?$/i.test(entry.name)) found.push(path.join(dir, entry.name));
   });
   return found.sort();
 }
@@ -91,9 +93,13 @@ function localTarget(value, fromFile) {
 
   var prefix = BASE_PATH + "/";
   if (clean === BASE_PATH || clean === BASE_PATH + "/") return { file: path.join(OUT, "index.html") };
-  if (clean.indexOf(prefix) === 0) return { file: path.join(OUT, clean.slice(prefix.length)) };
+  var trailing = clean.length > 1 && clean.charAt(clean.length - 1) === "/";
+
+  if (clean.indexOf(prefix) === 0) {
+    return { file: path.join(OUT, clean.slice(prefix.length)), trailing: trailing };
+  }
   if (clean.charAt(0) === "/") return { outside: true };
-  return { file: path.resolve(path.dirname(fromFile), clean) };
+  return { file: path.resolve(path.dirname(fromFile), clean), trailing: trailing };
 }
 
 function targetProblem(target) {
@@ -101,13 +107,16 @@ function targetProblem(target) {
   if (target.outside) {
     return "is not under the site's base path (" + (BASE_PATH || "/") + ")";
   }
+  if (target.trailing) {
+    return "ends in a slash, but pages are served without one (/about, not /about/)";
+  }
 
   var file = target.file;
   if (file.indexOf(OUT + path.sep) !== 0 && file !== OUT) {
     return "points outside the site folder";
   }
 
-  var candidates = [file, file + ".html", path.join(file, "index.html")];
+  var candidates = [file, file + ".html"];
   for (var i = 0; i < candidates.length; i += 1) {
     try {
       if (fs.statSync(candidates[i]).isFile()) return null;
@@ -116,20 +125,20 @@ function targetProblem(target) {
     }
   }
 
-  return "does not exist as a file, a .html page or a folder index";
+  return "does not exist as a page";
 }
 
-/* "/about/" for out/about/index.html, "/" for the home page. */
+/* "/about" for out/about.html, "/" for the home page. */
 function routeOf(page) {
-  var parts = rel(page).split("/");
-  parts.pop();
-  return parts.length ? "/" + parts.join("/") + "/" : "/";
+  var route = rel(page);
+  if (route === "index.html") return "/";
+  return "/" + route.replace(/\.html?$/i, "");
 }
 
 /* ---------------- 1. Local references ---------------- */
 
 var failures = [];
-var files = allHtml(OUT).concat(htmlPages(OUT));
+var files = allHtml(OUT);
 var checked = 0;
 
 files.forEach(function (page) {
@@ -203,9 +212,9 @@ locs.forEach(function (loc) {
   }
 
   var route = loc === prefix + "/" ? "/" : "/" + loc.slice(prefix.length + 1);
-  if (route !== "/" && route.charAt(route.length - 1) !== "/") {
+  if (route !== "/" && route.charAt(route.length - 1) === "/") {
     sitemapProblems.push(
-      "sitemap.xml lists " + loc + " without its trailing slash — the page is served at " + loc + "/"
+      "sitemap.xml lists " + loc + " with a trailing slash — the page is served at " + loc.slice(0, -1)
     );
     return;
   }
@@ -213,7 +222,8 @@ locs.forEach(function (loc) {
   sitemapChecked += 1;
   listed[route] = true;
 
-  var problem = targetProblem({ file: path.join(OUT, route) });
+  var target = route === "/" ? { file: path.join(OUT, "index.html") } : { file: path.join(OUT, route) };
+  var problem = targetProblem(target);
   if (problem) sitemapProblems.push("sitemap.xml lists " + loc + ", which " + problem);
 });
 

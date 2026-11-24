@@ -5,9 +5,10 @@ const nextConfig = {
   /* A static site: `next build` writes plain HTML to out/, which is what
      GitHub Pages serves. */
   output: "export",
-  /* Every route ends in a slash (about/), matching the addresses the site
-     already uses. */
-  trailingSlash: true,
+  /* Pages are exported as flat files (about.html) and linked without a slash:
+     /rosetta-steps/about. A host that answers /about/ with a redirect or a 404
+     was showing blank pages, so no route ever ends in a slash. */
+  trailingSlash: false,
   /* A GitHub Pages project site lives under /rosetta-steps; set
      NEXT_PUBLIC_BASE_PATH there. Locally it stays empty, so the site runs at
      http://localhost:3000/. */

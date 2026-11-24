@@ -12,14 +12,14 @@ export const metadata = {
   description: "Our gates open free of charge to children from the community for a morning of learning disguised as play.",
   keywords: "Learn Through Play Liberia, Saturday reading programme, community children Liberia, Rosetta Steps",
   robots: "index, follow",
-  alternates: { canonical: `${BASE_PATH}/news-learn-through-play/` },
+  alternates: { canonical: `${BASE_PATH}/news-learn-through-play` },
   openGraph: {
     type: "article",
     siteName: "Rosetta Steps Education Center",
     locale: "en_LR",
     title: "Learn Through Play: every Saturday, 9am to 12pm | Rosetta Steps Education Center",
     description: "Our gates open free of charge to children from the community for a morning of learning disguised as play.",
-    url: `${BASE_PATH}/news-learn-through-play/`,
+    url: `${BASE_PATH}/news-learn-through-play`,
     images: [url("/assets/img/kindergarten.jpg")]
   },
   twitter: {
@@ -37,7 +37,7 @@ export default function Page() {
         eyebrow={"Events"}
         title={<>Learn Through Play: every Saturday, <span className="text-accent">9am to 12pm</span></>}
         crumbs={[
-          { label: <>News &amp; Blog</>, href: "/news/" },
+          { label: <>News &amp; Blog</>, href: "/news" },
           { label: "Learn Through Play" },
         ]}
         article
@@ -65,7 +65,7 @@ export default function Page() {
                 <p>Rosetta Steps began in 2014 with a reading room — a table, a few books and an open door. Learn Through Play is that idea, kept alive. Some of the children who now attend the school full-time first came to a Saturday session with an older sibling.</p>
                 <ArticleCallout
                   title={"Volunteer on a Saturday"}
-                  cta={{ href: "/contact/", label: "Volunteer with us" }}
+                  cta={{ href: "/contact", label: "Volunteer with us" }}
                 >
                   We need readers, craft helpers and people who are simply good at playing. A morning a month makes a difference.
                 </ArticleCallout>
@@ -75,17 +75,17 @@ export default function Page() {
           title={"Bring your children on Saturday"}
           lede={"Open to every child in the neighbourhood, free of charge. Gates open at 9am and close at noon."}
           actions={[
-            { href: "/contact/", label: "Find us", variant: "primary", arrow: true },
-            { href: "/news/", label: "More stories", variant: "ghost" },
+            { href: "/contact", label: "Find us", variant: "primary", arrow: true },
+            { href: "/news", label: "More stories", variant: "ghost" },
           ]}
         />
               <PostNav
                 links={[
-                  { href: "/news-egra-guide/", label: "Read next", title: "How we use the Early Grade Reading Assessment" },
-                  { href: "/news-period-with-pride/", label: "Also from the archive", title: "Period With Pride delivers over 100 pads to our students" },
+                  { href: "/news-egra-guide", label: "Read next", title: "How we use the Early Grade Reading Assessment" },
+                  { href: "/news-period-with-pride", label: "Also from the archive", title: "Period With Pride delivers over 100 pads to our students" },
                 ]}
               />
-              <p className="article-back"><Link className="link-arrow" href="/news/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M20 12H4.5" /><path d="m10.5 6-6 6 6 6" /></svg> Back to all news &amp; stories</Link></p>
+              <p className="article-back"><Link className="link-arrow" href="/news"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M20 12H4.5" /><path d="m10.5 6-6 6 6 6" /></svg> Back to all news &amp; stories</Link></p>
             </div>
           </div>
         </section>
