@@ -216,13 +216,22 @@ export default function AdminSidebar() {
       </nav>
 
       <div className="sidebar-foot">
-        <a href={asset("/admin/profile")} className="side-link">
+        <a
+          href={asset("/admin/profile")}
+          className={isActive("/admin/profile") ? "side-link is-active" : "side-link"}
+          aria-current={isActive("/admin/profile") ? "page" : undefined}
+        >
           <span className="ico" aria-hidden="true">
             <Icon name="profile" />
           </span>
           Profile
         </a>
-        <a href={asset("/admin/settings")} className="side-link" data-section="Settings">
+        <a
+          href={asset("/admin/settings")}
+          className={isActive("/admin/settings") ? "side-link is-active" : "side-link"}
+          data-section="Settings"
+          aria-current={isActive("/admin/settings") ? "page" : undefined}
+        >
           <span className="ico" aria-hidden="true">
             <Icon name="settings" />
           </span>

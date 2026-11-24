@@ -289,7 +289,7 @@ export default function Page() {
             <div><dt>Email</dt><dd id="inviteDoneEmail" /></div>
             <div><dt>Temporary password</dt><dd><code className="invite-pass" id="inviteDonePassword" /></dd></div>
           </dl>
-          <p className="form-note">Their sign-in email should have opened in your mail app, addressed to them and ready to send. If it didn't, use <strong>Email sign-in details</strong> below. They sign in at <strong>admin/signin/</strong>, and the account only works in this browser until the admin has a backend.</p>
+          <p className="form-note">Their sign-in email should have opened in your mail app, addressed to them and ready to send. If it didn't, use <strong>Email sign-in details</strong> below. They sign in at <strong>admin/signin</strong>, and the account only works in this browser until the admin has a backend.</p>
         </div>
         <div className="modal-foot modal-foot--wrap">
           <button type="button" className="btn-admin btn-admin--line" id="inviteCopy">Copy details</button>

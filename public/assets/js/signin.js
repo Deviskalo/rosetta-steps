@@ -7,10 +7,13 @@
 (function () {
   "use strict";
 
-  /* Admin pages are served as admin/news.html and at admin/news/ (the clean
-     copy). Both sit one folder below /admin/, wherever the site is mounted. */
+  /* Admin pages are served as admin.html and admin/news.html, and the nav uses
+     the clean admin/news. All of them sit at /admin, wherever the site is
+     mounted, so this finds that prefix from the current address. */
   function adminUrl(target) {
-    return window.location.pathname.replace(/\/admin(\/.*)?$/, "/admin") + target;
+    var base = window.location.pathname.replace(/\/admin(\.html)?(\/.*)?$/, "/admin");
+    if (!target) return base;
+    return base + (target.charAt(0) === "/" ? target : "/" + target);
   }
 
 

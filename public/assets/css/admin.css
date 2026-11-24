@@ -331,6 +331,15 @@ button {
   background: var(--beige-050);
 }
 
+.side-link.is-active {
+  background: var(--pink-050);
+  color: var(--pink-700);
+}
+
+.side-link.is-active .ico {
+  color: var(--pink-600);
+}
+
 .sidebar-user {
   display: flex;
   align-items: center;

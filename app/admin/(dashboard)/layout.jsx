@@ -19,7 +19,7 @@ const GUARD = `(function () {
   } catch (error) {
     signedIn = false;
   }
-  if (!signedIn) window.location.replace(window.location.pathname.replace(/\\/admin\\/.*$/, "/admin") + "signin/");
+  if (!signedIn) window.location.replace(window.location.pathname.replace(/\\/admin(\\.html)?(\\/.*)?$/, "/admin") + "/signin");
   try {
     if (window.localStorage.getItem("rosetta-admin-sidebar") === "collapsed") {
       document.documentElement.classList.add("sidebar-collapsed");

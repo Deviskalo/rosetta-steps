@@ -42,7 +42,7 @@ export default function AdminBoot({ mode = "dashboard" }) {
     /* The inline script sets these before paint; hydration can clear body
        attributes, so restore them before the page scripts run. */
     document.body.className = mode === "signin" ? "admin auth-body" : "admin";
-    const section = path.match(/\/admin\/([a-z-]+)\/$/);
+    const section = path.match(/\/admin\/([a-z-]+)$/);
     if (section && section[1] !== "news" && section[1] !== "signin") {
       document.body.setAttribute("data-admin-page", section[1]);
     } else {
