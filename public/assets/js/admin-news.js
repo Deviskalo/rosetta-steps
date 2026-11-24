@@ -14,6 +14,14 @@
   }
 
 
+  /* Saved stories still point at ../assets/… from when the desk was a plain
+     page inside admin/; the route now sits a folder deeper, so those paths
+     start at the site root instead. */
+  function siteUrl(value) {
+    var siteRoot = window.location.pathname.replace(/\/admin\/.*$/, "/");
+    return String(value || "").replace(/^\.\.\//, siteRoot);
+  }
+
   var STORE_KEY = "rosetta-admin-stories";
   var SECTION = "News & stories";
   var MONTHS = [
@@ -521,7 +529,7 @@
       var thumb = document.createElement("span");
       thumb.className = "story-thumb";
       var thumbImage = document.createElement("img");
-      thumbImage.src = story.image;
+      thumbImage.src = siteUrl(story.image);
       thumbImage.alt = "";
       thumbImage.loading = "lazy";
       thumb.appendChild(thumbImage);
@@ -573,7 +581,7 @@
     if (story.status === "published") {
       var view = document.createElement("a");
       view.className = "row-action row-action--link";
-      view.href = story.url || "../news-story.html?story=" + encodeURIComponent(story.id);
+      view.href = siteUrl(story.url || "../news-story.html?story=" + encodeURIComponent(story.id));
       view.target = "_blank";
       view.rel = "noopener";
       view.textContent = "View";

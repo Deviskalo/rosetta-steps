@@ -4,10 +4,11 @@ A website and admin dashboard for Rosetta Steps Education Center — a community
 school at Caldwell Road, Bushrod Island, Montserrado County, Liberia.
 **Empowering Children Through Education, Literacy, and Opportunity.**
 
-The public site is a **Next.js app** (App Router, no `src/` directory) exported
-as static HTML, so it can be served by any static host — it is published on
-GitHub Pages. The admin dashboard is still plain HTML/CSS/JavaScript under
-`public/admin/`; it keeps its data in the browser's local storage.
+The whole thing — public site and admin dashboard — is a **Next.js app**
+(App Router, no `src/` directory) exported as static HTML, so it can be served
+by any static host; it is published on GitHub Pages. The dashboard's behaviour
+still lives in the plain scripts under `public/assets/js/`, and it keeps its
+data in the browser's local storage.
 
 ## School contact details
 
@@ -25,8 +26,7 @@ These are the details shown on the public site and seeded into
 ```bash
 npm install
 npm run dev        # http://localhost:3000 — public site
-                   # http://localhost:3000/admin/signin.html — dashboard
-                   # (the clean /admin/signin/ URL resolves on the static host)
+                   # http://localhost:3000/admin/signin/ — dashboard sign-in
 ```
 
 Build the static site the way it is published:
@@ -48,46 +48,68 @@ working.
 
 ## URLs
 
-Public pages live in `app/` and are exported with `trailingSlash: true`:
+The public pages live in `app/(site)/` and the dashboard in `app/admin/`; both
+are exported with `trailingSlash: true`:
 
 | Page | Route |
 | --- | --- |
-| Home | `app/page.jsx` → `/` |
-| About, Academics, Literacy, Gallery | `app/<page>/page.jsx` → `/<page>/` |
-| News | `app/news/page.jsx` → `/news/` |
-| Stories | `app/news-<slug>/page.jsx` → `/news-<slug>/` |
-| Story template | `app/news-story/page.jsx` → `/news-story/?story=<id>` |
+| Home | `app/(site)/page.jsx` → `/` |
+| About, Academics, Literacy, Gallery | `app/(site)/<page>/page.jsx` → `/<page>/` |
+| News | `app/(site)/news/page.jsx` → `/news/` |
+| Stories | `app/(site)/news-<slug>/page.jsx` → `/news-<slug>/` |
+| Story template | `app/(site)/news-story/page.jsx` → `/news-story/?story=<id>` |
+| Admin dashboard | `app/admin/(dashboard)/page.jsx` → `/admin/` |
+| Admin sections | `app/admin/(dashboard)/<section>/page.jsx` → `/admin/<section>/` |
+| Admin sign-in | `app/admin/(auth)/signin/page.jsx` → `/admin/signin/` |
 
-`app/layout.jsx` holds the shared chrome (header, nav, footer, skip link,
-`main.js`) and the site-wide metadata; pages export their own `metadata` for
-title, description, canonical and share tags, so those are no longer written by
-hand in 19 files. `components/SiteHeader.jsx` marks the current page for
-screen readers.
+`app/layout.jsx` holds only the document, fonts and site-wide metadata.
+`app/(site)/layout.jsx` adds the public chrome (header, nav, footer, skip link,
+`main.js`); pages export their own `metadata` for title, description, canonical
+and share tags, so those are no longer written by hand in 19 files.
+`components/SiteHeader.jsx` marks the current page for screen readers.
+
+The sections that repeat across pages live in `components/site/`: `PageHero`
+(the inner-page masthead, including breadcrumbs and the article variant),
+`StatsSection`, `NewsCard` (home teaser and news archive card), `CtaStrip`,
+`ArticleCta`, `Band`, and the shared `ActionGroup`/`Icon` used inside them. Page
+files keep only their own copy and pass it in as props, so they read as a
+composition of sections rather than a converted HTML dump.
+
+The dashboard shell is `app/admin/(dashboard)/layout.jsx`: sidebar, topbar, the
+pre-paint sign-in guard and the script boot. `components/admin/AdminSidebar.jsx`
+and `AdminTopbar.jsx` mark the current section from the URL, and
+`components/admin/AdminBoot.jsx` loads `staff.js`, `admin-store.js`, `admin.js`
+and then the route's own script (`admin-news.js` for the story desk,
+`admin-sections.js` everywhere else) once React has hydrated. Sidebar links are
+plain `<a>` tags on purpose: each admin page is its own exported document, and a
+full load is what re-runs its scripts. `scripts/postbuild.js` also writes
+`/admin/<section>.html`, so the old addresses keep working.
 
 Canonical tags and `public/sitemap.xml` are absolute and name the live address,
 `https://deviskalo.github.io/rosetta-steps/`. When the school's domain is
 connected, change them together with `SITE_ORIGIN` in
 `scripts/check-links.js`.
 
-The admin dashboard keeps its folder URLs (`/admin/news/`, `/admin/profile/`):
-its pages are still plain HTML, and `scripts/build-clean-urls.js` gives each one
-a folder copy. Its sign-in redirects work out the `/admin/` folder from the
-current URL, so they work from the `.html` file and the clean copy alike.
+The dashboard's sign-in redirects and record links work out the `/admin/`
+folder from the current URL, so they work at the clean route and the legacy
+`.html` address alike. Records saved before the move still point at
+`../assets/…`; `RosettaAdmin.siteUrl()` resolves those from the site root.
 
 ## What's in here
 
-- `app/` — one route per public page, plus `globals.css` and the root layout.
-- `components/` — `SiteHeader`, `SiteFooter`.
+- `app/` — the root layout, `globals.css`, one route per public page under
+  `(site)/`, and the dashboard under `admin/`.
+- `components/` — `SiteHeader`, `SiteFooter`, the repeated page sections in
+  `components/site/`, and the dashboard shell pieces in `components/admin/`.
 - `lib/asset.js` — applies `NEXT_PUBLIC_BASE_PATH` to plain URLs.
-- `public/` — everything served as-is: `admin/` (the dashboard), `assets/`
-  (CSS, JS, images), `robots.txt`, `sitemap.xml`.
-- `scripts/` — the checks, the admin clean-URL copies, and `postbuild.js`.
+- `public/` — everything served as-is: `assets/` (CSS, JS, images),
+  `robots.txt`, `sitemap.xml`.
+- `scripts/` — the checks and `postbuild.js`.
 
 ## Checks
 
 ```bash
 npm run check:seeds        # seed data and the migration steps
-npm run check:admin-urls   # admin folder copies match their .html pages
 npm run build && npm run check:links   # links, sitemap and canonicals in out/
 ```
 
@@ -96,7 +118,7 @@ served — and fails if a link points outside the site's base path, at a missing
 file, or if a canonical/sitemap entry names an address the page is not served
 at. Run the build with the same `NEXT_PUBLIC_BASE_PATH` you are checking.
 
-All three run in `.github/workflows/checks.yml` on every push and pull request.
+Both run in `.github/workflows/checks.yml` on every push and pull request.
 `.github/workflows/deploy.yml` builds the site and deploys `out/` to GitHub
 Pages; for it to publish, the repository's **Settings → Pages → Source** must be
 **GitHub Actions** (not "Deploy from a branch").

@@ -1573,7 +1573,7 @@
               (page.views === 0
                 ? '<span class="row-action" title="This page file does not exist yet">Not built</span>'
                 : '<a class="row-action row-action--link" href="' +
-                  esc(page.file) +
+                  esc(A.siteUrl(page.file)) +
                   '" target="_blank" rel="noopener">View</a>') +
               '<button type="button" class="row-action" data-page-edit="' +
               esc(page.id) +
@@ -1754,7 +1754,7 @@
               '<figure class="shot' +
               (photo.featured ? " is-featured" : "") +
               '"><img src="' +
-              esc(photo.src) +
+              esc(A.siteUrl(photo.src)) +
               '" alt="' +
               esc(photo.caption) +
               '" loading="lazy" decoding="async">' +
@@ -1807,7 +1807,7 @@
 
     function openEditor(photo) {
       el("shotId").value = photo.id;
-      el("shotImage").src = photo.src;
+      el("shotImage").src = A.siteUrl(photo.src);
       el("shotImage").alt = photo.caption;
       el("shotCaption").value = photo.caption;
       el("shotAlbum").value = photo.album;

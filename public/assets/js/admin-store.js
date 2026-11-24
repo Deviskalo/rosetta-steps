@@ -252,6 +252,14 @@
       .replace(/'/g, "&#39;");
   }
 
+  /* Records saved when the dashboard was plain HTML pointed at ../assets/…;
+     every admin page now lives one folder deeper, so those saved paths start
+     at the site root instead. Absolute URLs and data: images are left alone. */
+  function siteUrl(value) {
+    var siteRoot = window.location.pathname.replace(/\/admin\/.*$/, "/");
+    return String(value || "").replace(/^\.\.\//, siteRoot);
+  }
+
   function money(amount, withCents) {
     var value = Number(amount) || 0;
     var fixed = withCents || value % 1 !== 0;
@@ -956,6 +964,7 @@
     saveIdentity: saveIdentity,
     syncIdentity: syncIdentity,
     esc: esc,
+    siteUrl: siteUrl,
     money: money,
     number: number,
     dateLabel: dateLabel,

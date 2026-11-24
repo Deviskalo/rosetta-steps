@@ -5,8 +5,8 @@ on:
   pull_request:
 
 jobs:
-  seeds-and-admin-urls:
-    name: Seeds and admin URLs
+  seeds:
+    name: Admin seed migrations
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,8 +17,6 @@ jobs:
       - run: npm ci
       - name: Seed migrations
         run: npm run check:seeds
-      - name: Admin clean URL copies
-        run: npm run check:admin-urls
 
   site:
     name: Build and link check

@@ -7,6 +7,9 @@
    still exist in bookmarks and in the admin dashboard, so this copies each
    exported page to <route>.html as well.
 
+   The admin dashboard's pages moved from public/admin/*.html into Next routes,
+   so /admin/news.html and the rest get the same treatment.
+
    Runs as part of `npm run build`, after `next build`.
    ========================================================================== */
 "use strict";
@@ -24,19 +27,28 @@ if (!fs.existsSync(OUT)) {
   process.exit(1);
 }
 
-var copied = 0;
+function aliasPages(dir, skip) {
+  if (!fs.existsSync(dir)) return 0;
 
-fs.readdirSync(OUT, { withFileTypes: true }).forEach(function (entry) {
-  if (!entry.isDirectory()) return;
-  if (SKIP.indexOf(entry.name) !== -1) return;
+  var copied = 0;
 
-  var index = path.join(OUT, entry.name, "index.html");
-  if (!fs.existsSync(index)) return;
+  fs.readdirSync(dir, { withFileTypes: true }).forEach(function (entry) {
+    if (!entry.isDirectory()) return;
+    if (skip.indexOf(entry.name) !== -1) return;
 
-  var legacy = path.join(OUT, entry.name + ".html");
-  fs.copyFileSync(index, legacy);
-  copied += 1;
-});
+    var index = path.join(dir, entry.name, "index.html");
+    if (!fs.existsSync(index)) return;
+
+    fs.copyFileSync(index, path.join(dir, entry.name + ".html"));
+    copied += 1;
+  });
+
+  return copied;
+}
+
+var copied = aliasPages(OUT, SKIP);
+var adminCopied = aliasPages(path.join(OUT, "admin"), ["_next", "assets"]);
 
 console.log("Legacy .html aliases");
 console.log("  " + copied + " pages copied to <route>.html");
+console.log("  " + adminCopied + " admin pages copied to <route>.html");

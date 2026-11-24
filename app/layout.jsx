@@ -1,8 +1,4 @@
-import Script from "next/script";
-import SiteHeader from "../components/SiteHeader";
-import SiteFooter from "../components/SiteFooter";
 import { asset } from "../lib/asset";
-import "./globals.css";
 
 export const metadata = {
   metadataBase: new URL("https://deviskalo.github.io"),
@@ -14,12 +10,6 @@ export const metadata = {
     "Rosetta Steps Education Center is a preschool to Grade 6 school on Caldwell Road, Bushrod Island, Montserrado County, Liberia.",
   applicationName: "Rosetta Steps Education Center",
   authors: [{ name: "Rosetta Steps Education Center" }],
-  alternates: { canonical: asset("/") },
-  openGraph: {
-    type: "website",
-    siteName: "Rosetta Steps Education Center",
-    locale: "en_LR"
-  },
   twitter: { card: "summary_large_image" }
 };
 
@@ -32,7 +22,9 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
+      {/* The admin shell adds its body classes from an inline script before
+          paint; the public pages leave body untouched. */}
+      <body suppressHydrationWarning>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
@@ -41,14 +33,7 @@ export default function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
         />
         <link rel="icon" href={asset("/assets/img/favicon.svg")} type="image/svg+xml" />
-        <a className="skip-link" href="#main">
-          Skip to main content
-        </a>
-        <SiteHeader />
-        <div className="nav-overlay" aria-hidden="true"></div>
-        <main id="main">{children}</main>
-        <SiteFooter />
-        <Script src={asset("/assets/js/main.js")} strategy="afterInteractive" />
+        {children}
       </body>
     </html>
   );
