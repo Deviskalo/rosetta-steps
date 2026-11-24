@@ -41,7 +41,7 @@ export default function NewsCard({
 
   if (mode === "teaser") {
     return (
-      <Link className="news-card" href="/news/" data-reveal data-delay={delay}>
+      <Link className="news-card" href="/news" data-reveal data-delay={delay}>
         {body}
       </Link>
     );

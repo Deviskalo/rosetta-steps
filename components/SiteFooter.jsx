@@ -44,17 +44,17 @@ const SOCIAL = [
 
 const EXPLORE = [
   { href: "/", label: "Home" },
-  { href: "/about/", label: "About Us" },
-  { href: "/academics/", label: "Academic Programs" },
-  { href: "/gallery/", label: "Gallery" },
-  { href: "/news/", label: "News & Blog" }
+  { href: "/about", label: "About Us" },
+  { href: "/academics", label: "Academic Programs" },
+  { href: "/gallery", label: "Gallery" },
+  { href: "/news", label: "News & Blog" }
 ];
 
 const INVOLVED = [
-  { href: "/admissions/", label: "Admissions" },
-  { href: "/literacy/", label: "Literacy Programs" },
-  { href: "/donate/", label: "Donate" },
-  { href: "/contact/", label: "Contact Us" },
+  { href: "/admissions", label: "Admissions" },
+  { href: "/literacy", label: "Literacy Programs" },
+  { href: "/donate", label: "Donate" },
+  { href: "/contact", label: "Contact Us" },
   { href: "/admissions/#inquiry", label: "Book a School Visit" }
 ];
 
@@ -172,7 +172,7 @@ export default function SiteFooter() {
                 <span>School day: 8:30am – 4:00pm, Mon–Thu</span>
               </li>
             </ul>
-            <Link className="btn btn--primary btn--sm" href="/donate/">
+            <Link className="btn btn--primary btn--sm" href="/donate">
               Support a Child
             </Link>
           </div>

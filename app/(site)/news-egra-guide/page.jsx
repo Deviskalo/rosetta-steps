@@ -12,14 +12,14 @@ export const metadata = {
   description: "EGRA is not an exam. It is a fifteen-minute conversation with a reader that tells us exactly which skill to teach next.",
   keywords: "EGRA Liberia, early grade reading assessment, reading assessment primary school, Rosetta Steps literacy",
   robots: "index, follow",
-  alternates: { canonical: `${BASE_PATH}/news-egra-guide/` },
+  alternates: { canonical: `${BASE_PATH}/news-egra-guide` },
   openGraph: {
     type: "article",
     siteName: "Rosetta Steps Education Center",
     locale: "en_LR",
     title: "How we use the Early Grade Reading Assessment | Rosetta Steps Education Center",
     description: "EGRA is not an exam. It is a fifteen-minute conversation with a reader that tells us exactly which skill to teach next.",
-    url: `${BASE_PATH}/news-egra-guide/`,
+    url: `${BASE_PATH}/news-egra-guide`,
     images: [url("/assets/img/preschool.jpg")]
   },
   twitter: {
@@ -37,7 +37,7 @@ export default function Page() {
         eyebrow={"Educational Resources"}
         title={<>How we use the Early Grade <span className="text-accent">Reading</span> Assessment</>}
         crumbs={[
-          { label: <>News &amp; Blog</>, href: "/news/" },
+          { label: <>News &amp; Blog</>, href: "/news" },
           { label: "EGRA guide" },
         ]}
         article
@@ -66,7 +66,7 @@ export default function Page() {
                 <p>The results are also how we report honestly to donors. It is easy to say a reading programme is going well. The assessment is what lets us show a child moved from sounding out letters to reading a full sentence.</p>
                 <ArticleCallout
                   title={"Support the reading room"}
-                  cta={{ href: "/literacy/", label: "Explore our literacy work" }}
+                  cta={{ href: "/literacy", label: "Explore our literacy work" }}
                 >
                   Our after-school reading room runs on volunteers, books and light. $125 covers a class, and book donations are always welcome.
                 </ArticleCallout>
@@ -76,17 +76,17 @@ export default function Page() {
           title={"Reading is the whole curriculum"}
           lede={"Every subject depends on a child who can read the page in front of them. See how our literacy programme works."}
           actions={[
-            { href: "/literacy/", label: "Our literacy programmes", variant: "primary", arrow: true },
-            { href: "/news/", label: "More stories", variant: "ghost" },
+            { href: "/literacy", label: "Our literacy programmes", variant: "primary", arrow: true },
+            { href: "/news", label: "More stories", variant: "ghost" },
           ]}
         />
               <PostNav
                 links={[
-                  { href: "/news-mark-sinke-training/", label: "Read next", title: "Dr. Mark Sinke trains our teachers and donates a printer" },
-                  { href: "/news-learn-through-play/", label: "Also from the archive", title: "Learn Through Play: every Saturday, 9am to 12pm" },
+                  { href: "/news-mark-sinke-training", label: "Read next", title: "Dr. Mark Sinke trains our teachers and donates a printer" },
+                  { href: "/news-learn-through-play", label: "Also from the archive", title: "Learn Through Play: every Saturday, 9am to 12pm" },
                 ]}
               />
-              <p className="article-back"><Link className="link-arrow" href="/news/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M20 12H4.5" /><path d="m10.5 6-6 6 6 6" /></svg> Back to all news &amp; stories</Link></p>
+              <p className="article-back"><Link className="link-arrow" href="/news"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M20 12H4.5" /><path d="m10.5 6-6 6 6 6" /></svg> Back to all news &amp; stories</Link></p>
             </div>
           </div>
         </section>

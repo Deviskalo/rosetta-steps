@@ -1,16 +1,21 @@
 #!/usr/bin/env node
 /* ==========================================================================
-   Keep the old .html addresses working
+   Keep every page a flat file
 
-   Next exports each page as <route>/index.html, so the site is served at
-   /about/ and /news/. Links to the old /about.html and /news.html addresses
-   still exist in bookmarks and in the admin dashboard, so this copies each
-   exported page to <route>.html as well.
+   `next.config.mjs` sets trailingSlash: false, so `next build` writes one file
+   per page — about.html, news.html, admin/news.html — and a link to /about is
+   served straight from about.html with no redirect.
 
-   The admin dashboard's pages moved from public/admin/*.html into Next routes,
-   so /admin/news.html and the rest get the same treatment.
+   A leftover directory page (about/index.html) would make the host send
+   /about → /about/ and back, which is the redirect that showed blank pages, so
+   this fails the build if one appears.
 
-   Runs as part of `npm run build`, after `next build`.
+   The old /about/ addresses are covered by app/not-found.jsx, which retries an
+   address without its trailing slash. The old /about.html addresses are simply
+   the pages themselves.
+
+   Runs as part of `npm run build`, after `next build`. `--check` inspects an
+   existing out/ without building, which is what the deploy workflow uses.
    ========================================================================== */
 "use strict";
 
@@ -18,37 +23,63 @@ var fs = require("fs");
 var path = require("path");
 
 var OUT = path.join(__dirname, "..", "out");
-
-/* Folders that are not public pages. */
-var SKIP = ["admin", "_next", "assets", ".well-known", "404", "_not-found"];
+var NOT_PAGES = ["_next", "assets", ".well-known", "admin"];
 
 if (!fs.existsSync(OUT)) {
   console.error("out/ is missing — run `next build` first (npm run build does both).");
   process.exit(1);
 }
 
-function aliasPages(dir, skip) {
-  if (!fs.existsSync(dir)) return 0;
+var problems = [];
+var pages = [];
+var folders = [];
 
-  var copied = 0;
-
+function walk(dir) {
   fs.readdirSync(dir, { withFileTypes: true }).forEach(function (entry) {
-    if (!entry.isDirectory()) return;
-    if (skip.indexOf(entry.name) !== -1) return;
+    var full = path.join(dir, entry.name);
 
-    var index = path.join(dir, entry.name, "index.html");
-    if (!fs.existsSync(index)) return;
+    if (entry.isDirectory()) {
+      if (entry.name.charAt(0) === "." || NOT_PAGES.indexOf(entry.name) !== -1) return;
+      folders.push(full);
+      walk(full);
+      return;
+    }
 
-    fs.copyFileSync(index, path.join(dir, entry.name + ".html"));
-    copied += 1;
+    if (entry.name === "index.html") {
+      if (dir !== OUT) {
+        problems.push(path.relative(OUT, full) + " is a folder page; pages must be flat files");
+      }
+      return;
+    }
+
+    if (/\.html?$/i.test(entry.name)) pages.push(path.relative(OUT, full));
   });
-
-  return copied;
 }
 
-var copied = aliasPages(OUT, SKIP);
-var adminCopied = aliasPages(path.join(OUT, "admin"), ["_next", "assets"]);
+walk(OUT);
 
-console.log("Legacy .html aliases");
-console.log("  " + copied + " pages copied to <route>.html");
-console.log("  " + adminCopied + " admin pages copied to <route>.html");
+/* The admin dashboard is flat too (admin.html, admin/news.html). */
+var adminDir = path.join(OUT, "admin");
+if (fs.existsSync(adminDir)) {
+  fs.readdirSync(adminDir, { withFileTypes: true }).forEach(function (entry) {
+    if (entry.isDirectory()) {
+      var nested = path.join(adminDir, entry.name, "index.html");
+      if (fs.existsSync(nested)) {
+        problems.push(path.relative(OUT, nested) + " is a folder page; pages must be flat files");
+      }
+    }
+  });
+}
+
+console.log("Flat pages (no trailing slash)");
+console.log("  " + pages.length + " pages written as <route>.html");
+
+if (problems.length) {
+  problems.forEach(function (problem) {
+    console.log("  FAIL  " + problem);
+  });
+  console.log(problems.length + " problem" + (problems.length === 1 ? "" : "s") + " found.");
+  process.exit(1);
+}
+
+console.log("  ok    no page is a folder index, so no URL needs a trailing slash");

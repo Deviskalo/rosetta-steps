@@ -17,7 +17,7 @@ export default function Page() {
       <p id="profileEmail">—</p>
       <span className="role-pill role-pill--administrator" id="profileBadge">Administrator</span>
     </div>
-    <a className="btn-admin btn-admin--line" href={asset("/admin/settings/")}>School settings</a>
+    <a className="btn-admin btn-admin--line" href={asset("/admin/settings")}>School settings</a>
   </section>
   <div className="section-grid">
     <div className="section-stack">

@@ -15,7 +15,7 @@ export default function Page() {
         <h2>Inbox</h2>
         <p><strong id="inboxUnread">0</strong> unread · <strong id="inboxTotal">0</strong> conversations · messages from the contact form and staff.</p>
       </div>
-      <a className="btn-admin btn-admin--line" href={asset("/contact/")} target="_blank" rel="noopener">Open contact page</a>
+      <a className="btn-admin btn-admin--line" href={asset("/contact")} target="_blank" rel="noopener">Open contact page</a>
     </div>
   </section>
   <section className="inbox" id="inbox">

@@ -12,14 +12,14 @@ export const metadata = {
   description: "A student-led initiative visited campus to tackle period poverty and talk about menstrual hygiene with our girls.",
   keywords: "period poverty Liberia, menstrual hygiene Liberia, community impact, Rosetta Steps Education Center",
   robots: "index, follow",
-  alternates: { canonical: `${BASE_PATH}/news-period-with-pride/` },
+  alternates: { canonical: `${BASE_PATH}/news-period-with-pride` },
   openGraph: {
     type: "article",
     siteName: "Rosetta Steps Education Center",
     locale: "en_LR",
     title: "Period With Pride delivers over 100 pads to our students | Rosetta Steps Education Center",
     description: "A student-led initiative visited campus to tackle period poverty and talk about menstrual hygiene with our girls.",
-    url: `${BASE_PATH}/news-period-with-pride/`,
+    url: `${BASE_PATH}/news-period-with-pride`,
     images: [url("/assets/img/welcome.jpg")]
   },
   twitter: {
@@ -37,7 +37,7 @@ export default function Page() {
         eyebrow={"Community Impact"}
         title={<>Period With Pride delivers over 100 pads to our <span className="text-accent">students</span></>}
         crumbs={[
-          { label: <>News &amp; Blog</>, href: "/news/" },
+          { label: <>News &amp; Blog</>, href: "/news" },
           { label: "Period With Pride" },
         ]}
         article
@@ -66,7 +66,7 @@ export default function Page() {
                 <p>Our teachers will keep the conversation going in class, and the school keeps a discreet supply on hand for any girl who needs one during the day.</p>
                 <ArticleCallout
                   title={"Help us keep the supply stocked"}
-                  cta={{ href: "/donate/", label: "Support our girls" }}
+                  cta={{ href: "/donate", label: "Support our girls" }}
                 >
                   Sanitary products, soap and clean-water supplies are among our most requested items. A small monthly gift keeps the cupboard full.
                 </ArticleCallout>
@@ -76,17 +76,17 @@ export default function Page() {
           title={"Partners make the small things possible"}
           lede={"If your organisation, chapter or class would like to run a drive for our students, we would love to hear from you."}
           actions={[
-            { href: "/contact/", label: "Talk to us", variant: "primary", arrow: true },
-            { href: "/news/", label: "More stories", variant: "ghost" },
+            { href: "/contact", label: "Talk to us", variant: "primary", arrow: true },
+            { href: "/news", label: "More stories", variant: "ghost" },
           ]}
         />
               <PostNav
                 links={[
-                  { href: "/news-aka-power-packs/", label: "Read next", title: "A year of food for 55 children: the AKA Power Packs pilot" },
-                  { href: "/news-forleh-foundation/", label: "Also from the archive", title: "Forleh Foundation donates a drone, books, bags and pads" },
+                  { href: "/news-aka-power-packs", label: "Read next", title: "A year of food for 55 children: the AKA Power Packs pilot" },
+                  { href: "/news-forleh-foundation", label: "Also from the archive", title: "Forleh Foundation donates a drone, books, bags and pads" },
                 ]}
               />
-              <p className="article-back"><Link className="link-arrow" href="/news/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M20 12H4.5" /><path d="m10.5 6-6 6 6 6" /></svg> Back to all news &amp; stories</Link></p>
+              <p className="article-back"><Link className="link-arrow" href="/news"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M20 12H4.5" /><path d="m10.5 6-6 6 6 6" /></svg> Back to all news &amp; stories</Link></p>
             </div>
           </div>
         </section>

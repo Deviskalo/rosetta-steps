@@ -16,7 +16,7 @@ export default function Page() {
       <h2 id="helloTitle">Good morning, Ama <span aria-hidden="true">🌤</span></h2>
       <p>175 children are learning with us today. You have 3 new applications and 4 messages to review.</p>
       <div className="hello-actions">
-        <a className="btn-admin btn-admin--white" href={asset("/admin/news/?new=1")} data-hide-teacher>
+        <a className="btn-admin btn-admin--white" href={asset("/admin/news?new=1")} data-hide-teacher>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
           New story
         </a>
@@ -221,7 +221,7 @@ export default function Page() {
       <article className="card">
         <div className="card-head"><div><h2>Quick actions</h2><p>Everyday admin tasks.</p></div></div>
         <div className="quick-grid">
-          <a className="quick" href={asset("/admin/news/?new=1")} data-hide-teacher>
+          <a className="quick" href={asset("/admin/news?new=1")} data-hide-teacher>
             <span className="quick-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14M5 12h14" /></svg></span>
             New story
           </a>

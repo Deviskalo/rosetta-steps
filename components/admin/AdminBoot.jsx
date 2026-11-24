@@ -31,7 +31,7 @@ export default function AdminBoot({ mode = "dashboard" }) {
           "/assets/js/staff.js",
           "/assets/js/admin-store.js",
           "/assets/js/admin.js",
-          path.startsWith("/admin/news/")
+          path.startsWith("/admin/news")
             ? "/assets/js/admin-news.js"
             : "/assets/js/admin-sections.js"
         ];

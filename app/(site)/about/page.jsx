@@ -11,14 +11,14 @@ export const metadata = {
   description: "Learn the story, mission, vision and values of Rosetta Steps Education Center — a community school on Caldwell Road, Bushrod Island, founded in honour of educator Rosetta Benson Harris.",
   keywords: "Schools in Liberia, Caldwell schools, Education in Monrovia, Literacy programs Liberia, Preschool Liberia, Primary school Liberia, Rosetta Steps Education Center",
   robots: "index, follow",
-  alternates: { canonical: `${BASE_PATH}/about/` },
+  alternates: { canonical: `${BASE_PATH}/about` },
   openGraph: {
     type: "website",
     siteName: "Rosetta Steps Education Center",
     locale: "en_LR",
     title: "About Us | Rosetta Steps Education Center, Caldwell Road, Liberia",
     description: "Learn the story, mission, vision and values of Rosetta Steps Education Center — a community school on Caldwell Road, Bushrod Island, founded in honour of educator Rosetta Benson Harris.",
-    url: `${BASE_PATH}/about/`,
+    url: `${BASE_PATH}/about`,
     images: [url("/assets/img/hero.jpg")]
   },
   twitter: {

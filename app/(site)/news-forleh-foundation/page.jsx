@@ -12,14 +12,14 @@ export const metadata = {
   description: "Ms. Marjorie Forleh's foundation equipped our Grade 3 reading unit and our library in a single visit.",
   keywords: "Forleh Foundation, book donation Liberia, school library Liberia, Rosetta Steps Education Center",
   robots: "index, follow",
-  alternates: { canonical: `${BASE_PATH}/news-forleh-foundation/` },
+  alternates: { canonical: `${BASE_PATH}/news-forleh-foundation` },
   openGraph: {
     type: "article",
     siteName: "Rosetta Steps Education Center",
     locale: "en_LR",
     title: "Forleh Foundation donates a drone, books, bags and pads | Rosetta Steps Education Center",
     description: "Ms. Marjorie Forleh's foundation equipped our Grade 3 reading unit and our library in a single visit.",
-    url: `${BASE_PATH}/news-forleh-foundation/`,
+    url: `${BASE_PATH}/news-forleh-foundation`,
     images: [url("/assets/img/adult.jpg")]
   },
   twitter: {
@@ -37,7 +37,7 @@ export default function Page() {
         eyebrow={"Community Impact"}
         title={<>A drone, books, bags and pads from the <span className="text-accent">Forleh Foundation</span></>}
         crumbs={[
-          { label: <>News &amp; Blog</>, href: "/news/" },
+          { label: <>News &amp; Blog</>, href: "/news" },
           { label: "Forleh Foundation" },
         ]}
         article
@@ -66,7 +66,7 @@ export default function Page() {
                 <p>We are grateful to Ms. Forleh and her foundation, and to every partner who asks us what we actually need instead of guessing.</p>
                 <ArticleCallout
                   title={"Give what we actually need"}
-                  cta={{ href: "/contact/", label: "Request our needs list" }}
+                  cta={{ href: "/contact", label: "Request our needs list" }}
                 >
                   Books, bags, stationery, sanitary products and science materials are always welcome. Ask us first and we will tell you exactly what is short this term.
                 </ArticleCallout>
@@ -76,17 +76,17 @@ export default function Page() {
           title={"Organise a donation drive"}
           lede={"Churches, alumni groups, chapters and companies have all equipped a classroom here. We will help you plan it."}
           actions={[
-            { href: "/contact/", label: "Start a conversation", variant: "primary", arrow: true },
-            { href: "/news/", label: "More stories", variant: "ghost" },
+            { href: "/contact", label: "Start a conversation", variant: "primary", arrow: true },
+            { href: "/news", label: "More stories", variant: "ghost" },
           ]}
         />
               <PostNav
                 links={[
-                  { href: "/news-aka-power-packs/", label: "Read next", title: "A year of food for 55 children: the AKA Power Packs pilot" },
-                  { href: "/news-mark-sinke-training/", label: "Also from the archive", title: "Dr. Mark Sinke trains our teachers and donates a printer" },
+                  { href: "/news-aka-power-packs", label: "Read next", title: "A year of food for 55 children: the AKA Power Packs pilot" },
+                  { href: "/news-mark-sinke-training", label: "Also from the archive", title: "Dr. Mark Sinke trains our teachers and donates a printer" },
                 ]}
               />
-              <p className="article-back"><Link className="link-arrow" href="/news/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M20 12H4.5" /><path d="m10.5 6-6 6 6 6" /></svg> Back to all news &amp; stories</Link></p>
+              <p className="article-back"><Link className="link-arrow" href="/news"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M20 12H4.5" /><path d="m10.5 6-6 6 6 6" /></svg> Back to all news &amp; stories</Link></p>
             </div>
           </div>
         </section>

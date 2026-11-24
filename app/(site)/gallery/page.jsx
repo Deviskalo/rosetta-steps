@@ -9,14 +9,14 @@ export const metadata = {
   description: "Browse photographs of classroom activities, sports, graduation, reading programmes, community outreach and school events at Rosetta Steps Education Center in Caldwell, Liberia.",
   keywords: "Schools in Liberia, Caldwell schools, Education in Monrovia, Literacy programs Liberia, Preschool Liberia, Primary school Liberia, Rosetta Steps Education Center",
   robots: "index, follow",
-  alternates: { canonical: `${BASE_PATH}/gallery/` },
+  alternates: { canonical: `${BASE_PATH}/gallery` },
   openGraph: {
     type: "website",
     siteName: "Rosetta Steps Education Center",
     locale: "en_LR",
     title: "Gallery | Life at Rosetta Steps Education Center, Liberia",
     description: "Browse photographs of classroom activities, sports, graduation, reading programmes, community outreach and school events at Rosetta Steps Education Center in Caldwell, Liberia.",
-    url: `${BASE_PATH}/gallery/`,
+    url: `${BASE_PATH}/gallery`,
     images: [url("/assets/img/hero.jpg")]
   },
   twitter: {
@@ -109,8 +109,8 @@ export default function Page() {
         title={"Want to see it in person?"}
         lede={"Our gates are open on weekday mornings. Come for a tour, stay for a reading lesson."}
         actions={[
-          { href: "/admissions/", label: "Book a school visit", variant: "light", arrow: true },
-          { href: "/contact/", label: "Contact the office", variant: "outline-light" },
+          { href: "/admissions", label: "Book a school visit", variant: "light", arrow: true },
+          { href: "/contact", label: "Contact the office", variant: "outline-light" },
         ]}
       />
     </>

@@ -11,14 +11,14 @@ export const metadata = {
   description: "Read to Succeed, Learn Through Play, Learn to Earn and Vacation School — free and subsidised literacy and community programmes for children and adults in Caldwell, Montserrado County, Liberia.",
   keywords: "Schools in Liberia, Caldwell schools, Education in Monrovia, Literacy programs Liberia, Preschool Liberia, Primary school Liberia, Rosetta Steps Education Center",
   robots: "index, follow",
-  alternates: { canonical: `${BASE_PATH}/literacy/` },
+  alternates: { canonical: `${BASE_PATH}/literacy` },
   openGraph: {
     type: "website",
     siteName: "Rosetta Steps Education Center",
     locale: "en_LR",
     title: "Literacy & Community Programs in Liberia | Rosetta Steps",
     description: "Read to Succeed, Learn Through Play, Learn to Earn and Vacation School — free and subsidised literacy and community programmes for children and adults in Caldwell, Montserrado County, Liberia.",
-    url: `${BASE_PATH}/literacy/`,
+    url: `${BASE_PATH}/literacy`,
     images: [url("/assets/img/hero.jpg")]
   },
   twitter: {
@@ -123,7 +123,7 @@ export default function Page() {
               <article className="value-card" data-reveal data-delay={120}><div className="v-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M16 20v-1.6a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4V20" /><circle cx="9.5" cy={7} r="3.3" /><path d="M17 4.2a3.3 3.3 0 0 1 0 6.3" /><path d="M20.5 20v-1.6a4 4 0 0 0-3-3.8" /></svg></div><h3>Empowerment Squared Canada</h3><p>Dr. Mark Sinke ran a teacher training session on campus and donated a printer and training materials.</p></article>
               <article className="value-card" data-reveal data-delay={60}><div className="v-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M12 3.2 19.3 6v5c0 4.2-2.9 8-7.3 9.7C7.6 19 4.7 15.2 4.7 11V6L12 3.2Z" /><path d="m8.9 11.6 2.1 2.1 4-4" /></svg></div><h3>Period With Pride</h3><p>A student-led initiative that delivered over a hundred sanitary pads and taught menstrual hygiene to our girls.</p></article>
               <article className="value-card" data-reveal data-delay={120}><div className="v-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z" /><path d="M14 3v5h5M9 13h6M9 17h4" /></svg></div><h3>FlyPrint</h3><p>Our marketing partner, who helps us tell the story of this school to the world.</p></article>
-              <article className="value-card" data-reveal data-delay={180}><div className="v-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M8 13V5.8a1.8 1.8 0 0 1 3.6 0V11" /><path d="M11.6 10.4V4.6a1.8 1.8 0 0 1 3.6 0v5.8" /><path d="M15.2 11V7.4a1.8 1.8 0 0 1 3.6 0v6.2c0 4-2.6 7.2-6.6 7.2-2.6 0-4.4-1-5.6-2.8L3.6 14a1.9 1.9 0 0 1 2.8-2.5L8 13" /></svg></div><h3>And every donor</h3><p>Scholarships, internet, trips, IXL licences and adult places — all of it funded by people who decided to help. <Link className="link-arrow" href="/donate/">Join them <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h15.5" /><path d="m13.5 6 6 6-6 6" /></svg></Link></p></article>
+              <article className="value-card" data-reveal data-delay={180}><div className="v-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M8 13V5.8a1.8 1.8 0 0 1 3.6 0V11" /><path d="M11.6 10.4V4.6a1.8 1.8 0 0 1 3.6 0v5.8" /><path d="M15.2 11V7.4a1.8 1.8 0 0 1 3.6 0v6.2c0 4-2.6 7.2-6.6 7.2-2.6 0-4.4-1-5.6-2.8L3.6 14a1.9 1.9 0 0 1 2.8-2.5L8 13" /></svg></div><h3>And every donor</h3><p>Scholarships, internet, trips, IXL licences and adult places — all of it funded by people who decided to help. <Link className="link-arrow" href="/donate">Join them <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h15.5" /><path d="m13.5 6 6 6-6 6" /></svg></Link></p></article>
             </div>
           </div>
         </section>
@@ -131,8 +131,8 @@ export default function Page() {
         title={"Could your child benefit from after-school literacy?"}
         lede={"Read to Succeed is open to children from other schools too. Call the office or come by and ask for the reading room."}
         actions={[
-          { href: "/contact/", label: "Speak to the school", variant: "light", arrow: true },
-          { href: "/admissions/", label: "See admissions", variant: "outline-light" },
+          { href: "/contact", label: "Speak to the school", variant: "light", arrow: true },
+          { href: "/admissions", label: "See admissions", variant: "outline-light" },
         ]}
       />
     </>

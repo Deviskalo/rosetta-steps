@@ -12,14 +12,14 @@ export const metadata = {
   description: "Philanthropist Joyce Frankfort has put student Alphonso Fawundu back in school after his family could no longer afford fees.",
   keywords: "Joyce Frankfort, Alphonso Fawundu, school fees Liberia, scholarship Liberia, Rosetta Steps",
   robots: "index, follow",
-  alternates: { canonical: `${BASE_PATH}/news-renewed-hope/` },
+  alternates: { canonical: `${BASE_PATH}/news-renewed-hope` },
   openGraph: {
     type: "article",
     siteName: "Rosetta Steps Education Center",
     locale: "en_LR",
     title: "Renewed Hope for a Brighter Future | Rosetta Steps Education Center",
     description: "Philanthropist Joyce Frankfort has put student Alphonso Fawundu back in school after his family could no longer afford fees.",
-    url: `${BASE_PATH}/news-renewed-hope/`,
+    url: `${BASE_PATH}/news-renewed-hope`,
     images: [url("/assets/img/about-students.jpg")]
   },
   twitter: {
@@ -37,7 +37,7 @@ export default function Page() {
         eyebrow={"Success Stories"}
         title={<>Renewed Hope for a <span className="text-accent">Brighter</span> Future</>}
         crumbs={[
-          { label: <>News &amp; Blog</>, href: "/news/" },
+          { label: <>News &amp; Blog</>, href: "/news" },
           { label: "Renewed Hope" },
         ]}
         article
@@ -66,7 +66,7 @@ export default function Page() {
                 <p>Gifts like Ms. Frankfort’s are how a school of 175 children stays open in a country where most families pay fees out of weekly earnings. They are also how a single missed term stops turning into a lost education.</p>
                 <ArticleCallout
                   title={"Keep a child in class"}
-                  cta={{ href: "/donate/", label: "Give today" }}
+                  cta={{ href: "/donate", label: "Give today" }}
                 >
                   $280 covers a full school year. A one-off gift of any size can clear a balance and bring a child back through the gate.
                 </ArticleCallout>
@@ -76,17 +76,17 @@ export default function Page() {
           title={"A small gift can restart a school year"}
           lede={"Fees, uniforms and books are the difference between a child in class and a child at home. Help us close that gap."}
           actions={[
-            { href: "/donate/", label: "Donate", variant: "primary", arrow: true },
-            { href: "/news/", label: "More stories", variant: "ghost" },
+            { href: "/donate", label: "Donate", variant: "primary", arrow: true },
+            { href: "/news", label: "More stories", variant: "ghost" },
           ]}
         />
               <PostNav
                 links={[
-                  { href: "/news-isaac-story/", label: "Read next", title: "Isaac's story: the only one in his family in school" },
-                  { href: "/news-2020-scholarships/", label: "Also from the archive", title: "Meet our 2020 scholarship recipients" },
+                  { href: "/news-isaac-story", label: "Read next", title: "Isaac's story: the only one in his family in school" },
+                  { href: "/news-2020-scholarships", label: "Also from the archive", title: "Meet our 2020 scholarship recipients" },
                 ]}
               />
-              <p className="article-back"><Link className="link-arrow" href="/news/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M20 12H4.5" /><path d="m10.5 6-6 6 6 6" /></svg> Back to all news &amp; stories</Link></p>
+              <p className="article-back"><Link className="link-arrow" href="/news"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M20 12H4.5" /><path d="m10.5 6-6 6 6 6" /></svg> Back to all news &amp; stories</Link></p>
             </div>
           </div>
         </section>

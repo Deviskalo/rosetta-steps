@@ -12,14 +12,14 @@ export const metadata = {
   description: "A visit from Empowerment Squared Canada left our staff with new techniques and the school with a working printer.",
   keywords: "teacher training Liberia, Empowerment Squared Canada, Mark Sinke, Rosetta Steps Education Center",
   robots: "index, follow",
-  alternates: { canonical: `${BASE_PATH}/news-mark-sinke-training/` },
+  alternates: { canonical: `${BASE_PATH}/news-mark-sinke-training` },
   openGraph: {
     type: "article",
     siteName: "Rosetta Steps Education Center",
     locale: "en_LR",
     title: "Dr. Mark Sinke trains our teachers and donates a printer | Rosetta Steps Education Center",
     description: "A visit from Empowerment Squared Canada left our staff with new techniques and the school with a working printer.",
-    url: `${BASE_PATH}/news-mark-sinke-training/`,
+    url: `${BASE_PATH}/news-mark-sinke-training`,
     images: [url("/assets/img/banner-about.jpg")]
   },
   twitter: {
@@ -37,7 +37,7 @@ export default function Page() {
         eyebrow={"Events"}
         title={<>Dr. Mark Sinke trains our <span className="text-accent">teachers</span></>}
         crumbs={[
-          { label: <>News &amp; Blog</>, href: "/news/" },
+          { label: <>News &amp; Blog</>, href: "/news" },
           { label: "Teacher training" },
         ]}
         article
@@ -66,7 +66,7 @@ export default function Page() {
                 <p>Our thanks to Dr. Sinke and to Empowerment Squared for treating teacher development as part of the donation, not an extra.</p>
                 <ArticleCallout
                   title={"Share your expertise"}
-                  cta={{ href: "/contact/", label: "Offer a training session" }}
+                  cta={{ href: "/contact", label: "Offer a training session" }}
                 >
                   We welcome visiting teachers, librarians and reading specialists. A morning of your time can change how a whole term is taught.
                 </ArticleCallout>
@@ -76,17 +76,17 @@ export default function Page() {
           title={"Come and teach our teachers"}
           lede={"Short visits, workshops and remote sessions are all useful. Tell us what you know and we will find the right fit."}
           actions={[
-            { href: "/contact/", label: "Get in touch", variant: "primary", arrow: true },
-            { href: "/news/", label: "More stories", variant: "ghost" },
+            { href: "/contact", label: "Get in touch", variant: "primary", arrow: true },
+            { href: "/news", label: "More stories", variant: "ghost" },
           ]}
         />
               <PostNav
                 links={[
-                  { href: "/news-forleh-foundation/", label: "Read next", title: "Forleh Foundation donates a drone, books, bags and pads" },
-                  { href: "/news-egra-guide/", label: "Also from the archive", title: "How we use the Early Grade Reading Assessment" },
+                  { href: "/news-forleh-foundation", label: "Read next", title: "Forleh Foundation donates a drone, books, bags and pads" },
+                  { href: "/news-egra-guide", label: "Also from the archive", title: "How we use the Early Grade Reading Assessment" },
                 ]}
               />
-              <p className="article-back"><Link className="link-arrow" href="/news/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M20 12H4.5" /><path d="m10.5 6-6 6 6 6" /></svg> Back to all news &amp; stories</Link></p>
+              <p className="article-back"><Link className="link-arrow" href="/news"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M20 12H4.5" /><path d="m10.5 6-6 6 6 6" /></svg> Back to all news &amp; stories</Link></p>
             </div>
           </div>
         </section>

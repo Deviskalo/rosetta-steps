@@ -30,6 +30,15 @@ jobs:
           # The repository is a GitHub Pages project site, served from
           # /rosetta-steps, so every asset and link is prefixed with it.
           NEXT_PUBLIC_BASE_PATH: /rosetta-steps
+        # `trailingSlash: false` in next.config.mjs: every page is exported as
+        # a flat <route>.html file and linked as /rosetta-steps/about, never
+        # /rosetta-steps/about/. The build fails if a page is a folder index.
+      - name: Check the pages carry no trailing slash
+        run: node scripts/postbuild.js --check
+      - name: Links, sitemap and canonicals
+        run: npm run check:links
+        env:
+          NEXT_PUBLIC_BASE_PATH: /rosetta-steps
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

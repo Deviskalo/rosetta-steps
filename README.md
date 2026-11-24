@@ -42,34 +42,37 @@ CI uses; leave it empty locally to serve from `/`. Everything that needs the
 prefix goes through `lib/asset.js` (or `next/link`, which applies the base path
 itself).
 
-`npm run build` runs `next build` and then `scripts/postbuild.js`, which copies
-each exported page to `<route>.html` so old addresses like `/news.html` keep
-working.
+`npm run build` runs `next build` and then `scripts/postbuild.js`, which checks
+that every page came out as a flat `<route>.html` file (see URLs below).
 
 ## URLs
 
 The public pages live in `app/(site)/` and the dashboard in `app/admin/`; both
-are exported with `trailingSlash: true`:
+are exported with `trailingSlash: false`, so no address ends in a slash:
 
 | Page | Route |
 | --- | --- |
 | Home | `app/(site)/page.jsx` → `/` |
-| About, Academics, Literacy, Gallery | `app/(site)/<page>/page.jsx` → `/<page>/` |
-| News | `app/(site)/news/page.jsx` → `/news/` |
-| Stories | `app/(site)/news-<slug>/page.jsx` → `/news-<slug>/` |
-| Story template | `app/(site)/news-story/page.jsx` → `/news-story/?story=<id>` |
-| Admin dashboard | `app/admin/(dashboard)/page.jsx` → `/admin/` |
-| Admin sections | `app/admin/(dashboard)/<section>/page.jsx` → `/admin/<section>/` |
-| Admin sign-in | `app/admin/(auth)/signin/page.jsx` → `/admin/signin/` |
+| About, Academics, Literacy, Gallery | `app/(site)/<page>/page.jsx` → `/<page>` |
+| News | `app/(site)/news/page.jsx` → `/news` |
+| Stories | `app/(site)/news-<slug>/page.jsx` → `/news-<slug>` |
+| Story template | `app/(site)/news-story/page.jsx` → `/news-story?story=<id>` |
+| Admin dashboard | `app/admin/(dashboard)/page.jsx` → `/admin` |
+| Admin sections | `app/admin/(dashboard)/<section>/page.jsx` → `/admin/<section>` |
+| Admin sign-in | `app/admin/(auth)/signin/page.jsx` → `/admin/signin` |
 
 `app/layout.jsx` holds only the document, fonts and site-wide metadata.
 `app/(site)/layout.jsx` adds the public chrome (header, nav, footer, skip link,
 `main.js`); pages export their own `metadata` for title, description, canonical
 and share tags, so those are no longer written by hand in 19 files.
 
-`app/not-found.jsx` is the 404 page. It also retries a `…/` address once
-without the trailing slash, because some static hosts only resolve the file
-form (`about.html`) and answer `about/` with the 404.
+Every page is one file, `about.html`, and the host serves it at `/about`.
+`scripts/check-links.js` fails the build if a link, a sitemap entry or a
+canonical ends in a slash.
+
+`app/not-found.jsx` is the 404 page. It also retries an old `…/` address once
+without the trailing slash, so links shared when pages were directories still
+reach the page.
 `components/SiteHeader.jsx` marks the current page for screen readers.
 
 The sections that repeat across pages live in `components/site/`: `PageHero`
@@ -87,8 +90,8 @@ and `AdminTopbar.jsx` mark the current section from the URL, and
 and then the route's own script (`admin-news.js` for the story desk,
 `admin-sections.js` everywhere else) once React has hydrated. Sidebar links are
 plain `<a>` tags on purpose: each admin page is its own exported document, and a
-full load is what re-runs its scripts. `scripts/postbuild.js` also writes
-`/admin/<section>.html`, so the old addresses keep working.
+full load is what re-runs its scripts. Admin links point at `/admin/<section>`,
+which the host serves from `admin/<section>.html`.
 
 Canonical tags and `public/sitemap.xml` are absolute and name the live address,
 `https://deviskalo.github.io/rosetta-steps/`. When the school's domain is

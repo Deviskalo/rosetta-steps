@@ -8,7 +8,7 @@
   /* Admin pages are served as admin/news.html and at admin/news/ (the clean
      copy). Both sit one folder below /admin/, wherever the site is mounted. */
   function adminUrl(target) {
-    return window.location.pathname.replace(/\/admin\/.*$/, "/admin/") + target;
+    return window.location.pathname.replace(/\/admin(\/.*)?$/, "/admin") + target;
   }
 
 
@@ -61,7 +61,7 @@
       } catch (error) {
         /* Nothing stored, nothing to clear. */
       }
-      window.location.replace(adminUrl("signin/"));
+      window.location.replace(adminUrl("signin"));
       return;
     }
 
@@ -294,7 +294,7 @@
   function inviteMessage(account) {
     var signInUrl;
     try {
-      signInUrl = window.location.origin + adminUrl("signin/");
+      signInUrl = window.location.origin + adminUrl("signin");
     } catch (error) {
       signInUrl = "admin/signin/";
     }
@@ -747,7 +747,7 @@
       } catch (error) {
         /* Nothing stored, nothing to clear. */
       }
-      window.location.replace(adminUrl("signin/"));
+      window.location.replace(adminUrl("signin"));
     });
   });
 
@@ -764,6 +764,6 @@
     } catch (error) {
       signedIn = false;
     }
-    if (!signedIn) window.location.replace(adminUrl("signin/"));
+    if (!signedIn) window.location.replace(adminUrl("signin"));
   });
 })();

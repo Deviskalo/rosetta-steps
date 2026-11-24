@@ -10,14 +10,14 @@ export const metadata = {
   description: "Explore Rosetta Steps academic programmes: preschool for ages 18 months to 3 years, K1 and K2 kindergarten, and Grades 1 to 6 following Liberian curriculum standards with modern teaching approaches.",
   keywords: "Schools in Liberia, Caldwell schools, Education in Monrovia, Literacy programs Liberia, Preschool Liberia, Primary school Liberia, Rosetta Steps Education Center",
   robots: "index, follow",
-  alternates: { canonical: `${BASE_PATH}/academics/` },
+  alternates: { canonical: `${BASE_PATH}/academics` },
   openGraph: {
     type: "website",
     siteName: "Rosetta Steps Education Center",
     locale: "en_LR",
     title: "Academic Programs | Preschool to Grade 6 School in Liberia",
     description: "Explore Rosetta Steps academic programmes: preschool for ages 18 months to 3 years, K1 and K2 kindergarten, and Grades 1 to 6 following Liberian curriculum standards with modern teaching approaches.",
-    url: `${BASE_PATH}/academics/`,
+    url: `${BASE_PATH}/academics`,
     images: [url("/assets/img/hero.jpg")]
   },
   twitter: {
@@ -182,7 +182,7 @@ export default function Page() {
                 <h3>Less than a dollar a day</h3>
                 <p>The average cost of educating one child for a school year is <strong>USD $280</strong>. Some of our families are able to pay this cost. Most are not.</p>
                 <p>That is why scholarships sit at the centre of everything we do, and why a gift of $280 can keep a child in a classroom for an entire year.</p>
-                <p style={{marginTop: 14}}><Link className="link-arrow" href="/donate/">Sponsor a school year <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h15.5" /><path d="m13.5 6 6 6-6 6" /></svg></Link></p>
+                <p style={{marginTop: 14}}><Link className="link-arrow" href="/donate">Sponsor a school year <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h15.5" /><path d="m13.5 6 6 6-6 6" /></svg></Link></p>
               </article>
             </div>
           </div>
@@ -211,8 +211,8 @@ export default function Page() {
         title={"Questions about the curriculum?"}
         lede={"Our academic team is happy to walk you through what your child will learn, term by term."}
         actions={[
-          { href: "/admissions/", label: "Start an application", variant: "light", arrow: true },
-          { href: "/contact/", label: "Speak with us", variant: "outline-light" },
+          { href: "/admissions", label: "Start an application", variant: "light", arrow: true },
+          { href: "/contact", label: "Speak with us", variant: "outline-light" },
         ]}
       />
     </>

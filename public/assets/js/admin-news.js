@@ -10,7 +10,7 @@
   /* Admin pages are served as admin/news.html and at admin/news/ (the clean
      copy). Both sit one folder below /admin/, wherever the site is mounted. */
   function adminUrl(target) {
-    return window.location.pathname.replace(/\/admin\/.*$/, "/admin/") + target;
+    return window.location.pathname.replace(/\/admin(\/.*)?$/, "/admin") + target;
   }
 
 
@@ -18,7 +18,7 @@
      page inside admin/; the route now sits a folder deeper, so those paths
      start at the site root instead. */
   function siteUrl(value) {
-    var siteRoot = window.location.pathname.replace(/\/admin\/.*$/, "/");
+    var siteRoot = window.location.pathname.replace(/\/admin(\/.*)?$/, "/");
     return String(value || "").replace(/^\.\.\//, siteRoot);
   }
 
