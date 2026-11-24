@@ -2,6 +2,8 @@ import Link from "next/link";
 import { BASE_PATH, asset } from "../../../lib/asset";
 import PageHero from "../../../components/site/PageHero";
 import ArticleCta from "../../../components/site/ArticleCta";
+import ArticleCallout from "../../../components/site/ArticleCallout";
+import PostNav from "../../../components/site/PostNav";
 
 const url = (path) => BASE_PATH + path;
 
@@ -62,11 +64,12 @@ export default function Page() {
                 <h2>What it took</h2>
                 <p>Alphonso is back in class, and his teachers report that he picked up where he left off. His family now knows that a bad month does not have to mean the end of a school year — and other families have come forward to ask how sponsorship works.</p>
                 <p>Gifts like Ms. Frankfort’s are how a school of 175 children stays open in a country where most families pay fees out of weekly earnings. They are also how a single missed term stops turning into a lost education.</p>
-                <div className="article-callout">
-                  <h3>Keep a child in class</h3>
-                  <p>$280 covers a full school year. A one-off gift of any size can clear a balance and bring a child back through the gate.</p>
-                  <p><Link className="btn btn--primary btn--sm" href="/donate/">Give today <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h15.5" /><path d="m13.5 6 6 6-6 6" /></svg></Link></p>
-                </div>
+                <ArticleCallout
+                  title={"Keep a child in class"}
+                  cta={{ href: "/donate/", label: "Give today" }}
+                >
+                  $280 covers a full school year. A one-off gift of any size can clear a balance and bring a child back through the gate.
+                </ArticleCallout>
               </div>
         <ArticleCta
           eyebrow={"Your turn"}
@@ -77,10 +80,12 @@ export default function Page() {
             { href: "/news/", label: "More stories", variant: "ghost" },
           ]}
         />
-              <nav className="post-nav" aria-label="More news">
-                <Link href="/news-isaac-story/"><span className="post-nav-label">Read next</span><span className="post-nav-title">Isaac's story: the only one in his family in school</span></Link>
-                <Link href="/news-2020-scholarships/"><span className="post-nav-label">Also from the archive</span><span className="post-nav-title">Meet our 2020 scholarship recipients</span></Link>
-              </nav>
+              <PostNav
+                links={[
+                  { href: "/news-isaac-story/", label: "Read next", title: "Isaac's story: the only one in his family in school" },
+                  { href: "/news-2020-scholarships/", label: "Also from the archive", title: "Meet our 2020 scholarship recipients" },
+                ]}
+              />
               <p className="article-back"><Link className="link-arrow" href="/news/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M20 12H4.5" /><path d="m10.5 6-6 6 6 6" /></svg> Back to all news &amp; stories</Link></p>
             </div>
           </div>

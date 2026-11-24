@@ -2,6 +2,8 @@ import Link from "next/link";
 import { BASE_PATH, asset } from "../../../lib/asset";
 import PageHero from "../../../components/site/PageHero";
 import ArticleCta from "../../../components/site/ArticleCta";
+import ArticleCallout from "../../../components/site/ArticleCallout";
+import PostNav from "../../../components/site/PostNav";
 
 const url = (path) => BASE_PATH + path;
 
@@ -63,11 +65,12 @@ export default function Page() {
                 <h2>Why Isaac’s story matters</h2>
                 <p>Isaac is not an exception at Rosetta Steps; he is the reason the school exists. When a child is the first in a family to attend school, the effect does not stop with that child. Homework moves through the house. A younger brother watches an older one read and decides that reading is something he does too. Parents who never finished school start asking what the report card means.</p>
                 <p>That is what sponsors are paying for: not just one place in one classroom, but the first step of a longer staircase.</p>
-                <div className="article-callout">
-                  <h3>Sponsor a child like Isaac</h3>
-                  <p>$280 covers a full school year for one child — tuition, uniform, materials and meals. Monthly and per-class gifts are just as welcome, and every gift goes straight to the classroom.</p>
-                  <p><Link className="btn btn--primary btn--sm" href="/donate/#sponsor">Sponsor a child <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h15.5" /><path d="m13.5 6 6 6-6 6" /></svg></Link></p>
-                </div>
+                <ArticleCallout
+                  title={"Sponsor a child like Isaac"}
+                  cta={{ href: "/donate/#sponsor", label: "Sponsor a child" }}
+                >
+                  $280 covers a full school year for one child — tuition, uniform, materials and meals. Monthly and per-class gifts are just as welcome, and every gift goes straight to the classroom.
+                </ArticleCallout>
                 <h2>The next Isaac</h2>
                 <p>Every term we meet children in the same position Isaac was in: bright, already behind, and one fee note away from dropping out. Scholarships are limited by what we can raise, not by how many children need one. If you have been thinking about it, this is the moment.</p>
               </div>
@@ -80,10 +83,12 @@ export default function Page() {
             { href: "/news/", label: "More stories", variant: "ghost" },
           ]}
         />
-              <nav className="post-nav" aria-label="More news">
-                <Link href="/news-renewed-hope/"><span className="post-nav-label">Read next</span><span className="post-nav-title">Renewed Hope for a Brighter Future</span></Link>
-                <Link href="/news-2020-scholarships/"><span className="post-nav-label">Also from the archive</span><span className="post-nav-title">Meet our 2020 scholarship recipients</span></Link>
-              </nav>
+              <PostNav
+                links={[
+                  { href: "/news-renewed-hope/", label: "Read next", title: "Renewed Hope for a Brighter Future" },
+                  { href: "/news-2020-scholarships/", label: "Also from the archive", title: "Meet our 2020 scholarship recipients" },
+                ]}
+              />
               <p className="article-back"><Link className="link-arrow" href="/news/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M20 12H4.5" /><path d="m10.5 6-6 6 6 6" /></svg> Back to all news &amp; stories</Link></p>
             </div>
           </div>

@@ -2,6 +2,8 @@ import Link from "next/link";
 import { BASE_PATH, asset } from "../../../lib/asset";
 import PageHero from "../../../components/site/PageHero";
 import ArticleCta from "../../../components/site/ArticleCta";
+import ArticleCallout from "../../../components/site/ArticleCallout";
+import PostNav from "../../../components/site/PostNav";
 
 const url = (path) => BASE_PATH + path;
 
@@ -62,11 +64,12 @@ export default function Page() {
                 <h2>Why we assess every term</h2>
                 <p>We run the assessment at the start of the year and again at the end, and we keep the results in a simple reading record for each child. Teachers use those records to form reading groups, to decide which children need the reading room after school, and to see whether a change in method actually worked.</p>
                 <p>The results are also how we report honestly to donors. It is easy to say a reading programme is going well. The assessment is what lets us show a child moved from sounding out letters to reading a full sentence.</p>
-                <div className="article-callout">
-                  <h3>Support the reading room</h3>
-                  <p>Our after-school reading room runs on volunteers, books and light. $125 covers a class, and book donations are always welcome.</p>
-                  <p><Link className="btn btn--primary btn--sm" href="/literacy/">Explore our literacy work <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h15.5" /><path d="m13.5 6 6 6-6 6" /></svg></Link></p>
-                </div>
+                <ArticleCallout
+                  title={"Support the reading room"}
+                  cta={{ href: "/literacy/", label: "Explore our literacy work" }}
+                >
+                  Our after-school reading room runs on volunteers, books and light. $125 covers a class, and book donations are always welcome.
+                </ArticleCallout>
               </div>
         <ArticleCta
           eyebrow={"Literacy"}
@@ -77,10 +80,12 @@ export default function Page() {
             { href: "/news/", label: "More stories", variant: "ghost" },
           ]}
         />
-              <nav className="post-nav" aria-label="More news">
-                <Link href="/news-mark-sinke-training/"><span className="post-nav-label">Read next</span><span className="post-nav-title">Dr. Mark Sinke trains our teachers and donates a printer</span></Link>
-                <Link href="/news-learn-through-play/"><span className="post-nav-label">Also from the archive</span><span className="post-nav-title">Learn Through Play: every Saturday, 9am to 12pm</span></Link>
-              </nav>
+              <PostNav
+                links={[
+                  { href: "/news-mark-sinke-training/", label: "Read next", title: "Dr. Mark Sinke trains our teachers and donates a printer" },
+                  { href: "/news-learn-through-play/", label: "Also from the archive", title: "Learn Through Play: every Saturday, 9am to 12pm" },
+                ]}
+              />
               <p className="article-back"><Link className="link-arrow" href="/news/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M20 12H4.5" /><path d="m10.5 6-6 6 6 6" /></svg> Back to all news &amp; stories</Link></p>
             </div>
           </div>

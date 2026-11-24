@@ -2,6 +2,8 @@ import Link from "next/link";
 import { BASE_PATH, asset } from "../../../lib/asset";
 import PageHero from "../../../components/site/PageHero";
 import ArticleCta from "../../../components/site/ArticleCta";
+import ArticleCallout from "../../../components/site/ArticleCallout";
+import PostNav from "../../../components/site/PostNav";
 
 const url = (path) => BASE_PATH + path;
 
@@ -62,11 +64,12 @@ export default function Page() {
                   <li>Time for questions, answered honestly and without embarrassment</li>
                 </ul>
                 <p>Our teachers will keep the conversation going in class, and the school keeps a discreet supply on hand for any girl who needs one during the day.</p>
-                <div className="article-callout">
-                  <h3>Help us keep the supply stocked</h3>
-                  <p>Sanitary products, soap and clean-water supplies are among our most requested items. A small monthly gift keeps the cupboard full.</p>
-                  <p><Link className="btn btn--primary btn--sm" href="/donate/">Support our girls <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h15.5" /><path d="m13.5 6 6 6-6 6" /></svg></Link></p>
-                </div>
+                <ArticleCallout
+                  title={"Help us keep the supply stocked"}
+                  cta={{ href: "/donate/", label: "Support our girls" }}
+                >
+                  Sanitary products, soap and clean-water supplies are among our most requested items. A small monthly gift keeps the cupboard full.
+                </ArticleCallout>
               </div>
         <ArticleCta
           eyebrow={"Community impact"}
@@ -77,10 +80,12 @@ export default function Page() {
             { href: "/news/", label: "More stories", variant: "ghost" },
           ]}
         />
-              <nav className="post-nav" aria-label="More news">
-                <Link href="/news-aka-power-packs/"><span className="post-nav-label">Read next</span><span className="post-nav-title">A year of food for 55 children: the AKA Power Packs pilot</span></Link>
-                <Link href="/news-forleh-foundation/"><span className="post-nav-label">Also from the archive</span><span className="post-nav-title">Forleh Foundation donates a drone, books, bags and pads</span></Link>
-              </nav>
+              <PostNav
+                links={[
+                  { href: "/news-aka-power-packs/", label: "Read next", title: "A year of food for 55 children: the AKA Power Packs pilot" },
+                  { href: "/news-forleh-foundation/", label: "Also from the archive", title: "Forleh Foundation donates a drone, books, bags and pads" },
+                ]}
+              />
               <p className="article-back"><Link className="link-arrow" href="/news/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M20 12H4.5" /><path d="m10.5 6-6 6 6 6" /></svg> Back to all news &amp; stories</Link></p>
             </div>
           </div>

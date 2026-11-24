@@ -2,6 +2,8 @@ import Link from "next/link";
 import { BASE_PATH, asset } from "../../../lib/asset";
 import PageHero from "../../../components/site/PageHero";
 import ArticleCta from "../../../components/site/ArticleCta";
+import ArticleCallout from "../../../components/site/ArticleCallout";
+import PostNav from "../../../components/site/PostNav";
 
 const url = (path) => BASE_PATH + path;
 
@@ -62,11 +64,12 @@ export default function Page() {
                 <h2>The printer</h2>
                 <p>The visit also left a working printer behind. It sounds like a small thing until you count the cost of photocopies in Caldwell: worksheets, exam papers, report cards and letters home are all copied by hand or paid for by the page. A printer in the office means a teacher can prepare a lesson on Sunday night instead of queueing at a shop on Monday morning.</p>
                 <p>Our thanks to Dr. Sinke and to Empowerment Squared for treating teacher development as part of the donation, not an extra.</p>
-                <div className="article-callout">
-                  <h3>Share your expertise</h3>
-                  <p>We welcome visiting teachers, librarians and reading specialists. A morning of your time can change how a whole term is taught.</p>
-                  <p><Link className="btn btn--primary btn--sm" href="/contact/">Offer a training session <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h15.5" /><path d="m13.5 6 6 6-6 6" /></svg></Link></p>
-                </div>
+                <ArticleCallout
+                  title={"Share your expertise"}
+                  cta={{ href: "/contact/", label: "Offer a training session" }}
+                >
+                  We welcome visiting teachers, librarians and reading specialists. A morning of your time can change how a whole term is taught.
+                </ArticleCallout>
               </div>
         <ArticleCta
           eyebrow={"For educators"}
@@ -77,10 +80,12 @@ export default function Page() {
             { href: "/news/", label: "More stories", variant: "ghost" },
           ]}
         />
-              <nav className="post-nav" aria-label="More news">
-                <Link href="/news-forleh-foundation/"><span className="post-nav-label">Read next</span><span className="post-nav-title">Forleh Foundation donates a drone, books, bags and pads</span></Link>
-                <Link href="/news-egra-guide/"><span className="post-nav-label">Also from the archive</span><span className="post-nav-title">How we use the Early Grade Reading Assessment</span></Link>
-              </nav>
+              <PostNav
+                links={[
+                  { href: "/news-forleh-foundation/", label: "Read next", title: "Forleh Foundation donates a drone, books, bags and pads" },
+                  { href: "/news-egra-guide/", label: "Also from the archive", title: "How we use the Early Grade Reading Assessment" },
+                ]}
+              />
               <p className="article-back"><Link className="link-arrow" href="/news/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M20 12H4.5" /><path d="m10.5 6-6 6 6 6" /></svg> Back to all news &amp; stories</Link></p>
             </div>
           </div>

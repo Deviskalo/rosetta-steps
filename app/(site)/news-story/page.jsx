@@ -1,8 +1,8 @@
 import Script from "next/script";
-import Link from "next/link";
 import { BASE_PATH, asset } from "../../../lib/asset";
 import PageHero from "../../../components/site/PageHero";
 import ArticleCta from "../../../components/site/ArticleCta";
+import PostNav from "../../../components/site/PostNav";
 
 const url = (path) => BASE_PATH + path;
 
@@ -65,9 +65,11 @@ export default function Page() {
             { href: "/news/", label: "More stories", variant: "ghost" },
           ]}
         />
-              <nav className="post-nav" aria-label="More news">
-                <Link href="/news/"><span className="post-nav-label">Back to</span><span className="post-nav-title">All news &amp; stories</span></Link>
-              </nav>
+              <PostNav
+                links={[
+                  { href: "/news/", label: "Back to", title: "All news & stories" },
+                ]}
+              />
             </div>
           </div>
         </section>

@@ -66,12 +66,17 @@ are exported with `trailingSlash: true`:
 `app/(site)/layout.jsx` adds the public chrome (header, nav, footer, skip link,
 `main.js`); pages export their own `metadata` for title, description, canonical
 and share tags, so those are no longer written by hand in 19 files.
+
+`app/not-found.jsx` is the 404 page. It also retries a `…/` address once
+without the trailing slash, because some static hosts only resolve the file
+form (`about.html`) and answer `about/` with the 404.
 `components/SiteHeader.jsx` marks the current page for screen readers.
 
 The sections that repeat across pages live in `components/site/`: `PageHero`
 (the inner-page masthead, including breadcrumbs and the article variant),
 `StatsSection`, `NewsCard` (home teaser and news archive card), `CtaStrip`,
-`ArticleCta`, `Band`, and the shared `ActionGroup`/`Icon` used inside them. Page
+`ArticleCta`, `ArticleCallout`, `PostNav` (the story template's "read next"
+row), `Band`, and the shared `ActionGroup`/`Icon` used inside them. Page
 files keep only their own copy and pass it in as props, so they read as a
 composition of sections rather than a converted HTML dump.
 

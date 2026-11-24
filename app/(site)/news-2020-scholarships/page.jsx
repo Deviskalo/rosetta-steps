@@ -2,6 +2,8 @@ import Link from "next/link";
 import { BASE_PATH, asset } from "../../../lib/asset";
 import PageHero from "../../../components/site/PageHero";
 import ArticleCta from "../../../components/site/ArticleCta";
+import ArticleCallout from "../../../components/site/ArticleCallout";
+import PostNav from "../../../components/site/PostNav";
 
 const url = (path) => BASE_PATH + path;
 
@@ -62,11 +64,12 @@ export default function Page() {
                 <h2>What a full scholarship means</h2>
                 <p>Our standard annual cost per child is $280. It covers tuition, a uniform, exercise books and pencils, and a meal each school day. Sponsors who prefer to give monthly can cover a place at $40 a month; those who want to support a classroom can give $125 or $200 toward a group.</p>
                 <p>Because the school opened its own campus in 2016, every scholarship has a visible home: a classroom, a reading room and a kitchen, rather than a promise.</p>
-                <div className="article-callout">
-                  <h3>Fund the next group</h3>
-                  <p>Scholarship places open each school year and are filled in the order funding arrives. Join the group that makes them possible.</p>
-                  <p><Link className="btn btn--primary btn--sm" href="/donate/#sponsor">Fund a scholarship <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h15.5" /><path d="m13.5 6 6 6-6 6" /></svg></Link></p>
-                </div>
+                <ArticleCallout
+                  title={"Fund the next group"}
+                  cta={{ href: "/donate/#sponsor", label: "Fund a scholarship" }}
+                >
+                  Scholarship places open each school year and are filled in the order funding arrives. Join the group that makes them possible.
+                </ArticleCallout>
               </div>
         <ArticleCta
           eyebrow={"Scholarships"}
@@ -77,10 +80,12 @@ export default function Page() {
             { href: "/news/", label: "More stories", variant: "ghost" },
           ]}
         />
-              <nav className="post-nav" aria-label="More news">
-                <Link href="/news-isaac-story/"><span className="post-nav-label">Read next</span><span className="post-nav-title">Isaac's story: the only one in his family in school</span></Link>
-                <Link href="/news-renewed-hope/"><span className="post-nav-label">Also from the archive</span><span className="post-nav-title">Renewed Hope for a Brighter Future</span></Link>
-              </nav>
+              <PostNav
+                links={[
+                  { href: "/news-isaac-story/", label: "Read next", title: "Isaac's story: the only one in his family in school" },
+                  { href: "/news-renewed-hope/", label: "Also from the archive", title: "Renewed Hope for a Brighter Future" },
+                ]}
+              />
               <p className="article-back"><Link className="link-arrow" href="/news/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M20 12H4.5" /><path d="m10.5 6-6 6 6 6" /></svg> Back to all news &amp; stories</Link></p>
             </div>
           </div>

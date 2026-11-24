@@ -2,6 +2,8 @@ import Link from "next/link";
 import { BASE_PATH, asset } from "../../../lib/asset";
 import PageHero from "../../../components/site/PageHero";
 import ArticleCta from "../../../components/site/ArticleCta";
+import ArticleCallout from "../../../components/site/ArticleCallout";
+import PostNav from "../../../components/site/PostNav";
 
 const url = (path) => BASE_PATH + path;
 
@@ -61,11 +63,12 @@ export default function Page() {
                 <p>Children who attend the Saturday sessions often arrive at school on Monday already knowing a few more letters than they did on Friday. For children who are not enrolled anywhere, the morning is sometimes the only structured learning in their week.</p>
                 <h2>Why we run it free</h2>
                 <p>Rosetta Steps began in 2014 with a reading room — a table, a few books and an open door. Learn Through Play is that idea, kept alive. Some of the children who now attend the school full-time first came to a Saturday session with an older sibling.</p>
-                <div className="article-callout">
-                  <h3>Volunteer on a Saturday</h3>
-                  <p>We need readers, craft helpers and people who are simply good at playing. A morning a month makes a difference.</p>
-                  <p><Link className="btn btn--primary btn--sm" href="/contact/">Volunteer with us <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h15.5" /><path d="m13.5 6 6 6-6 6" /></svg></Link></p>
-                </div>
+                <ArticleCallout
+                  title={"Volunteer on a Saturday"}
+                  cta={{ href: "/contact/", label: "Volunteer with us" }}
+                >
+                  We need readers, craft helpers and people who are simply good at playing. A morning a month makes a difference.
+                </ArticleCallout>
               </div>
         <ArticleCta
           eyebrow={"Community"}
@@ -76,10 +79,12 @@ export default function Page() {
             { href: "/news/", label: "More stories", variant: "ghost" },
           ]}
         />
-              <nav className="post-nav" aria-label="More news">
-                <Link href="/news-egra-guide/"><span className="post-nav-label">Read next</span><span className="post-nav-title">How we use the Early Grade Reading Assessment</span></Link>
-                <Link href="/news-period-with-pride/"><span className="post-nav-label">Also from the archive</span><span className="post-nav-title">Period With Pride delivers over 100 pads to our students</span></Link>
-              </nav>
+              <PostNav
+                links={[
+                  { href: "/news-egra-guide/", label: "Read next", title: "How we use the Early Grade Reading Assessment" },
+                  { href: "/news-period-with-pride/", label: "Also from the archive", title: "Period With Pride delivers over 100 pads to our students" },
+                ]}
+              />
               <p className="article-back"><Link className="link-arrow" href="/news/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M20 12H4.5" /><path d="m10.5 6-6 6 6 6" /></svg> Back to all news &amp; stories</Link></p>
             </div>
           </div>
